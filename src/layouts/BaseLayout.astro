@@ -1,0 +1,300 @@
+---
+// BaseLayout.astro — Footballschland
+// Enthält: SEO-Meta-Tags, Open Graph, Canonical URL, Fonts, Header, Footer
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+  canonical?: string;
+}
+
+const {
+  title = 'Footballschland – American Football MADE IN GERMANY',
+  description = 'Footballschland ist ein Podcast, der sich ganz dem Traum junger Footballspieler aus Deutschland widmet. Wir erzählen die Geschichten von High-School-Athleten, College-Spielern und NFL-Hoffnungen.',
+  ogImage = '/assets/og-default.png',
+  canonical = Astro.url.href,
+} = Astro.props;
+
+const siteName = 'Footballschland';
+---
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#231f20" />
+
+  <!-- SEO -->
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:locale" content="de_DE" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@footballschland" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/assets/logos/footballschland.png" />
+  <link rel="apple-touch-icon" href="/assets/logos/footballschland.png" />
+
+  <!-- Google Fonts: Antonio (Display/Headlines) + Poppins (Body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Sitemap -->
+  <link rel="sitemap" href="/sitemap-index.xml" />
+</head>
+
+<body class="bg-[#231f20] text-white font-body antialiased">
+
+  <!-- ── HEADER ── -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-[#231f20]/95 backdrop-blur-sm">
+    <!-- Schwarzrotgold accent bar -->
+    <div class="flex h-[3px]">
+      <div class="flex-1 bg-[#231f20]"></div>
+      <div class="flex-1 bg-rot"></div>
+      <div class="flex-1 bg-gold"></div>
+    </div>
+    <div class="border-b border-white/5">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16">
+
+          <!-- Logo / Wordmark -->
+          <a href="/" class="flex items-center gap-3 group" aria-label="Footballschland – zur Startseite">
+            <img
+              src="/assets/logos/wortmarke.svg"
+              alt="Footballschland"
+              class="h-14 w-auto"
+              width="140"
+              height="140"
+            />
+          </a>
+
+          <!-- Desktop Navigation -->
+          <nav aria-label="Hauptnavigation" class="hidden md:flex items-center gap-8">
+            <a href="/episoden" class="nav-link">Episoden</a>
+            <a href="/partner" class="nav-link">Partner</a>
+            <a href="/blockblog" class="nav-link">Blockblog</a>
+            <a
+              href="https://shop.footballschland.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-4 py-2 bg-rot text-white text-sm font-semibold uppercase tracking-widest rounded hover:bg-rot-light transition-colors border border-gold/20 hover:border-gold/50"
+            >
+              Shop
+            </a>
+          </nav>
+
+          <!-- Mobile: Burger -->
+          <button
+            id="mobile-menu-btn"
+            class="md:hidden p-2 text-white/80 hover:text-white"
+            aria-label="Menü öffnen"
+            aria-expanded="false"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+
+        </div>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu" class="hidden md:hidden bg-[#1a1617] border-t border-white/10">
+        <nav class="flex flex-col px-4 py-4 gap-4" aria-label="Mobile Navigation">
+          <a href="/episoden" class="nav-link-mobile">Episoden</a>
+          <a href="/partner" class="nav-link-mobile">Partner</a>
+          <a href="/blockblog" class="nav-link-mobile">Blockblog</a>
+          <a
+            href="https://shop.footballschland.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-block text-center px-4 py-3 bg-rot text-white text-sm font-semibold uppercase tracking-widest rounded border border-gold/20"
+          >
+            Shop ↗
+          </a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- ── MAIN CONTENT ── -->
+  <main class="pt-16">
+    <slot />
+  </main>
+
+  <!-- ── FOOTER ── -->
+  <footer class="bg-[#1a1617] border-t border-white/10 mt-20">
+    <!-- Schwarzrotgold accent line -->
+    <div class="flex h-[2px]">
+      <div class="flex-1 bg-[#231f20]"></div>
+      <div class="flex-1 bg-rot"></div>
+      <div class="flex-1 bg-gold"></div>
+    </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+        <!-- Logo + Kontakt -->
+        <div>
+          <img
+            src="/assets/logos/wortmarke.svg"
+            alt="Footballschland"
+            class="h-10 w-auto mb-4"
+          />
+          <p class="text-white/50 text-sm mb-2">Kontakt</p>
+          <a
+            href="mailto:podcast@footballschland.de"
+            class="text-white/80 hover:text-white text-sm transition-colors"
+          >
+            podcast@footballschland.de
+          </a>
+        </div>
+
+        <!-- Navigation -->
+        <div>
+          <h3 class="text-white/30 text-xs uppercase tracking-widest mb-4">Navigation</h3>
+          <ul class="space-y-2">
+            <li><a href="/" class="footer-link">Home</a></li>
+            <li><a href="/episoden" class="footer-link">Episoden</a></li>
+            <li><a href="/partner" class="footer-link">Partner & Affiliate</a></li>
+            <li><a href="/blockblog" class="footer-link">Blockblog</a></li>
+            <li>
+              <a href="https://shop.footballschland.com" target="_blank" rel="noopener noreferrer" class="footer-link">
+                Shop ↗
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Social Media -->
+        <div>
+          <h3 class="text-white/30 text-xs uppercase tracking-widest mb-4">Follow us</h3>
+          <div class="flex flex-wrap gap-3">
+            <a href="https://www.instagram.com/footballschland" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Instagram">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+            </a>
+            <a href="https://twitter.com/footballschland" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Twitter / X">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+            </a>
+            <a href="https://www.facebook.com/people/Footballschland/61556773654419/" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="Facebook">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.youtube.com/@footballschland" target="_blank" rel="noopener noreferrer" class="social-link" aria-label="YouTube">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+            </a>
+          </div>
+
+          <div class="mt-6">
+            <a
+              href="https://www.patreon.com/footballschland"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 py-2 bg-rot/20 border border-rot/40 text-rot-light hover:bg-rot/30 rounded text-sm font-medium transition-colors"
+            >
+              ❤️ Unterstützen auf Patreon
+            </a>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar -->
+      <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-white/30 text-xs">
+        <span>© 2026 Footballschland — <span class="text-gold/70">MADE IN GERMANY</span></span>
+        <div class="flex gap-6">
+          <a href="/datenschutz" class="hover:text-white/60 transition-colors">Datenschutz</a>
+          <a href="/impressum" class="hover:text-white/60 transition-colors">Impressum</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Mobile Menu Toggle Script -->
+  <script>
+    const btn = document.getElementById('mobile-menu-btn');
+    const menu = document.getElementById('mobile-menu');
+    btn?.addEventListener('click', () => {
+      const isOpen = menu?.classList.toggle('hidden');
+      btn.setAttribute('aria-expanded', String(!menu?.classList.contains('hidden')));
+    });
+  </script>
+
+</body>
+</html>
+
+<style is:global>
+  /* ── Global styles ── */
+  .nav-link {
+    @apply text-white/70 hover:text-white text-sm font-medium uppercase tracking-widest transition-colors;
+  }
+  .nav-link-mobile {
+    @apply text-white/80 hover:text-white text-base font-medium uppercase tracking-wider py-1 transition-colors;
+  }
+  .footer-link {
+    @apply text-white/50 hover:text-white/80 text-sm transition-colors;
+  }
+  .social-link {
+    @apply w-10 h-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/15 text-white/60 hover:text-white transition-all;
+  }
+  .section-label {
+    @apply text-rot text-xs font-semibold uppercase tracking-[0.25em] mb-3;
+  }
+  .btn-primary {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-rot hover:bg-rot-light text-white font-semibold rounded transition-colors;
+  }
+  .btn-outline {
+    @apply inline-flex items-center gap-2 px-6 py-3 border border-white/30 hover:border-white/60 text-white font-semibold rounded transition-colors;
+  }
+
+  /* ── Leseoptimierte Sektionen (schwarz auf Creme) ── */
+  .prose-section {
+    @apply bg-[#f5f0eb] text-[#231f20];
+  }
+  .prose-section h1,
+  .prose-section h2,
+  .prose-section h3,
+  .prose-section h4 {
+    @apply font-display text-[#231f20];
+  }
+  .prose-section p,
+  .prose-section li {
+    @apply font-body text-[#3a3436] leading-relaxed;
+  }
+  .prose-section a {
+    @apply text-rot hover:text-rot-dark underline;
+  }
+  .prose-section strong {
+    @apply text-[#231f20] font-semibold;
+  }
+  .prose-section blockquote {
+    @apply border-l-4 border-rot pl-4 italic text-[#5a5255];
+  }
+
+  /* ── Prose für Blockblog / Artikel ── */
+  .article-body {
+    @apply prose-section max-w-none;
+  }
+  .article-body p { @apply mb-4; }
+  .article-body h2 { @apply text-3xl mt-10 mb-4; }
+  .article-body h3 { @apply text-2xl mt-8 mb-3; }
+  .article-body ul { @apply list-disc pl-6 mb-4 space-y-1; }
+  .article-body ol { @apply list-decimal pl-6 mb-4 space-y-1; }
+</style>

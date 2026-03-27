@@ -1,0 +1,258 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const partners = [
+  {
+    name: 'ahead',
+    category: 'Nutrition & Supplements',
+    url: 'https://www.awin1.com/cread.php?s=3803966&v=109748&q=506523&r=2598031',
+    image: '/assets/partners/ahead.png',
+    description: 'Die Lieblingssnacks aus deiner Kindheit endlich wieder genießen – und das ohne schlechtes Gewissen!',
+  },
+  {
+    name: 'Body & Fit',
+    category: 'Nutrition & Supplements',
+    url: 'https://www.awin1.com/cread.php?s=4026834&v=117013&q=528423&r=2598031',
+    image: '/assets/partners/bodyfit.png',
+    description: 'Ob für das Workout im Fitnessstudio, den täglichen Motivationspush und Rezeptvorschläge, bis hin zu Sportnahrung.',
+  },
+  {
+    name: 'Bodylab',
+    category: 'Nutrition & Supplements',
+    url: 'https://www.awin1.com/cread.php?s=4561578&v=15016&q=585873&r=2598031',
+    image: '/assets/partners/bodylab.jpg',
+    description: 'No Tricks – Just Real Gains: Im Onlineshop mit Gutscheincode MONSTERMAX – Bis zu 42% Rabatt',
+  },
+  {
+    name: 'Maxi Nutrition',
+    category: 'Nutrition & Supplements',
+    url: 'https://www.awin1.com/cread.php?s=4499392&v=15651&q=388854&r=2598031',
+    image: '/assets/partners/maxinutrition.jpg',
+    description: 'MaxiNutrition bietet aktiven und gesundheitsbewussten Menschen innovatives Fitness-Food ohne künstliche Zusatzstoffe.',
+  },
+  {
+    name: 'Mojokaii',
+    category: 'Nutrition & Supplements',
+    url: 'https://mojokaii.com?sca_ref=9877685.HzuZsLBp9U&utm_source=source&utm_medium=affiliate&utm_campaign=affiliate_name',
+    image: '/assets/partners/mojokaii.jpg',
+    description: 'Krasser Focus und Konzentration für Gamer und Sportler! Mit dem Code "footballschland10" gibt es 10% Rabatt.',
+  },
+  {
+    name: 'Orgainic',
+    category: 'Nutrition & Supplements',
+    url: 'https://www.awin1.com/cread.php?s=4208015&v=118211&q=549180&r=2598031',
+    image: '/assets/partners/orgainic.png',
+    description: 'Bio-Sportnahrung, natürlich und rein. Mit der „weniger ist mehr"-Philosophie bietet Orgainic konstant hochwertige Produkte.',
+  },
+  {
+    name: 'BioTechUSA',
+    category: 'Nutrition & Supplements',
+    url: 'https://shop.biotechusa.com',
+    image: '/assets/partners/biotechusa.jpg',
+    description: 'Mit dem Code GLASKUGEL15 erhaltet ihr 15% Rabatt auf euren Einkauf im BioTechUSA-Shop.',
+  },
+  {
+    name: 'Nextgen',
+    category: 'Nutrition & Supplements',
+    url: 'https://nextgen-supplements.com?sca_ref=9821603.7a08d3dlvn',
+    image: '/assets/partners/nextgen.jpg',
+    description: 'Supplements in höchster Qualität – faire Preise, made in Germany. Für die nächste Generation von Athleten.',
+  },
+  {
+    name: 'Body Attack',
+    category: 'Nutrition & Supplements',
+    url: 'https://www.awin1.com/cread.php?s=4548660&v=14328&q=366583&r=2598031',
+    image: '/assets/partners/bodyattack.jpg',
+    description: 'Fitness- und Freizeitsportler, Ausdauersportler, Profis: Body Attack versorgt euch optimal.',
+  },
+  {
+    name: 'Decathlon',
+    category: 'Fitness & Health-Tech',
+    url: 'https://www.awin1.com/cread.php?s=3590308&v=14353&q=355424&r=2598031',
+    image: '/assets/partners/decathlon.png',
+    description: 'Decathlon bietet als weltweit führende Sportmarke hochwertiges Equipment für Einsteiger und Profis.',
+  },
+  {
+    name: 'Lifesum',
+    category: 'Fitness & Health-Tech',
+    url: 'https://www.awin1.com/cread.php?s=3866133&v=113414&q=512100&r=2598031',
+    image: '/assets/partners/lifesum.gif',
+    description: 'Lifesum vereinfacht gesundes Essen durch wissenschaftlich fundierte Einblicke und personalisierte Mahlzeitpläne. Mit Footballschland 50% günstiger!',
+  },
+  {
+    name: 'Ultrahuman',
+    category: 'Fitness & Health-Tech',
+    url: 'https://ultrahumanhealthcare.pxf.io/xL1BAy',
+    image: '/assets/partners/ultrahuman.jpg',
+    description: 'Der bequemste Schlaf-Tracker der Welt: Ultrahuman Ring AIR® – Schlaf, HRV, Temperatur & mehr. Mit SCHLAND25 den höchsten Rabatt abgreifen!',
+  },
+  {
+    name: 'NordVPN',
+    category: 'Tech',
+    url: 'https://go.nordvpn.net/SHASM',
+    image: '/assets/partners/nordvpn.svg',
+    description: 'Dein Tor zu amerikanischer Sportberichterstattung! College Football, NFL & Co. streamen, egal wo du bist. Spezialpreis über unseren Link!',
+  },
+  {
+    name: 'pCloud',
+    category: 'Tech',
+    url: 'https://partner.pcloud.com/r/134991',
+    image: '/assets/partners/pcloud.png',
+    description: 'Sicherer EU Cloud-Storage mit TLS/SSL-Verschlüsselung und Schweizer Datenschutz. Unser Favorit für Cloud-Storage mit Sonderkonditionen!',
+  },
+  {
+    name: 'Comet Browser by Perplexity',
+    category: 'Tech',
+    url: 'https://pplx.ai/footballschland',
+    image: '/assets/partners/perplexity.png',
+    description: 'Holt euch euren Zugang zur neuen Welt der AI-Browser. On top bekommt ihr über unseren Link einen Monat Perplexity Pro kostenlos.',
+  },
+  {
+    name: 'Fanatics',
+    category: 'Sportswear',
+    url: 'https://fanatics.93n6tx.net/aOEEoj',
+    image: '/assets/partners/fanatics.svg',
+    description: 'Mit echter Leidenschaft für den Sport – auf und neben dem Spielfeld. Fanatics bietet das größte Sortiment an offiziell lizenzierten NFL-Fanartikeln.',
+  },
+  {
+    name: 'Forelle Teamsports',
+    category: 'Sportswear',
+    url: 'https://www.forelle.com/de_DE/',
+    image: '/assets/partners/forelle.svg',
+    description: 'Der Komplettausstatter für American Football, Baseball und Co. Mit dem Code "FOOTBALLSCHLAND10" gibt es 10% Rabatt im gesamten Shop.',
+  },
+  {
+    name: 'Factor_',
+    category: 'Food',
+    url: 'https://www.factormeals.de/FAMBFOOTBALLSCHLAND',
+    image: '/assets/partners/factor.svg',
+    description: 'Mit Factor genießt du jede Woche 18 neue gesunde Gerichte – entwickelt von Ernährungsprofis. 30% Rabatt + kostenloser Versand mit Code FAMBFOOTBALLSCHLAND.',
+  },
+];
+
+const categories = ['Nutrition & Supplements', 'Fitness & Health-Tech', 'Tech', 'Sportswear', 'Food'];
+
+const categoryColors: Record<string, string> = {
+  'Nutrition & Supplements': 'bg-emerald-900/50 text-emerald-400 border-emerald-800',
+  'Fitness & Health-Tech': 'bg-blue-900/50 text-blue-400 border-blue-800',
+  'Tech': 'bg-purple-900/50 text-purple-400 border-purple-800',
+  'Sportswear': 'bg-orange-900/50 text-orange-400 border-orange-800',
+  'Food': 'bg-yellow-900/50 text-yellow-400 border-yellow-800',
+};
+---
+
+<BaseLayout
+  title="Partner & Affiliate-Links | Footballschland"
+  description="Alle Footballschland Partner und Affiliate-Links – Nutrition, Tech, Fitness, Sportswear und mehr. Mit exklusiven Rabatten für unsere Community."
+>
+
+<!-- Hero -->
+<section class="bg-gradient-to-b from-[#1A1A1A] to-[#111111] pt-28 pb-12 px-4">
+  <div class="max-w-4xl mx-auto text-center">
+    <p class="section-label mb-4">Community-Support</p>
+    <h1 class="font-display text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
+      So unterstützt ihr uns!
+    </h1>
+    <p class="text-lg md:text-xl text-white/70 max-w-3xl mx-auto font-body leading-relaxed">
+      Footballschland – American Football MADE IN GERMANY
+    </p>
+    <p class="mt-4 text-white/60 font-body max-w-2xl mx-auto">
+      🎙 Was wir tun, kostet Zeit, Herzblut und Geld. Ob Interviews mit den Spielern, technische Ausstattung, Recherche, Postproduktion oder die Aufbereitung von Content – dahinter steckt echte Arbeit.
+    </p>
+    <p class="mt-3 text-white/60 font-body max-w-2xl mx-auto">
+      Deshalb brauchen wir dich. Wenn dir unser Podcast gefällt, wenn du die Vision teilst, deutsche Talente sichtbar zu machen, dann nutze unsere Partner-Links.
+    </p>
+  </div>
+</section>
+
+<!-- Affiliate Disclosure -->
+<section class="py-8 px-4 bg-[#111111] border-y border-white/10">
+  <div class="max-w-4xl mx-auto">
+    <div class="p-5 bg-white/5 border border-crimson/20 rounded-lg">
+      <p class="text-white/70 text-sm leading-relaxed font-body">
+        🔗 <strong class="text-white">Transparenzhinweis / Affiliate-Links:</strong> Diese Seite enthält sogenannte Affiliate-Links. Wenn du über einen solchen Link ein Produkt kaufst oder einen Service buchst, erhalten wir eine kleine Provision – ohne Mehrkosten für dich. Im Gegenteil: Bei vielen unserer Partner bekommst du sogar exklusive Rabatte oder Sonderkonditionen über unsere Links. Wir verlinken ausschließlich Produkte, Marken oder Services, von denen wir selbst überzeugt sind oder die wir selbst nutzen. Alle Affiliate-Links sind als solche kenntlich gemacht.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Partners by Category -->
+<section class="py-16 px-4 bg-[#0D0D0D]">
+  <div class="max-w-7xl mx-auto">
+    {categories.map((category) => {
+      const catPartners = partners.filter(p => p.category === category);
+      if (catPartners.length === 0) return null;
+      const badgeClass = categoryColors[category] || 'bg-white/10 text-white/60 border-white/20';
+      return (
+        <div class="mb-16">
+          <div class="flex items-center gap-4 mb-8">
+            <span class={`px-3 py-1 text-xs font-bold uppercase tracking-widest rounded border ${badgeClass}`}>
+              {category}
+            </span>
+            <div class="flex-1 h-px bg-white/10"></div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {catPartners.map((partner) => (
+              <a
+                href={partner.url}
+                target="_blank"
+                rel="noopener noreferrer sponsored"
+                class="group flex flex-col bg-[#1A1A1A] border border-white/10 hover:border-crimson/60 rounded-xl overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-crimson/10"
+              >
+                <!-- Image -->
+                <div class="relative h-48 bg-[#111111] flex items-center justify-center overflow-hidden">
+                  <img
+                    src={partner.image}
+                    alt={partner.name}
+                    class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                    loading="lazy"
+                  />
+                </div>
+
+                <!-- Content -->
+                <div class="flex flex-col flex-1 p-5">
+                  <span class={`self-start px-2 py-0.5 text-xs font-semibold uppercase tracking-wider rounded border ${badgeClass} mb-3`}>
+                    {partner.category}
+                  </span>
+                  <h3 class="text-lg font-display font-bold text-white mb-2 group-hover:text-crimson-light transition-colors">
+                    {partner.name}
+                  </h3>
+                  <p class="text-white/60 text-sm leading-relaxed font-body flex-1">
+                    {partner.description}
+                  </p>
+                  <div class="mt-4 flex items-center gap-2 text-crimson text-sm font-semibold group-hover:gap-3 transition-all duration-200">
+                    Zum Angebot <span aria-hidden="true">→</span>
+                  </div>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      );
+    })}
+  </div>
+</section>
+
+<!-- Patreon CTA -->
+<section class="py-16 px-4 bg-gradient-to-b from-[#0D0D0D] to-[#1A1A1A]">
+  <div class="max-w-2xl mx-auto text-center">
+    <p class="section-label mb-4">Direkt unterstützen</p>
+    <h2 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">
+      Werde Patron
+    </h2>
+    <p class="text-white/70 font-body mb-8">
+      Unterstütze Footballschland direkt über Patreon und werde Teil unserer Community.
+    </p>
+    <a
+      href="https://www.patreon.com/footballschland"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="btn-primary"
+    >
+      Zu Patreon →
+    </a>
+  </div>
+</section>
+
+</BaseLayout>

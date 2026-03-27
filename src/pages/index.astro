@@ -1,0 +1,162 @@
+---
+// index.astro — Footballschland Hauptseite
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const podcastPlatforms = [
+  { name: 'Spotify', url: 'https://open.spotify.com/show/1DlSNLB5HsxSp12nilwjbc', color: '#1DB954' },
+  { name: 'Apple Podcasts', url: 'https://podcasts.apple.com/de/podcast/footballschland-american-football-made-in-germany/id1674301287', color: '#B150E2' },
+  { name: 'Amazon Music', url: 'https://music.amazon.de/podcasts/30356913-e520-4ebe-aaf9-4ae2f8a260ea/footballschland-american-football-made-in-germany', color: '#00A8E0' },
+  { name: 'RTL+', url: 'https://plus.rtl.de/podcast/footballschland-american-football-made-in-germany-qb6ejviehu3ee', color: '#E4002B' },
+  { name: 'Castbox', url: 'https://castbox.fm/vh/6522348', color: '#F55B23' },
+  { name: 'RSS Feed', url: 'https://feeds.megaphone.fm/footballschland', color: '#F26522' },
+];
+---
+
+<BaseLayout
+  title="Footballschland – American Football MADE IN GERMANY"
+  description="Footballschland ist ein Podcast, der sich ganz dem Traum junger Footballspieler aus Deutschland widmet. Wir erzählen die Geschichten von High-School-Athleten, College-Spielern und NFL-Hoffnungen."
+>
+
+<!-- Hero Section -->
+<section class="relative bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D] pt-32 pb-20 px-4 overflow-hidden">
+  <!-- Subtle gold glow top-right -->
+  <div class="absolute top-0 right-0 w-96 h-96 bg-[#FFD700]/5 rounded-full blur-3xl pointer-events-none"></div>
+  <!-- Subtle crimson glow bottom-left -->
+  <div class="absolute bottom-0 left-0 w-64 h-64 bg-crimson/10 rounded-full blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-7xl mx-auto text-center relative">
+    <!-- DE flag stripe accent -->
+    <div class="flex justify-center gap-1 mb-8">
+      <div class="w-6 h-1 rounded-full bg-white/30"></div>
+      <div class="w-6 h-1 rounded-full bg-crimson"></div>
+      <div class="w-6 h-1 rounded-full bg-[#FFD700]"></div>
+    </div>
+
+    <h1 class="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+      American Football<br />
+      <span class="text-crimson">MADE IN GERMANY</span>
+    </h1>
+
+    <p class="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-8 font-body">
+      Der Podcast, der die Geschichten von deutschen Talenten in High School, College und NFL erzählt.
+    </p>
+
+    <p class="text-lg text-white/50 max-w-2xl mx-auto mb-12 font-body">
+      Von Sandra Janat & Daniel Düngel
+    </p>
+  </div>
+</section>
+
+<!-- Podcast Platforms -->
+<section class="bg-[#0D0D0D] py-16 px-4 border-b border-white/10">
+  <div class="max-w-7xl mx-auto">
+    <h2 class="section-label text-center mb-10">Überall verfügbar</h2>
+    
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+      {podcastPlatforms.map((platform) => (
+        <a
+          href={platform.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="group flex items-center justify-center px-4 py-6 rounded border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 transition-all"
+          style={{ '--platform-color': platform.color } as any}
+        >
+          <span class="text-white/80 group-hover:text-white font-semibold text-sm text-center transition-colors">
+            {platform.name}
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Featured Section: Über den Podcast -->
+<section class="py-20 px-4 bg-gradient-to-b from-[#0D0D0D] to-[#1A1A1A]">
+  <div class="max-w-4xl mx-auto">
+    <h2 class="section-label text-center">Über den Podcast</h2>
+    
+    <h3 class="text-4xl md:text-5xl font-display font-bold text-white text-center mb-8">
+      Die Geschichten hinter dem Traum
+    </h3>
+
+    <p class="text-lg text-white/70 text-center mb-8 leading-relaxed font-body">
+      Footballschland begleitet junge Deutsche auf ihrem Weg durch High School und College zum Traum von der NFL. Wir erzählen Geschichten von Athleten, die gegen alle Widerstände kämpfen, von familiären Opfern und unbändigen Träumen.
+    </p>
+
+    <p class="text-lg text-white/70 text-center mb-12 leading-relaxed font-body">
+      Von Sandra Janat und Daniel Düngel — zwei Leidenschaftliche über den Sport, der Deutschland verzaubert.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="/episoden" class="btn-primary">
+        Episoden ansehen
+      </a>
+      <a
+        href="https://www.patreon.com/footballschland"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-outline"
+      >
+        ❤️ Unterstützen
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Latest Blog Post Preview -->
+<section class="py-20 px-4 bg-[#0D0D0D] border-t border-white/10">
+  <div class="max-w-4xl mx-auto">
+    <div class="flex items-center justify-between mb-10">
+      <h2 class="section-label">Blockblog</h2>
+      <a href="/blockblog" class="text-white/60 hover:text-white text-sm font-medium uppercase tracking-widest transition-colors">
+        Alle Artikel →
+      </a>
+    </div>
+
+    <div class="space-y-6">
+      <article class="group p-6 bg-white/5 border border-white/10 hover:border-crimson/50 rounded transition-all">
+        <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-2">Draft</p>
+        <h3 class="text-2xl md:text-3xl font-display font-bold text-white mb-3 group-hover:text-crimson transition-colors">
+          Deutsche Spieler im NFL Draft 2026: Sieben Deutsche wollen den Sprung in die NFL schaffen
+        </h3>
+        <p class="text-white/60 text-base mb-4 leading-relaxed">
+          Der NFL Draft 2026 rückt näher – und mit ihm die Frage, die uns jedes Jahr aufs Neue elektrisiert: Wer wird der nächste Deutsche in der NFL? In diesem Jahr sind es gleich sieben Namen, die auf dem Radar der Scouts stehen.
+        </p>
+        <div class="flex items-center justify-between text-sm text-white/40">
+          <span>21. März 2026</span>
+          <span>14 Min. Lesezeit</span>
+        </div>
+        <a href="/blockblog/deutsche-spieler-im-nfl-draft-2026" class="mt-4 inline-flex items-center gap-2 text-crimson hover:text-crimson-light font-semibold transition-colors">
+          Artikel lesen →
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- Call-to-Action Footer -->
+<section class="py-20 px-4 bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D]">
+  <div class="max-w-4xl mx-auto text-center">
+    <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">
+      Sei Teil der Community
+    </h2>
+
+    <p class="text-lg text-white/70 mb-8 max-w-2xl mx-auto font-body">
+      Folge uns auf Social Media, abonniere unseren Podcast und unterstütze uns auf Patreon.
+    </p>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a href="https://www.instagram.com/footballschland" target="_blank" rel="noopener noreferrer" class="btn-outline">
+        Instagram
+      </a>
+      <a href="https://twitter.com/footballschland" target="_blank" rel="noopener noreferrer" class="btn-outline">
+        Twitter / X
+      </a>
+      <a href="https://www.patreon.com/footballschland" target="_blank" rel="noopener noreferrer" class="btn-primary">
+        ❤️ Patreon
+      </a>
+    </div>
+  </div>
+</section>
+
+</BaseLayout>

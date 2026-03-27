@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://footballschland.netlify.app/sitemap-index.xml

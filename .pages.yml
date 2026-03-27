@@ -1,0 +1,59 @@
+media:
+  input: public/assets/blog
+  output: /assets/blog
+
+content:
+  - name: blog
+    label: Blockblog Artikel
+    path: src/content/blog
+    type: collection
+    view:
+      fields: [title, pubDate, category, author]
+      sort: pubDate
+      default: { field: pubDate, order: desc }
+    fields:
+      - name: title
+        label: Titel
+        type: string
+        required: true
+
+      - name: description
+        label: Beschreibung (SEO & Vorschau)
+        type: string
+        required: true
+
+      - name: pubDate
+        label: Veröffentlichungsdatum
+        type: date
+        required: true
+
+      - name: updatedDate
+        label: Aktualisierungsdatum
+        type: date
+
+      - name: author
+        label: Autor
+        type: string
+        default: Daniel Düngel
+
+      - name: category
+        label: Kategorie
+        type: select
+        options:
+          - Draft
+          - NFL
+          - College
+          - Podcast
+          - Community
+
+      - name: readTime
+        label: Lesezeit (z.B. "8 Min. Lesezeit")
+        type: string
+
+      - name: heroImage
+        label: Titelbild
+        type: image
+
+      - name: body
+        label: Artikel-Inhalt
+        type: rich-text

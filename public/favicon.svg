@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="#0D0D0D"/>
+  <!-- Football -->
+  <ellipse cx="16" cy="16" rx="13" ry="9" fill="#8B1A3A"/>
+  <ellipse cx="16" cy="16" rx="13" ry="9" fill="none" stroke="white" stroke-width="1.2"/>
+  <!-- Laces -->
+  <line x1="16" y1="9" x2="16" y2="23" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="12" y1="13" x2="20" y2="13" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="12" y1="16" x2="20" y2="16" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="12" y1="19" x2="20" y2="19" stroke="white" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Gold accent dots -->
+  <circle cx="5" cy="5" r="2" fill="#FFD700"/>
+  <circle cx="27" cy="5" r="2" fill="#FFD700"/>
+</svg>

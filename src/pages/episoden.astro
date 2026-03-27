@@ -1,0 +1,351 @@
+---
+// episoden.astro — Alle Podcast-Episoden via Megaphone RSS
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+// RSS live beim Build fetchen
+let episodes: Array<{
+  title: string;
+  guid: string;
+  pubDate: string;
+  duration: string;
+  audioUrl: string;
+  imageUrl: string;
+  description: string;
+  season: number;
+  episodeNum: number;
+  spotifyId: string;
+}> = [];
+
+try {
+  const rssRes = await fetch('https://feeds.megaphone.fm/footballschland');
+  const rssText = await rssRes.text();
+
+  // Simple XML parsing ohne externe deps
+  const items = rssText.split('<item>').slice(1);
+
+  for (const item of items) {
+    const get = (tag: string) => {
+      const m = item.match(new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]></${tag}>|<${tag}[^>]*>([^<]*)</${tag}>`));
+      return m ? (m[1] ?? m[2] ?? '').trim() : '';
+    };
+    const getAttr = (tag: string, attr: string) => {
+      const m = item.match(new RegExp(`<${tag}[^>]+${attr}="([^"]*)"`, 'i'));
+      return m ? m[1] : '';
+    };
+
+    const title = get('title') || get('itunes:title');
+    const guid = get('guid');
+    const pubDate = get('pubDate');
+    const duration = get('itunes:duration');
+    const audioUrl = getAttr('enclosure', 'url');
+    const imageUrl = getAttr('itunes:image', 'href');
+    const description = get('description') || get('itunes:summary');
+    const season = parseInt(get('itunes:season') || '0');
+    const episodeNum = parseInt(get('itunes:episode') || '0');
+
+    // Spotify episode ID aus Megaphone GUID ableiten — wir bauen den Embed über Audio-URL
+    // Spotify embed braucht die Show-ID; einzelne Episoden via Spotify embed = show + episode
+    // Wir verwenden den Megaphone Audio-Link direkt als Fallback-Player
+    const spotifyId = ''; // wird client-seitig über die Show eingebettet
+
+    if (title && audioUrl) {
+      episodes.push({
+        title,
+        guid,
+        pubDate,
+        duration,
+        audioUrl,
+        imageUrl,
+        description,
+        season,
+        episodeNum,
+        spotifyId,
+      });
+    }
+  }
+} catch (e) {
+  console.warn('RSS fetch failed:', e);
+}
+
+// Datum formatieren
+function formatDate(dateStr: string) {
+  try {
+    const d = new Date(dateStr);
+    return d.toLocaleDateString('de-DE', { day: '2-digit', month: 'short', year: 'numeric' });
+  } catch {
+    return dateStr;
+  }
+}
+
+// Dauer hübsch machen (Sekunden → MM:SS oder H:MM:SS)
+function formatDuration(dur: string) {
+  if (!dur) return '';
+  if (dur.includes(':')) return dur;
+  const s = parseInt(dur);
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  const sec = s % 60;
+  if (h > 0) return `${h}:${String(m).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+  return `${m}:${String(sec).padStart(2, '0')}`;
+}
+
+const podcastPlatforms = [
+  { name: 'Spotify',        url: 'https://open.spotify.com/show/1DlSNLB5HsxSp12nilwjbc',                                                                                           iconSrc: 'https://cdn.simpleicons.org/spotify/ffffff',        bgColor: '#1DB954' },
+  { name: 'Apple Podcasts', url: 'https://podcasts.apple.com/de/podcast/footballschland-american-football-made-in-germany/id1674301287',                                           iconSrc: 'https://cdn.simpleicons.org/applepodcasts/ffffff',  bgColor: '#9333EA' },
+  { name: 'Amazon Music',   url: 'https://music.amazon.de/podcasts/30356913-e520-4ebe-aaf9-4ae2f8a260ea/footballschland-american-football-made-in-germany',                        iconSrc: '/assets/logos/icon-amazonmusic-white.svg',          bgColor: '#00A8E0' },
+  { name: 'RTL+',           url: 'https://plus.rtl.de/podcast/footballschland-american-football-made-in-germany-qb6ejviehu3ee',                                                    iconSrc: '/assets/logos/icon-rtlplus.svg',                    bgColor: '#E4002B' },
+  { name: 'Castbox',        url: 'https://castbox.fm/vh/6522348',                                                                                                                  iconSrc: 'https://cdn.simpleicons.org/castbox/ffffff',        bgColor: '#F55B23' },
+  { name: 'RSS Feed',       url: 'https://feeds.megaphone.fm/footballschland',                                                                                                     iconSrc: 'https://cdn.simpleicons.org/rss/ffffff',            bgColor: '#F26522' },
+];
+
+// Episoden nach Saison gruppieren
+const seasons: Record<number, typeof episodes> = {};
+for (const ep of episodes) {
+  if (!seasons[ep.season]) seasons[ep.season] = [];
+  seasons[ep.season].push(ep);
+}
+const seasonKeys = Object.keys(seasons).map(Number).sort((a, b) => b - a);
+---
+
+<BaseLayout
+  title="Episoden | Footballschland Podcast"
+  description="Alle Episoden des Footballschland Podcasts – Geschichten deutscher Football-Talente."
+>
+
+<!-- Hero -->
+<section class="bg-gradient-to-b from-[#1a1617] to-[#231f20] pt-32 pb-12 px-4">
+  <div class="max-w-7xl mx-auto text-center">
+    <p class="text-rot text-xs font-semibold uppercase tracking-[0.25em] mb-4">Podcast</p>
+    <h1 class="font-display text-6xl md:text-7xl font-bold text-white mb-6">
+      Alle Episoden
+    </h1>
+    <p class="text-lg md:text-xl text-white/70 max-w-3xl mx-auto font-body">
+      {episodes.length} Episoden — Deutsche Football-Talente auf dem Weg in die NCAA & NFL.
+    </p>
+  </div>
+</section>
+
+<!-- Platforms -->
+<section class="py-10 px-4 bg-[#1a1617] border-b border-white/10">
+  <div class="max-w-4xl mx-auto">
+    <p class="text-center text-white/30 text-[11px] font-semibold uppercase tracking-[0.3em] mb-6">Jetzt hören auf</p>
+    <div class="grid grid-cols-3 md:grid-cols-6 gap-3">
+      {podcastPlatforms.map((platform) => (
+        <a
+          href={platform.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex flex-col items-center gap-2.5 px-3 py-4 rounded-xl border border-white/10 hover:border-white/25 bg-white/5 hover:bg-white/10 transition-all group"
+        >
+          {/* Branded Logo Icon */}
+          <div
+            class="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0 shadow-lg"
+            style={`background-color: ${platform.bgColor}`}
+          >
+            <img
+              src={platform.iconSrc}
+              alt={platform.name}
+              class="w-5 h-5"
+              loading="lazy"
+            />
+          </div>
+          {/* Platform Name */}
+          <span class="text-white/55 text-[11px] font-medium group-hover:text-white/90 transition-colors text-center leading-tight">
+            {platform.name}
+          </span>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- Player (sticky, wird per JS befüllt) -->
+<div
+  id="episode-player"
+  class="hidden sticky top-16 z-40 bg-[#1a1617]/98 backdrop-blur-md border-b border-white/10 shadow-2xl"
+>
+  <div class="max-w-5xl mx-auto px-4 py-4">
+    <div class="flex items-start gap-4">
+      <img
+        id="player-cover"
+        src=""
+        alt=""
+        class="w-14 h-14 rounded object-cover flex-shrink-0 hidden"
+      />
+      <div class="flex-1 min-w-0">
+        <p id="player-episode-label" class="text-rot text-xs font-semibold uppercase tracking-widest mb-1"></p>
+        <p id="player-title" class="text-white font-semibold font-body text-sm leading-tight truncate"></p>
+      </div>
+      <button
+        id="player-close"
+        class="text-white/40 hover:text-white ml-2 flex-shrink-0 text-lg leading-none"
+        aria-label="Player schließen"
+      >✕</button>
+    </div>
+
+    <!-- Audio Player -->
+    <div class="mt-3">
+      <audio
+        id="audio-player"
+        controls
+        class="w-full h-10"
+        preload="none"
+      ></audio>
+    </div>
+  </div>
+</div>
+
+<!-- Episodenliste -->
+<section class="py-10 px-4 bg-[#231f20]">
+  <div class="max-w-5xl mx-auto">
+
+    {seasonKeys.map((season) => (
+      <div class="mb-10">
+        <!-- Saison-Header -->
+        <div class="flex items-center gap-4 mb-4">
+          <div class="flex-1 h-px bg-white/10"></div>
+          <h2 class="text-white/40 text-xs font-semibold uppercase tracking-[0.2em]">
+            {season === 0 ? 'Weitere Episoden' : `Saison ${season}`}
+          </h2>
+          <div class="flex-1 h-px bg-white/10"></div>
+        </div>
+
+        <!-- Episoden dieser Saison -->
+        <div class="space-y-1" role="list">
+          {seasons[season].map((ep, idx) => (
+            <button
+              class="episode-item w-full text-left group flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-white/5 active:bg-white/10 transition-all border border-transparent hover:border-white/10 cursor-pointer"
+              data-audio={ep.audioUrl}
+              data-title={ep.title}
+              data-image={ep.imageUrl}
+              data-season={ep.season}
+              data-episode={ep.episodeNum}
+              data-date={formatDate(ep.pubDate)}
+              role="listitem"
+              aria-label={`Episode abspielen: ${ep.title}`}
+            >
+              <!-- Nummer / Play-Icon -->
+              <div class="w-8 flex-shrink-0 text-center">
+                <span class="episode-num text-white/30 text-xs group-hover:hidden font-mono">
+                  {ep.episodeNum > 0 ? ep.episodeNum : idx + 1}
+                </span>
+                <svg class="episode-play hidden group-hover:block w-5 h-5 text-rot mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M8 5v14l11-7z"/>
+                </svg>
+              </div>
+
+              <!-- Cover (falls vorhanden) -->
+              {ep.imageUrl && (
+                <img
+                  src={ep.imageUrl}
+                  alt=""
+                  class="w-10 h-10 rounded object-cover flex-shrink-0 opacity-70 group-hover:opacity-100 transition-opacity"
+                  loading="lazy"
+                />
+              )}
+
+              <!-- Title + Meta -->
+              <div class="flex-1 min-w-0">
+                <p class="text-white/85 group-hover:text-white text-sm font-medium leading-snug line-clamp-1 transition-colors">
+                  {ep.title}
+                </p>
+                <p class="text-white/35 text-xs mt-0.5">
+                  {formatDate(ep.pubDate)}
+                  {ep.duration && <span> · {formatDuration(ep.duration)}</span>}
+                </p>
+              </div>
+
+              <!-- Play-Indikator -->
+              <div class="flex-shrink-0 text-white/20 group-hover:text-rot transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                </svg>
+              </div>
+
+            </button>
+          ))}
+        </div>
+      </div>
+    ))}
+
+    {episodes.length === 0 && (
+      <div class="text-center py-20">
+        <p class="text-white/40">Episoden konnten nicht geladen werden. Bitte direkt auf Spotify oder Apple Podcasts hören.</p>
+        <a href="https://open.spotify.com/show/1DlSNLB5HsxSp12nilwjbc" target="_blank" class="mt-4 inline-block text-rot hover:text-rot-light underline text-sm">
+          Auf Spotify öffnen →
+        </a>
+      </div>
+    )}
+  </div>
+</section>
+
+<!-- Client-side Player Logic -->
+<script>
+  const playerEl = document.getElementById('episode-player');
+  const audioEl = document.getElementById('audio-player') as HTMLAudioElement;
+  const titleEl = document.getElementById('player-title');
+  const labelEl = document.getElementById('player-episode-label');
+  const coverEl = document.getElementById('player-cover') as HTMLImageElement;
+  const closeBtn = document.getElementById('player-close');
+
+  let activeBtn: Element | null = null;
+
+  document.querySelectorAll('.episode-item').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const audioSrc = btn.getAttribute('data-audio') || '';
+      const title = btn.getAttribute('data-title') || '';
+      const image = btn.getAttribute('data-image') || '';
+      const season = btn.getAttribute('data-season') || '';
+      const episode = btn.getAttribute('data-episode') || '';
+      const date = btn.getAttribute('data-date') || '';
+
+      // Active state
+      if (activeBtn) activeBtn.classList.remove('bg-rot/10', 'border-rot/20');
+      activeBtn = btn;
+      btn.classList.add('bg-rot/10', 'border-rot/20');
+
+      // Player befüllen
+      if (titleEl) titleEl.textContent = title;
+      if (labelEl) {
+        const parts = [];
+        if (season && season !== '0') parts.push(`S${season}`);
+        if (episode && episode !== '0') parts.push(`E${episode}`);
+        if (date) parts.push(date);
+        labelEl.textContent = parts.join(' · ');
+      }
+
+      if (coverEl) {
+        if (image) {
+          coverEl.src = image;
+          coverEl.classList.remove('hidden');
+        } else {
+          coverEl.classList.add('hidden');
+        }
+      }
+
+      if (audioEl) {
+        audioEl.src = audioSrc;
+        audioEl.load();
+        audioEl.play().catch(() => {}); // Autoplay fallback
+      }
+
+      playerEl?.classList.remove('hidden');
+
+      // Scroll so der Player sichtbar bleibt
+      setTimeout(() => {
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }, 100);
+    });
+  });
+
+  closeBtn?.addEventListener('click', () => {
+    audioEl?.pause();
+    playerEl?.classList.add('hidden');
+    if (activeBtn) {
+      activeBtn.classList.remove('bg-rot/10', 'border-rot/20');
+      activeBtn = null;
+    }
+  });
+</script>
+
+</BaseLayout>

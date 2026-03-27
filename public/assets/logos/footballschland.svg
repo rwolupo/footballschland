@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 72" fill="none">
+  <!-- Football icon -->
+  <g transform="translate(0, 4)">
+    <!-- Football shape -->
+    <ellipse cx="28" cy="32" rx="22" ry="14" fill="#8B1A3A" stroke="white" stroke-width="1.5"/>
+    <!-- Laces -->
+    <line x1="28" y1="22" x2="28" y2="42" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="23" y1="26" x2="33" y2="26" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="23" y1="31" x2="33" y2="31" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <line x1="23" y1="36" x2="33" y2="36" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+    <!-- Stars (Deutschland colors accent) -->
+    <circle cx="8" cy="10" r="2" fill="#FFD700" opacity="0.8"/>
+    <circle cx="48" cy="10" r="2" fill="#FFD700" opacity="0.8"/>
+  </g>
+  <!-- FOOTBALLSCHLAND text -->
+  <text
+    x="62"
+    y="52"
+    font-family="'Bebas Neue', Impact, 'Arial Black', sans-serif"
+    font-size="46"
+    font-weight="400"
+    letter-spacing="2"
+    fill="white"
+    paint-order="stroke"
+    stroke="#8B1A3A"
+    stroke-width="2"
+    stroke-linejoin="round"
+  >FOOTBALLSCHLAND</text>
+</svg>
