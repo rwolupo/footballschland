@@ -6,7 +6,10 @@ export const ALL_POSTS_QUERY = `*[_type == "blockblogPost"] | order(pubDate desc
   pubDate,
   author,
   category,
-  readTime
+  readTime,
+  heroImage {
+    asset->{ url }
+  }
 }`;
 
 // GROQ query: alle Slugs für getStaticPaths()
