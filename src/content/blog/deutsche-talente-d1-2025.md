@@ -7,6 +7,8 @@ pubDate: 2025-09-05
 updatedDate: 2025-11-21
 author: Daniel Düngel
 readTime: 6 Min. Lesezeit
+category: College
+heroImage: /assets/blog/d1-college-2025.png
 ---
 In der Saison 2025 stehen erstmals über 50 deutsche Talente in den Rostern der Division-1-Colleges. Für den deutschen Football ist das ein Meilenstein: Noch nie zuvor war die Präsenz in der Division 1 so groß. Jeder einzelne Spieler bringt dabei seine ganz eigene Geschichte mit – manche kamen über Austauschjahre erstmals in Kontakt mit dem Sport, andere fanden über Programme wie PPI Recruits oder Gridiron Imports den Weg über den großen Teich. Wieder andere schlagen sich komplett auf eigene Faust durch – der American Dream in seiner puren Form. Im Footballschland Podcast erzählen wir diese Geschichten. Genauer gesagt: Wir geben den Talenten selbst die Möglichkeit, über ihren Weg zu sprechen und damit unzähligen kommenden Spielern den Weg zu ebnen.
 
