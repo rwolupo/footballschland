@@ -6,7 +6,7 @@ updatedDate: 2026-03-26
 author: "Daniel Düngel"
 category: "Draft"
 readTime: "14 Min. Lesezeit"
-heroImage: "/assets/blog/nfl-draft-2026.jpg"
+heroImage: "/assets/blog/nfl-draft-2026.png"
 ---
 
 Von Hochheim am Main über Köln und Hamburg bis nach Frankfurt (Oder), Witzenhausen und Weichs – die deutschen Spieler im NFL Draft 2026 kommen aus allen Ecken der Republik. Und ihre Wege in die USA könnten unterschiedlicher kaum sein.

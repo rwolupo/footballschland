@@ -6,7 +6,7 @@ updatedDate: 2025-11-21
 author: "Daniel Düngel"
 category: "College"
 readTime: "6 Min. Lesezeit"
-heroImage: "/assets/blog/d1-college-2025.jpg"
+heroImage: "/assets/blog/d1-college-2025.png"
 ---
 
 American Football boomt in Deutschland – und immer mehr Talente wagen den Sprung in die USA. 2025 stehen so viele Deutsche wie nie zuvor auf den Rosters von D1-College-Teams. Ein historischer Moment für den deutschen Football.
