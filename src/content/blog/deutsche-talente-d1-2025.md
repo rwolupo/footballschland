@@ -1,6 +1,6 @@
----
+﻿---
 title: "Deutsche Talente im American Football - D1 Colleges Saison 2025"
-description: "American Football boomt in Deutschland – und immer mehr Talente wagen den Sprung in die USA. 2025 stehen so viele Deutsche wie nie zuvor auf D1-Rosters."
+description: "American Football boomt in Deutschland und immer mehr Talente wagen den Sprung in die USA. 2025 stehen so viele Deutsche wie nie zuvor auf D1-Rosters."
 pubDate: 2025-09-05
 updatedDate: 2025-11-21
 author: "Daniel Düngel"
@@ -9,44 +9,68 @@ readTime: "6 Min. Lesezeit"
 heroImage: "/assets/blog/d1-college-2025.png"
 ---
 
-American Football boomt in Deutschland – und immer mehr Talente wagen den Sprung in die USA. 2025 stehen so viele Deutsche wie nie zuvor auf den Rosters von D1-College-Teams. Ein historischer Moment für den deutschen Football.
+In der Saison 2025 stehen erstmals über 50 deutsche Talente in den Rostern der Division-1-Colleges. Für den deutschen Football ist das ein Meilenstein: Noch nie zuvor war die Präsenz in der Division 1 so gross. Jeder einzelne Spieler bringt dabei seine ganz eigene Geschichte mit - manche kamen über Austauschjahre erstmals in Kontakt mit dem Sport, andere fanden über Programme wie PPI Recruits oder Gridiron Imports den Weg über den großen Teich. Wieder andere schlagen sich komplett auf eigene Faust durch - der American Dream in seiner puren Form. Im Footballschland Podcast erzählen wir diese Geschichten.
 
-Wir haben alle 51 deutschen Athleten auf D1-Rosters für euch zusammengestellt – mit Kurzvorstellungen, Positionen und Schools. Ein Überblick, der zeigt, wie weit der deutsche Football in den letzten Jahren gekommen ist.
+Zum ersten Mal gibt es nun eine wirklich vollständige Übersicht aller deutschen D1-Spieler. Diese Liste vereint Athleten, die in den beiden höchsten Ebenen - FBS und FCS - antreten und dort Teil des harten Wettbewerbs im College Football sind. Diese Liste soll nicht nur Namen und Colleges zusammentragen, sondern auch ein Stück Football-Geschichte dokumentieren.
 
-## Warum ist das 2025 besonders?
-
-Die Zahlen sprechen für sich: 51 Athleten aus Deutschland oder mit deutschen Wurzeln spielen in der Saison 2025 auf D1-Niveau. Das ist ein Rekord. Zum Vergleich: Vor fünf Jahren waren es kaum ein Dutzend.
-
-Was sich verändert hat:
-- Mehr Recruitingwege durch spezialisierte Agenturen und Combines in Deutschland
-- Wachsende Sichtbarkeit durch Berichterstattung wie unsere hier bei Footballschland
-- Programme wie das NFL International Player Pathway (IPP), das deutschen Spielern den Sprung auf Practice Squads ermöglicht
-- Bessere Strukturen in deutschen Football-Verbänden
-
-## Die Conference-Verteilung
-
-Die deutschen Spieler verteilen sich über alle Ebenen des D1-Footballs – von Power-Four-Conferences bis zu den stärksten FCS-Ligen:
-
-**Power Four** (Big 12, SEC, ACC, Big Ten): 8 Spieler — eine beeindruckende Zahl, die zeigt, dass Deutsche auch auf höchstem College-Niveau konkurrenzfähig sind.
-
-**FBS Group of Five** (MWC, AAC, CUSA usw.): 18 Spieler
-
-**FCS** (Missouri Valley, Big Sky, CAA und andere): 25 Spieler — das Rückgrat des deutschen D1-Footballs
-
-## Positionsverteilung
-
-Offensiver Line-Spieler sind am stärksten vertreten – kein Wunder, denn deutsche Spieler bringen oft die Körpergröße und das Entwicklungspotenzial mit, das College-Coaches bei O-Linemen suchen.
-
-Auch bei den Tight Ends und Defensive Linemen sind Deutsche gut repräsentiert. Interessant: Mit Leo Blumentritt gibt es in diesem Jahrgang sogar einen deutschen Specialist (P/K) auf D1-Niveau.
-
-## Was das für die Zukunft bedeutet
-
-Die Saison 2025 ist mehr als ein Meilenstein – sie ist ein Zeichen, was möglich ist. Spieler wie Marlin Klein (Michigan), Paul Rubelt (UCF) und Mark Petry (Syracuse) zeigen, dass Deutsche nicht nur auf D1-Niveau spielen können, sondern auch NFL-Potenzial entwickeln.
-
-Für jeden jungen Spieler in Deutschland, der davon träumt, einmal in den USA zu spielen: Die Wege sind da. Es braucht Arbeit, Durchhaltevermögen und die richtigen Kontakte – aber es ist machbar. Diese 51 Spieler beweisen es.
+Von Woche zu Woche treffen Teams aufeinander, die deutsche Spieler in ihren Reihen haben. Sie alle eint ein großes Ziel: die NFL. Während vor Jahren nur eine Handvoll deutscher Spieler in den USA aktiv war, hat sich die Zahl inzwischen vervielfacht. In dieser Saison träumen so viele Spieler wie nie zuvor davon, im NFL Draft 2026 ausgewählt zu werden.
 
 ---
 
-Mehr zu den deutschen NFL-Kandidaten aus diesem Jahrgang gibt es in unserem [Draft 2026 Artikel](/blockblog/deutsche-spieler-im-nfl-draft-2026).
+## Alle deutschen D1-Spieler 2025
 
-Weitere Infos, Interviews und Updates findet ihr im [Footballschland Podcast](https://open.spotify.com/show/1DlSNLB5HsxSp12nilwjbc) und auf [Instagram](https://www.instagram.com/footballschland).
+| Name | Pos. | Status | College |
+|------|------|--------|---------|
+| Aganbi, Josef | DE | Redshirt Freshman | Texas Southern University |
+| Beigel, Manuel | DL | Sophomore | University of Michigan |
+| Bentin, Kevin | DL | Freshman | Long Island University |
+| Blumentritt, Leo | P | Sophomore | University of Northern Colorado |
+| Braesch, Dominic | OL | Redshirt Sophomore | University of North Alabama |
+| Brune, Duncan | RB | Sophomore | Ohio University |
+| Dall, Bruno | DL | Redshirt Sophomore | University of Akron |
+| Doege, Felix | OL | Redshirt Freshman | Appalachian State University |
+| Evert, Daniel | TE | Sophomore | Temple University |
+| Feil, Malte | WR | Redshirt Freshman | Mercyhurst University |
+| Ferguson, Ethan | LS | Redshirt Sophomore | Jacksonville State University |
+| Hammer, Hannes | OL | Redshirt Sophomore | Virginia Tech |
+| Hanne, JJ | DL | Freshman | University of Georgia |
+| Hardt, Theo | K/P | Sophomore | University of New Haven |
+| Hasenhuetl, Justin | OL | Freshman | University of California |
+| Heims, Maurice | DL | Graduate Student | University of Idaho |
+| Herbert, Gideon | DE | Redshirt Freshman | Arkansas State University |
+| Hodžić, Amir | OL | Redshirt Junior | Bethune-Cookman University |
+| Honig, Alexander | TE | Redshirt Senior | University of Connecticut |
+| Höffken, David | DE | Redshirt Freshman | University of Nebraska |
+| Josten, Phoenix | WR | Freshman | Stephen F. Austin State University |
+| Kanu, Hero | DT | Senior | University of Texas |
+| Karrasch, Mattis | OL | Redshirt Freshman | Northern Arizona University |
+| Klein, Marlin | TE | Senior | University of Michigan |
+| Krüger, Matti | DL | Freshman | Bucknell University |
+| Landsfeld, Marius | DL | Redshirt Sophomore | Mercer University |
+| Lantzsch, Max | DT | Redshirt Junior | University of New Mexico |
+| Meincke, Markus | P | Sophomore | Mercer University |
+| Ney, Jules | OL | Redshirt Freshman | University of Tennessee at Chattanooga |
+| Nwabuisi-Ezeala, Terry | DL | Freshman | Vanderbilt University |
+| Okoronkwo, Justin | LB | Sophomore | University of South Carolina |
+| Ouattara, Yilanan | DL | Senior | Vanderbilt University |
+| Paschos, Konstantin | DL | Freshman | Princeton University |
+| Petry, Mark | OL | Redshirt Senior | Syracuse University |
+| Pohlmann, Franz | TE | Junior | UC Davis |
+| Portnjagin, Noel | OL | Redshirt Freshman | University of Florida |
+| Richter, Clemens | TE | Redshirt Freshman | University of Connecticut |
+| Rida, Ilias | OL | Redshirt Sophomore | Southeastern Louisiana University |
+| Rogosch, Fabian | TE | Junior | Troy University |
+| Rohé, Keon | OL | Redshirt Freshman | Florida Atlantic University |
+| Rubelt, Paul | OL | Senior | University of Central Florida |
+| Schliemann, Christian | OL | Redshirt Sophomore | Campbell University |
+| Schmoranzer, Moritz | OL | Redshirt Freshman | Appalachian State University |
+| Schwikal, Nico | LB | Senior | Dartmouth College |
+| Sigel, Vito Moriana | OL | Junior | Western Carolina University |
+| Spörk, Konstantin | OL | Senior | Dartmouth College |
+| Staehler, Florian | OL | Graduate Student | New Mexico State University |
+| Stege, Max | DE | Junior | Boise State University |
+| Tiedermann, Silas | OL | Freshman | Bryant University |
+| Titikpina, Farradj | DL | Redshirt Sophomore | University of Maine |
+| von Saldern, Magnus | TE | Redshirt Junior | UMass Amherst |
+| Wiedmann, Nico | WR | Redshirt Freshman | Marshall University |
+| Zunk, Linus | DL | Senior | Vanderbilt University |
