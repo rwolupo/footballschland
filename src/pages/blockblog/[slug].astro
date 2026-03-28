@@ -31,33 +31,38 @@ const categoryColors: Record<string, string> = {
 };
 const badgeClass = categoryColors[category] ?? 'bg-white/10 text-white/60 border-white/20';
 
-// Portable Text -> HTML mit Custom Blocks
+// Extract unique conferences and divisions from player cards for filter UI
+const playerCards = (body || []).filter((b: any) => b._type === 'playerCard');
+const conferences = [...new Set(playerCards.map((c: any) => c.conference).filter(Boolean))] as string[];
+const divisions = [...new Set(playerCards.map((c: any) => c.division).filter(Boolean))] as string[];
+const hasFilters = playerCards.length > 1 && (conferences.length > 1 || divisions.length > 1);
+
+// Portable Text → HTML mit Custom Blocks
 const bodyHtml = body ? toHTML(body, {
   components: {
     types: {
-      // Spielerkarte
       playerCard: ({ value }: any) => {
-        const { playerName = '', position = '', yearStatus = '', college = '', externalImageUrls, images, bio = '' } = value;
+        const { playerName = '', position = '', yearStatus = '', college = '', conference = '', division = '', externalImageUrls, images, bio = '' } = value;
         const allUrls = [
           ...(externalImageUrls || []),
           ...(images || []).filter((i: any) => i.asset?.url).map((i: any) => i.asset.url),
         ];
         const imgs = allUrls.map((url: string) =>
-          `<img src="${url}" alt="${playerName} Spielerkarte" class="w-full rounded-lg" loading="lazy" />`
+          `<img src="${url}" alt="${playerName} Spielerkarte" class="w-full rounded-lg cursor-pointer hover:opacity-90 transition-opacity" loading="lazy" onclick="openLightbox('${url.replace(/'/g, "\\'")}')" />`
         ).join('');
         return `
-          <div class="player-card not-prose my-8 rounded-xl overflow-hidden border border-[#231f20]/15 bg-white shadow-sm">
+          <div class="player-card not-prose my-8 rounded-xl overflow-hidden border border-[#231f20]/15 bg-white shadow-sm" data-conference="${conference}" data-division="${division}">
             <div class="px-5 py-4 border-b border-[#231f20]/10">
               <p class="font-display text-xl font-bold text-[#231f20] leading-tight">${playerName}</p>
               <p class="text-[#231f20]/60 text-sm mt-0.5">${position}${yearStatus ? ` · ${yearStatus}` : ''}</p>
               ${college ? `<p class="text-[#231f20]/40 text-xs mt-0.5">${college}</p>` : ''}
+              ${(conference || division) ? `<p class="text-[#231f20]/40 text-xs mt-1 font-medium">${[conference, division].filter(Boolean).join(' · ')}</p>` : ''}
             </div>
             ${allUrls.length > 0 ? `<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 p-3 bg-[#f5f3f0]">${imgs}</div>` : ''}
             ${bio ? `<p class="px-5 py-4 text-[#231f20]/70 text-sm font-body leading-relaxed">${bio}</p>` : ''}
           </div>
         `;
       },
-      // Bildergalerie / Slider
       imageGallery: ({ value }: any) => {
         const { caption = '', images } = value;
         const imgs = (images || [])
@@ -77,7 +82,6 @@ const bodyHtml = body ? toHTML(body, {
           </div>
         `;
       },
-      // Spieler-Tabelle
       playerTable: ({ value }: any) => {
         const { tableTitle = '', players } = value;
         const rows = (players || []).map((p: any) => `
@@ -105,7 +109,6 @@ const bodyHtml = body ? toHTML(body, {
           </div>
         `;
       },
-      // Einzelbild
       image: ({ value }: any) => {
         const url = value.asset?.url;
         if (!url) return '';
@@ -132,8 +135,6 @@ const bodyHtml = body ? toHTML(body, {
   <!-- Article Hero -->
   <section class="bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D] pt-28 pb-0 px-4">
     <div class="max-w-3xl mx-auto">
-
-      <!-- Category + Meta -->
       <div class="flex flex-wrap items-center gap-3 mb-6">
         <span class={`px-3 py-1 text-xs font-bold uppercase tracking-widest rounded border ${badgeClass}`}>
           {category}
@@ -141,13 +142,9 @@ const bodyHtml = body ? toHTML(body, {
         <span class="text-white/40 text-sm font-body">{formatDate(pubDate)}</span>
         {readTime && <span class="text-white/40 text-sm font-body">· {readTime}</span>}
       </div>
-
-      <!-- Title -->
       <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
         {title}
       </h1>
-
-      <!-- Author -->
       <div class="flex items-center gap-3 mb-8">
         <div class="w-9 h-9 rounded-full bg-crimson flex items-center justify-center text-white font-bold text-sm font-display">
           DD
@@ -159,92 +156,62 @@ const bodyHtml = body ? toHTML(body, {
           )}
         </div>
       </div>
-
-      <!-- Hero Image -->
       <div class="w-full aspect-[16/9] rounded-xl overflow-hidden mb-0 relative bg-gradient-to-br from-rot/30 to-[#231f20]">
         {heroImage?.asset?.url ? (
-          <img
-            src={heroImage.asset.url}
-            alt={title}
-            class="w-full h-full object-cover"
-          />
+          <img src={heroImage.asset.url} alt={title} class="w-full h-full object-cover" />
         ) : (
           <div class="absolute inset-0 flex items-center justify-center">
             <span class="font-display text-white/20 text-6xl font-bold">FS</span>
           </div>
         )}
       </div>
-
     </div>
   </section>
 
   <!-- Article Content -->
   <article class="py-12 px-4 bg-[#faf8f5] text-[#231f20]">
     <div class="max-w-3xl mx-auto">
+
+      {hasFilters && (
+        <div id="player-filter" class="mb-8 p-4 bg-white rounded-xl border border-[#231f20]/10 shadow-sm">
+          <p class="text-xs font-bold uppercase tracking-widest text-[#231f20]/40 mb-3">Spieler filtern</p>
+          <div class="flex flex-wrap gap-2" id="filter-buttons">
+            <button class="filter-btn active" data-type="all">Alle</button>
+            {conferences.map(conf => (
+              <button class="filter-btn" data-type="conference" data-value={conf}>{conf}</button>
+            ))}
+            {divisions.map(div => (
+              <button class="filter-btn" data-type="division" data-value={div}>{div}</button>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div
-        class="prose prose-lg max-w-none
-          prose-headings:font-display prose-headings:text-[#231f20]
-          prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-[#231f20]/15 prose-h2:pb-3
-          prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-rot
-          prose-p:text-[#3a3535] prose-p:leading-relaxed prose-p:font-body
-          prose-a:text-rot prose-a:no-underline hover:prose-a:underline
-          prose-strong:text-[#231f20]
-          prose-blockquote:border-l-4 prose-blockquote:border-rot prose-blockquote:pl-6 prose-blockquote:italic
-          prose-ul:text-[#3a3535] prose-li:my-1
-          prose-hr:border-[#231f20]/10
-          prose-code:text-rot prose-code:bg-[#231f20]/5 prose-code:px-1 prose-code:rounded
-          prose-img:rounded-xl prose-img:shadow-md"
+        class="prose prose-lg max-w-none prose-headings:font-display prose-headings:text-[#231f20] prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-[#231f20]/15 prose-h2:pb-3 prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-rot prose-p:text-[#3a3535] prose-p:leading-relaxed prose-p:font-body prose-a:text-rot prose-a:no-underline hover:prose-a:underline prose-strong:text-[#231f20] prose-blockquote:border-l-4 prose-blockquote:border-rot prose-blockquote:pl-6 prose-blockquote:italic prose-ul:text-[#3a3535] prose-li:my-1 prose-hr:border-[#231f20]/10 prose-code:text-rot prose-code:bg-[#231f20]/5 prose-code:px-1 prose-code:rounded prose-img:rounded-xl prose-img:shadow-md"
         set:html={bodyHtml}
       />
 
-      <!-- Tags / Back -->
       <div class="mt-12 pt-8 border-t border-[#231f20]/10 flex flex-wrap gap-3">
-        <a
-          href="/blockblog"
-          class="px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded border bg-[#231f20]/5 text-[#231f20]/60 border-[#231f20]/20 hover:border-[#231f20]/40"
-        >
-          ← Alle Artikel
-        </a>
-        <span class={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded border ${badgeClass}`}>
-          {category}
-        </span>
+        <a href="/blockblog" class="px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded border bg-[#231f20]/5 text-[#231f20]/60 border-[#231f20]/20 hover:border-[#231f20]/40">← Alle Artikel</a>
+        <span class={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded border ${badgeClass}`}>{category}</span>
       </div>
 
-      <!-- Social Share -->
       <div class="mt-8 p-6 bg-[#231f20]/5 border border-[#231f20]/10 rounded-xl">
         <p class="text-[#231f20]/60 text-sm font-body mb-3">Artikel teilen:</p>
         <div class="flex flex-wrap gap-3">
-          <a
-            href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent('https://footballschland.netlify.app/blockblog/' + slug)}&via=footballschland`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="px-4 py-2 bg-[#1DA1F2]/10 border border-[#1DA1F2]/30 text-[#1DA1F2] text-sm rounded hover:bg-[#1DA1F2]/20 transition-colors"
-          >
-            𝕏 Twitter
-          </a>
-          <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://footballschland.netlify.app/blockblog/' + slug)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="px-4 py-2 bg-[#1877F2]/10 border border-[#1877F2]/30 text-[#1877F2] text-sm rounded hover:bg-[#1877F2]/20 transition-colors"
-          >
-            Facebook
-          </a>
+          <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent('https://footballschland.netlify.app/blockblog/' + slug)}&via=footballschland`} target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-[#1DA1F2]/10 border border-[#1DA1F2]/30 text-[#1DA1F2] text-sm rounded hover:bg-[#1DA1F2]/20 transition-colors">𝕏 Twitter</a>
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://footballschland.netlify.app/blockblog/' + slug)}`} target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-[#1877F2]/10 border border-[#1877F2]/30 text-[#1877F2] text-sm rounded hover:bg-[#1877F2]/20 transition-colors">Facebook</a>
         </div>
       </div>
     </div>
   </article>
 
-  <!-- CTA -->
   <section class="py-16 px-4 bg-gradient-to-b from-[#0D0D0D] to-[#1A1A1A]">
     <div class="max-w-2xl mx-auto text-center">
       <p class="section-label mb-3">Unterstützt uns</p>
-      <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-4">
-        Mehr deutsches Football?
-      </h2>
-      <p class="text-white/60 font-body mb-6">
-        Hört unseren Podcast, nutzt unsere Partner-Links und werdet Teil der Footballschland-Community.
-      </p>
+      <h2 class="font-display text-3xl md:text-4xl font-bold text-white mb-4">Mehr deutsches Football?</h2>
+      <p class="text-white/60 font-body mb-6">Hört unseren Podcast, nutzt unsere Partner-Links und werdet Teil der Footballschland-Community.</p>
       <div class="flex flex-wrap justify-center gap-4">
         <a href="/episoden" class="btn-primary">Podcast hören</a>
         <a href="/partner" class="btn-outline">Unsere Partner</a>
@@ -252,4 +219,70 @@ const bodyHtml = body ? toHTML(body, {
     </div>
   </section>
 
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 hidden" onclick="if(event.target===this)closeLightbox()">
+    <button class="absolute top-4 right-4 text-white/80 hover:text-white text-4xl font-bold leading-none z-10" onclick="closeLightbox()">×</button>
+    <img id="lightbox-img" src="" alt="" class="max-h-[90vh] max-w-[90vw] rounded-lg shadow-2xl object-contain" />
+  </div>
+
 </BaseLayout>
+
+<style>
+  .filter-btn {
+    padding: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-radius: 0.25rem;
+    border: 1px solid rgba(35,31,32,0.2);
+    background: rgba(35,31,32,0.05);
+    color: rgba(35,31,32,0.6);
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .filter-btn:hover { border-color: rgba(35,31,32,0.4); background: rgba(35,31,32,0.1); }
+  .filter-btn.active { background: rgba(220,20,60,0.1); color: #dc143c; border-color: rgba(220,20,60,0.4); }
+</style>
+
+<script>
+  function openLightbox(src: string) {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightbox-img') as HTMLImageElement;
+    if (lb && img) { img.src = src; lb.classList.remove('hidden'); document.body.style.overflow = 'hidden'; }
+  }
+  function closeLightbox() {
+    const lb = document.getElementById('lightbox');
+    if (lb) { lb.classList.add('hidden'); document.body.style.overflow = ''; }
+  }
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+  (window as any).openLightbox = openLightbox;
+  (window as any).closeLightbox = closeLightbox;
+
+  let activeType = 'all';
+  let activeValue = '';
+  function applyFilter() {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      const el = btn as HTMLElement;
+      el.classList.remove('active');
+      if (activeType === 'all' && el.dataset.type === 'all') el.classList.add('active');
+      if (el.dataset.type === activeType && el.dataset.value === activeValue) el.classList.add('active');
+    });
+    document.querySelectorAll('.player-card').forEach(card => {
+      const el = card as HTMLElement;
+      if (activeType === 'all') { el.style.display = ''; return; }
+      const val = el.dataset[activeType] || '';
+      el.style.display = val === activeValue ? '' : 'none';
+    });
+  }
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const el = btn as HTMLElement;
+      const type = el.dataset.type || 'all';
+      const value = el.dataset.value || '';
+      if (type === activeType && value === activeValue) { activeType = 'all'; activeValue = ''; }
+      else { activeType = type; activeValue = value; }
+      applyFilter();
+    });
+  });
+</script>
