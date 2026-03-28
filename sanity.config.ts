@@ -165,7 +165,6 @@ export default defineConfig({
           },
         ],
       },
-    ],
     // ── Statische Seiten (Impressum, Datenschutz, etc.) ──
     {
       name: 'page',
@@ -215,6 +214,6 @@ export default defineConfig({
         select: { title: 'title', subtitle: 'slug.current' },
       },
     },
-  ],
+    ],
   },
 })
