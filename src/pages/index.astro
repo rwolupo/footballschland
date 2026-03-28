@@ -1,163 +1,191 @@
 ---
 export const prerender = true;
-// index.astro — Footballschland Hauptseite
+import { sanityClient } from '../lib/sanity';
+import { ALL_POSTS_QUERY } from '../lib/queries';
 import BaseLayout from '../layouts/BaseLayout.astro';
 
+const allPosts = await sanityClient.fetch(ALL_POSTS_QUERY);
+const latestPosts = allPosts.slice(0, 3);
+
+const formatDate = (date: string) =>
+  new Date(date).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
+
+const categoryColors: Record<string, string> = {
+  Draft: 'bg-crimson/20 text-crimson border-crimson/40',
+  'NFL Draft': 'bg-crimson/20 text-crimson border-crimson/40',
+  NFL: 'bg-blue-900/50 text-blue-400 border-blue-700',
+  College: 'bg-emerald-900/50 text-emerald-400 border-emerald-700',
+  Feature: 'bg-white/10 text-white/60 border-white/20',
+};
+
 const podcastPlatforms = [
-  { name: 'Spotify', url: 'https://open.spotify.com/show/1DlSNLB5HsxSp12nilwjbc', color: '#1DB954' },
-  { name: 'Apple Podcasts', url: 'https://podcasts.apple.com/de/podcast/footballschland-american-football-made-in-germany/id1674301287', color: '#B150E2' },
-  { name: 'Amazon Music', url: 'https://music.amazon.de/podcasts/30356913-e520-4ebe-aaf9-4ae2f8a260ea/footballschland-american-football-made-in-germany', color: '#00A8E0' },
-  { name: 'RTL+', url: 'https://plus.rtl.de/podcast/footballschland-american-football-made-in-germany-qb6ejviehu3ee', color: '#E4002B' },
-  { name: 'Castbox', url: 'https://castbox.fm/vh/6522348', color: '#F55B23' },
-  { name: 'RSS Feed', url: 'https://feeds.megaphone.fm/footballschland', color: '#F26522' },
+  {
+    name: 'Spotify',
+    url: 'https://open.spotify.com/show/1DlSNLB5HsxSp12nilwjbc',
+    color: '#1DB954',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.521 17.34c-.24.36-.66.48-1.021.24-2.82-1.74-6.36-2.1-10.561-1.14-.418.12-.779-.18-.899-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.64 1.32.42.18.479.66.301 1.02zm1.44-3.3c-.301.42-.841.6-1.262.3-3.239-1.98-8.159-2.58-11.939-1.38-.479.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14 4.32-1.32 9.72-.66 13.44 1.56.36.18.54.78.241 1.2zm.12-3.36c-3.84-2.28-10.26-2.52-13.92-1.38-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>',
+  },
+  {
+    name: 'Apple Podcasts',
+    url: 'https://podcasts.apple.com/de/podcast/footballschland-american-football-made-in-germany/id1674301287',
+    color: '#B150E2',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M12 1a4 4 0 0 1 4 4v6a4 4 0 1 1-8 0V5a4 4 0 0 1 4-4zm-1 19v-2.07A7 7 0 0 1 5 11h2a5 5 0 0 0 10 0h2a7 7 0 0 1-6 6.93V20h2v2H9v-2h2z"/></svg>',
+  },
+  {
+    name: 'Amazon Music',
+    url: 'https://music.amazon.de/podcasts/30356913-e520-4ebe-aaf9-4ae2f8a260ea/footballschland-american-football-made-in-germany',
+    color: '#00A8E0',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M9 3v10.55A4 4 0 1 0 11 17V7h7V3H9zm-1 14a2 2 0 1 1 4 0 2 2 0 0 1-4 0z"/></svg>',
+  },
+  {
+    name: 'RTL+',
+    url: 'https://plus.rtl.de/podcast/footballschland-american-football-made-in-germany-qb6ejviehu3ee',
+    color: '#E4002B',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l7 4.5-7 4.5z"/></svg>',
+  },
+  {
+    name: 'Castbox',
+    url: 'https://castbox.fm/vh/6522348',
+    color: '#F55B23',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M3 18h2V6H3v12zm4 0h2v-7H7v7zm4 0h2V3h-2v15zm4 0h2V8h-2v10zm4 0h2v-5h-2v5z"/></svg>',
+  },
+  {
+    name: 'RSS Feed',
+    url: 'https://feeds.megaphone.fm/footballschland',
+    color: '#F26522',
+    icon: '<svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28"><path d="M6.18 15.64a2.18 2.18 0 0 1 2.18 2.18C8.36 19.01 7.38 20 6.18 20C4.98 20 4 19.01 4 17.82a2.18 2.18 0 0 1 2.18-2.18M4 4.44A15.56 15.56 0 0 1 19.56 20h-2.83A12.73 12.73 0 0 0 4 7.27V4.44m0 5.66a9.9 9.9 0 0 1 9.9 9.9h-2.83A7.07 7.07 0 0 0 4 12.93V10.1z"/></svg>',
+  },
 ];
 ---
-
 <BaseLayout
   title="Footballschland – American Football MADE IN GERMANY"
-  description="Footballschland ist ein Podcast, der sich ganz dem Traum junger Footballspieler aus Deutschland widmet. Wir erzählen die Geschichten von High-School-Athleten, College-Spielern und NFL-Hoffnungen."
+  description="Footballschland ist ein Podcast, der sich ganz dem Traum junger Footballspieler aus Deutschland widmet."
 >
-
-<!-- Hero Section -->
-<section class="relative bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D] pt-32 pb-20 px-4 overflow-hidden">
-  <!-- Subtle gold glow top-right -->
-  <div class="absolute top-0 right-0 w-96 h-96 bg-[#FFD700]/5 rounded-full blur-3xl pointer-events-none"></div>
-  <!-- Subtle crimson glow bottom-left -->
-  <div class="absolute bottom-0 left-0 w-64 h-64 bg-crimson/10 rounded-full blur-3xl pointer-events-none"></div>
-
-  <div class="max-w-7xl mx-auto text-center relative">
-    <!-- DE flag stripe accent -->
-    <div class="flex justify-center gap-1 mb-8">
-      <div class="w-6 h-1 rounded-full bg-white/30"></div>
-      <div class="w-6 h-1 rounded-full bg-crimson"></div>
-      <div class="w-6 h-1 rounded-full bg-[#FFD700]"></div>
+  <!-- Hero Section -->
+  <section class="relative bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D] pt-32 pb-20 px-4 overflow-hidden">
+    <div class="absolute top-0 right-0 w-96 h-96 bg-[#FFD700]/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-crimson/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-7xl mx-auto text-center relative">
+      <div class="flex justify-center gap-1 mb-8">
+        <div class="w-6 h-1 rounded-full bg-white/30"></div>
+        <div class="w-6 h-1 rounded-full bg-crimson"></div>
+        <div class="w-6 h-1 rounded-full bg-[#FFD700]"></div>
+      </div>
+      <h1 class="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
+        American Football<br />
+        <span class="text-crimson">MADE IN GERMANY</span>
+      </h1>
+      <p class="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-8 font-body">
+        Der Podcast, der die Geschichten von deutschen Talenten in High School, College und NFL erzählt.
+      </p>
+      <p class="text-lg text-white/50 max-w-2xl mx-auto mb-12 font-body">Von Sandra Janat & Daniel Düngel</p>
     </div>
+  </section>
 
-    <h1 class="font-display text-6xl md:text-7xl lg:text-8xl font-bold text-white mb-6 leading-tight">
-      American Football<br />
-      <span class="text-crimson">MADE IN GERMANY</span>
-    </h1>
-
-    <p class="text-xl md:text-2xl text-white/70 max-w-3xl mx-auto mb-8 font-body">
-      Der Podcast, der die Geschichten von deutschen Talenten in High School, College und NFL erzählt.
-    </p>
-
-    <p class="text-lg text-white/50 max-w-2xl mx-auto mb-12 font-body">
-      Von Sandra Janat & Daniel Düngel
-    </p>
-  </div>
-</section>
-
-<!-- Podcast Platforms -->
-<section class="bg-[#0D0D0D] py-16 px-4 border-b border-white/10">
-  <div class="max-w-7xl mx-auto">
-    <h2 class="section-label text-center mb-10">Überall verfügbar</h2>
-    
-    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-      {podcastPlatforms.map((platform) => (
-        <a
-          href={platform.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="group flex items-center justify-center px-4 py-6 rounded border border-white/10 hover:border-white/30 bg-white/5 hover:bg-white/10 transition-all"
-          style={{ '--platform-color': platform.color } as any}
-        >
-          <span class="text-white/80 group-hover:text-white font-semibold text-sm text-center transition-colors">
-            {platform.name}
-          </span>
-        </a>
-      ))}
+  <!-- Podcast Platforms -->
+  <section class="bg-[#0D0D0D] py-16 px-4 border-b border-white/10">
+    <div class="max-w-7xl mx-auto">
+      <h2 class="section-label text-center mb-10">Überall verfügbar</h2>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+        {podcastPlatforms.map((platform) => (
+          <a
+            href={platform.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group flex flex-col items-center gap-3 p-5 rounded-xl border bg-white/5 hover:bg-white/10 transition-all duration-300"
+            style={`border-color: ${platform.color}55`}
+          >
+            <div
+              class="w-12 h-12 rounded-xl flex items-center justify-center"
+              style={`background-color: ${platform.color}20; color: ${platform.color}`}
+            >
+              <Fragment set:html={platform.icon} />
+            </div>
+            <span class="text-white/70 group-hover:text-white font-semibold text-xs text-center transition-colors leading-tight">
+              {platform.name}
+            </span>
+          </a>
+        ))}
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Featured Section: Über den Podcast -->
-<section class="py-20 px-4 bg-gradient-to-b from-[#0D0D0D] to-[#1A1A1A]">
-  <div class="max-w-4xl mx-auto">
-    <h2 class="section-label text-center">Über den Podcast</h2>
-    
-    <h3 class="text-4xl md:text-5xl font-display font-bold text-white text-center mb-8">
-      Die Geschichten hinter dem Traum
-    </h3>
-
-    <p class="text-lg text-white/70 text-center mb-8 leading-relaxed font-body">
-      Footballschland begleitet junge Deutsche auf ihrem Weg durch High School und College zum Traum von der NFL. Wir erzählen Geschichten von Athleten, die gegen alle Widerstände kämpfen, von familiären Opfern und unbändigen Träumen.
-    </p>
-
-    <p class="text-lg text-white/70 text-center mb-12 leading-relaxed font-body">
-      Von Sandra Janat und Daniel Düngel — zwei Leidenschaftliche über den Sport, der Deutschland verzaubert.
-    </p>
-
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="/episoden" class="btn-primary">
-        Episoden ansehen
-      </a>
-      <a
-        href="https://www.patreon.com/footballschland"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="btn-outline"
-      >
-        ❤️ Unterstützen
-      </a>
+  <!-- Über den Podcast -->
+  <section class="py-20 px-4 bg-gradient-to-b from-[#0D0D0D] to-[#1A1A1A]">
+    <div class="max-w-4xl mx-auto">
+      <h2 class="section-label text-center">Über den Podcast</h2>
+      <h3 class="text-4xl md:text-5xl font-display font-bold text-white text-center mb-8">Die Geschichten hinter dem Traum</h3>
+      <p class="text-lg text-white/70 text-center mb-8 leading-relaxed font-body">
+        Footballschland begleitet junge Deutsche auf ihrem Weg durch High School und College zum Traum von der NFL. Wir erzählen Geschichten von Athleten, die gegen alle Widerstände kämpfen, von familiären Opfern und unbändigen Träumen.
+      </p>
+      <p class="text-lg text-white/70 text-center mb-12 leading-relaxed font-body">
+        Von Sandra Janat und Daniel Düngel — zwei Leidenschaftliche über den Sport, der Deutschland verzaubert.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/episoden" class="btn-primary">Episoden ansehen</a>
+        <a href="https://www.patreon.com/footballschland" target="_blank" rel="noopener noreferrer" class="btn-outline">❤️ Unterstützen</a>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Latest Blog Post Preview -->
-<section class="py-20 px-4 bg-[#0D0D0D] border-t border-white/10">
-  <div class="max-w-4xl mx-auto">
-    <div class="flex items-center justify-between mb-10">
-      <h2 class="section-label">Blockblog</h2>
-      <a href="/blockblog" class="text-white/60 hover:text-white text-sm font-medium uppercase tracking-widest transition-colors">
-        Alle Artikel →
-      </a>
-    </div>
-
-    <div class="space-y-6">
-      <article class="group p-6 bg-white/5 border border-white/10 hover:border-crimson/50 rounded transition-all">
-        <p class="text-crimson text-xs font-semibold uppercase tracking-widest mb-2">Draft</p>
-        <h3 class="text-2xl md:text-3xl font-display font-bold text-white mb-3 group-hover:text-crimson transition-colors">
-          Deutsche Spieler im NFL Draft 2026: Sieben Deutsche wollen den Sprung in die NFL schaffen
-        </h3>
-        <p class="text-white/60 text-base mb-4 leading-relaxed">
-          Der NFL Draft 2026 rückt näher – und mit ihm die Frage, die uns jedes Jahr aufs Neue elektrisiert: Wer wird der nächste Deutsche in der NFL? In diesem Jahr sind es gleich sieben Namen, die auf dem Radar der Scouts stehen.
-        </p>
-        <div class="flex items-center justify-between text-sm text-white/40">
-          <span>21. März 2026</span>
-          <span>14 Min. Lesezeit</span>
+  <!-- Latest Blog Posts -->
+  <section class="py-20 px-4 bg-[#0D0D0D] border-t border-white/10">
+    <div class="max-w-5xl mx-auto">
+      <div class="flex items-center justify-between mb-10">
+        <div>
+          <h2 class="section-label">Blockblog</h2>
+          <p class="text-white/40 text-sm font-body mt-1">Aktuelle Artikel</p>
         </div>
-        <a href="/blockblog/deutsche-spieler-im-nfl-draft-2026" class="mt-4 inline-flex items-center gap-2 text-crimson hover:text-crimson-light font-semibold transition-colors">
-          Artikel lesen →
-        </a>
-      </article>
+        <a href="/blockblog" class="text-white/50 hover:text-white text-sm font-medium uppercase tracking-widest transition-colors">Alle Artikel →</a>
+      </div>
+      {latestPosts.length === 0 ? (
+        <p class="text-white/40 text-center py-12">Keine Artikel gefunden.</p>
+      ) : (
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {latestPosts.map((post: any) => {
+            const heroUrl = post.heroImage?.asset?.url;
+            const badgeClass = categoryColors[post.category] ?? 'bg-white/10 text-white/60 border-white/20';
+            return (
+              <article class="group bg-[#1A1A1A] border border-white/10 hover:border-crimson/40 rounded-xl overflow-hidden transition-all duration-300 flex flex-col">
+                <a href={`/blockblog/${post.slug}`} class="block aspect-video relative bg-[#111111] overflow-hidden">
+                  {heroUrl ? (
+                    <img src={heroUrl} alt={post.title} class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+                  ) : (
+                    <div class="w-full h-full bg-gradient-to-br from-crimson/20 to-[#0D0D0D] flex items-center justify-center">
+                      <span class="font-display text-white/20 text-5xl font-bold">FS</span>
+                    </div>
+                  )}
+                </a>
+                <div class="flex flex-col flex-1 p-5">
+                  <div class="flex items-center gap-2 mb-3 flex-wrap">
+                    <span class={`px-2 py-0.5 text-xs font-bold uppercase tracking-widest rounded border ${badgeClass}`}>{post.category}</span>
+                    <span class="text-white/40 text-xs font-body">{formatDate(post.pubDate)}</span>
+                  </div>
+                  <a href={`/blockblog/${post.slug}`} class="flex-1">
+                    <h3 class="font-display text-lg font-bold text-white mb-2 leading-tight group-hover:text-crimson-light transition-colors line-clamp-3">{post.title}</h3>
+                  </a>
+                  <a href={`/blockblog/${post.slug}`} class="mt-3 text-crimson text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all self-start">Lesen <span>→</span></a>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      )}
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Call-to-Action Footer -->
-<section class="py-20 px-4 bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D]">
-  <div class="max-w-4xl mx-auto text-center">
-    <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">
-      Sei Teil der Community
-    </h2>
-
-    <p class="text-lg text-white/70 mb-8 max-w-2xl mx-auto font-body">
-      Folge uns auf Social Media, abonniere unseren Podcast und unterstütze uns auf Patreon.
-    </p>
-
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a href="https://www.instagram.com/footballschland" target="_blank" rel="noopener noreferrer" class="btn-outline">
-        Instagram
-      </a>
-      <a href="https://twitter.com/footballschland" target="_blank" rel="noopener noreferrer" class="btn-outline">
-        Twitter / X
-      </a>
-      <a href="https://www.patreon.com/footballschland" target="_blank" rel="noopener noreferrer" class="btn-primary">
-        ❤️ Patreon
-      </a>
+  <!-- CTA -->
+  <section class="py-20 px-4 bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D]">
+    <div class="max-w-4xl mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-display font-bold text-white mb-6">Sei Teil der Community</h2>
+      <p class="text-lg text-white/70 mb-8 max-w-2xl mx-auto font-body">
+        Folge uns auf Social Media, abonniere unseren Podcast und unterstütze uns auf Patreon.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="https://www.instagram.com/footballschland" target="_blank" rel="noopener noreferrer" class="btn-outline">Instagram</a>
+        <a href="https://twitter.com/footballschland" target="_blank" rel="noopener noreferrer" class="btn-outline">Twitter / X</a>
+        <a href="https://www.patreon.com/footballschland" target="_blank" rel="noopener noreferrer" class="btn-primary">❤️ Patreon</a>
+      </div>
     </div>
-  </div>
-</section>
-
+  </section>
 </BaseLayout>
