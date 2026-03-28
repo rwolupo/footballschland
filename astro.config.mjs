@@ -6,7 +6,6 @@ import netlify from '@astrojs/netlify';
 
 export default defineConfig({
   site: 'https://footballschland.netlify.app',
-  output: 'hybrid',
   adapter: netlify(),
   integrations: [
     tailwind(),
