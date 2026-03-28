@@ -3,12 +3,14 @@ import tailwind from '@astrojs/tailwind';
 import sitemap from '@astrojs/sitemap';
 import sanity from '@sanity/astro';
 import netlify from '@astrojs/netlify';
+import react from '@astrojs/react';
 
 export default defineConfig({
   site: 'https://footballschland.netlify.app',
   output: 'server',
   adapter: netlify(),
   integrations: [
+    react(),
     tailwind(),
     sitemap(),
     sanity({
