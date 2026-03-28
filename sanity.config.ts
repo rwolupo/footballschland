@@ -166,5 +166,55 @@ export default defineConfig({
         ],
       },
     ],
+    // ── Statische Seiten (Impressum, Datenschutz, etc.) ──
+    {
+      name: 'page',
+      title: 'Seiten',
+      type: 'document' as const,
+      fields: [
+        {
+          name: 'slug',
+          title: 'Seiten-ID',
+          type: 'slug',
+          description: 'z.B. impressum oder datenschutz',
+          validation: (Rule: any) => Rule.required(),
+          options: { source: 'title', maxLength: 96 },
+        },
+        { name: 'title', title: 'Seitentitel', type: 'string', validation: (Rule: any) => Rule.required() },
+        {
+          name: 'body',
+          title: 'Inhalt',
+          type: 'array',
+          of: [
+            {
+              type: 'block',
+              styles: [
+                { title: 'Fließtext', value: 'normal' },
+                { title: 'H2', value: 'h2' },
+                { title: 'H3', value: 'h3' },
+              ],
+              marks: {
+                decorators: [
+                  { title: 'Fett', value: 'strong' },
+                  { title: 'Kursiv', value: 'em' },
+                ],
+                annotations: [
+                  {
+                    name: 'link',
+                    type: 'object',
+                    title: 'Link',
+                    fields: [{ name: 'href', type: 'url', title: 'URL' }],
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      ],
+      preview: {
+        select: { title: 'title', subtitle: 'slug.current' },
+      },
+    },
+  ],
   },
 })
