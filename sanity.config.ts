@@ -19,36 +19,33 @@ export default defineConfig({
           { name: 'slug', title: 'URL-Slug', type: 'slug', options: { source: 'title', maxLength: 96 }, validation: (Rule: any) => Rule.required() },
           { name: 'description', title: 'Beschreibung (SEO)', type: 'text', validation: (Rule: any) => Rule.required().max(300) },
           { name: 'pubDate', title: 'Veroeffentlichungsdatum', type: 'date', validation: (Rule: any) => Rule.required() },
-          { name: 'updatedDate', title: 'Zuletzt aktualisiert', type: 'date' },
-          { name: 'author', title: 'Autor', type: 'string' },
-          {
-            name: 'category',
-            title: 'Kategorie',
-            type: 'string',
-            options: {
-              list: [
-                { title: 'Draft', value: 'Draft' },
-                { title: 'NFL', value: 'NFL' },
-                { title: 'College', value: 'College' },
-                { title: 'Podcast', value: 'Podcast' },
-                { title: 'Community', value: 'Community' },
-              ],
-            },
-          },
-          { name: 'readTime', title: 'Lesezeit (Minuten)', type: 'number' },
-          { name: 'heroImage', title: 'Titelbild', type: 'image', options: { hotspot: true } },
+          { name: 'heroImage', title: 'Hero-Bild', type: 'image', options: { hotspot: true } },
           {
             name: 'body',
             title: 'Inhalt',
             type: 'array',
             of: [
-              { type: 'block' },
+              {
+                type: 'block',
+                styles: [
+                  { title: 'Normal', value: 'normal' },
+                  { title: 'H2', value: 'h2' },
+                  { title: 'H3', value: 'h3' },
+                  { title: 'Quote', value: 'blockquote' },
+                ],
+                marks: {
+                  decorators: [
+                    { title: 'Strong', value: 'strong' },
+                    { title: 'Emphasis', value: 'em' },
+                  ],
+                },
+              },
               {
                 type: 'object',
                 name: 'playerCard',
                 title: 'Spieler-Karte',
                 fields: [
-                  { name: 'playerName', title: 'Name', type: 'string', validation: (Rule: any) => Rule.required() },
+                  { name: 'playerName', title: 'Spielername', type: 'string' },
                   { name: 'position', title: 'Position', type: 'string' },
                   { name: 'yearStatus', title: 'Jahr / Status', type: 'string' },
                   { name: 'college', title: 'College', type: 'string' },
@@ -76,56 +73,42 @@ export default defineConfig({
                   },
                   {
                     name: 'externalImageUrls',
-                    title: 'Bilder (externe URLs)',
+                    title: 'Externe Bild-URLs',
                     type: 'array',
                     of: [{ type: 'url' }],
                   },
-                  { name: 'bio', title: 'Beschreibung', type: 'text' },
+                  { name: 'bio', title: 'Bio / Beschreibung', type: 'text' },
                 ],
                 preview: {
                   select: { title: 'playerName', subtitle: 'position' },
                 },
               },
-            ],
-          },
-        ],
-      },
-      {
-        name: 'siteSettings',
-        title: 'Seiteneinstellungen',
-        type: 'document' as const,
-        fields: [
-          { name: 'siteTitle', title: 'Seitentitel', type: 'string' },
-          { name: 'siteDescription', title: 'Seitenbeschreibung', type: 'text' },
-          { name: 'heroHeadline', title: 'Hero-Überschrift', type: 'string' },
-          { name: 'heroSubtext', title: 'Hero-Untertext', type: 'text' },
-          { name: 'heroImage', title: 'Hero-Bild', type: 'image', options: { hotspot: true } },
-          { name: 'aboutText', title: 'Über uns Text', type: 'text' },
-          {
-            name: 'socialLinks',
-            title: 'Social Links',
-            type: 'array',
-            of: [
               {
                 type: 'object',
+                name: 'playerTable',
+                title: 'Spieler-Tabelle',
                 fields: [
-                  { name: 'label', title: 'Label', type: 'string' },
-                  { name: 'url', title: 'URL', type: 'url' },
+                  { name: 'tableTitle', title: 'Tabellenueberschrift', type: 'string' },
+                  {
+                    name: 'players',
+                    title: 'Spieler',
+                    type: 'array',
+                    of: [
+                      {
+                        type: 'object',
+                        fields: [
+                          { name: 'name', title: 'Name', type: 'string' },
+                          { name: 'position', title: 'Position', type: 'string' },
+                          { name: 'yearStatus', title: 'Jahr / Status', type: 'string' },
+                          { name: 'college', title: 'College', type: 'string' },
+                        ],
+                      },
+                    ],
+                  },
                 ],
-              },
-            ],
-          },
-          {
-            name: 'navLinks',
-            title: 'Navigation Links',
-            type: 'array',
-            of: [
-              {
-                type: 'object',
-                fields: [
-                  { name: 'label', title: 'Label', type: 'string' },
-                  { name: 'url', title: 'URL', type: 'string' },
-                ],
+                preview: {
+                  select: { title: 'tableTitle' },
+                },
               },
             ],
           },
