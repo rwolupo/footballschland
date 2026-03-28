@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@astrojs/netlify": "^5",
+    "@astrojs/react": "^3",
     "@astrojs/sitemap": "^3.7.2",
     "@astrojs/tailwind": "5.1.5",
     "@portabletext/to-html": "^2.0.2",
