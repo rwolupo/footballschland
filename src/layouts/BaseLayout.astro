@@ -200,7 +200,7 @@ const siteName = 'Footballschland';
               href="https://www.patreon.com/footballschland"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-4 py-2 bg-rot/20 border border-rot/40 text-rot-light hover:bg-rot/30 rounded text-sm font-medium transition-colors"
+              class="btn-patreon text-sm px-4 py-2"
             >
               ❤️ Unterstützen auf Patreon
             </a>
@@ -395,6 +395,23 @@ const siteName = 'Footballschland';
   }
   .btn-outline {
     @apply inline-flex items-center gap-2 px-6 py-3 border border-white/30 hover:border-white/60 text-white font-semibold rounded transition-colors;
+  }
+  /* Patreon CTA: #f96854 bg, #052d49 text */
+  .btn-patreon {
+    @apply inline-flex items-center gap-2 px-6 py-3 font-semibold rounded transition-all;
+    background-color: #f96854;
+    color: #052d49;
+  }
+  .btn-patreon:hover {
+    background-color: #fa7d6b;
+  }
+  /* Episoden CTA: cream/white bg, dark text */
+  .btn-episodes {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-[#f5f0eb] hover:bg-white text-[#231f20] font-semibold rounded transition-colors;
+  }
+  /* Gold CTA: brand gold bg, dark text (Partner, sonstige) */
+  .btn-gold {
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-gold hover:bg-gold-light text-[#231f20] font-semibold rounded transition-colors;
   }
 
   /* ── Leseoptimierte Sektionen (schwarz auf Creme) ── */
