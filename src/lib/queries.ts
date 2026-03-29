@@ -48,3 +48,7 @@ export const POST_BY_SLUG_QUERY = `*[_type == "blockblogPost" && slug.current ==
     }
   }
 }`;
+
+
+// GROQ query: Seite per Slug (Impressum, Datenschutz etc.)
+export const PAGE_BY_SLUG_QUERY = `*[_type == "page" && slug.current == $slug][0]{ title, body }`;
