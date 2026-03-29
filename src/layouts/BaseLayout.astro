@@ -55,6 +55,71 @@ const siteName = 'Footballschland';
 
   <!-- Sitemap -->
   <link rel="sitemap" href="/sitemap-index.xml" />
+
+  <!-- Page-specific head content (schema, etc.) -->
+  <slot name="head" />
+
+  <!-- hreflang: Deutsche Inhalte -->
+  <link rel="alternate" hreflang="de" href={canonical} />
+
+  <!-- JSON-LD: Organization + Podcast + WebSite -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://footballschland.media/#organization",
+        "name": "Footballschland",
+        "url": "https://footballschland.media",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://footballschland.media/assets/logos/footballschland.png"
+        },
+        "sameAs": [
+          "https://www.instagram.com/footballschland",
+          "https://twitter.com/footballschland",
+          "https://www.patreon.com/footballschland",
+          "https://open.spotify.com/show/footballschland",
+          "https://podcasts.apple.com/us/podcast/footballschland-american-football-made-in-germany/id1674301287"
+        ],
+        "description": "Deutschlands führender Podcast rund um deutsche American-Football-Talente in High School, College, NFL, GFL und ELF.",
+        "foundingDate": "2022",
+        "founder": [
+          { "@type": "Person", "name": "Daniel Düngel" },
+          { "@type": "Person", "name": "Sandra Janat" }
+        ]
+      },
+      {
+        "@type": "PodcastSeries",
+        "@id": "https://footballschland.media/#podcast",
+        "name": "Footballschland – American Football MADE IN GERMANY",
+        "description": "Footballschland erzählt die Geschichten junger deutscher Footballer auf dem Weg in High School, College und NFL. Mit Interviews, Analysen und aktuellen Nachrichten zu deutschen Talenten weltweit.",
+        "url": "https://footballschland.media/episoden",
+        "image": "https://footballschland.media/assets/logos/footballschland.png",
+        "inLanguage": "de",
+        "publisher": { "@id": "https://footballschland.media/#organization" },
+        "author": [
+          { "@type": "Person", "name": "Daniel Düngel" },
+          { "@type": "Person", "name": "Sandra Janat" }
+        ],
+        "potentialAction": {
+          "@type": "ListenAction",
+          "target": [
+            "https://open.spotify.com/show/footballschland",
+            "https://podcasts.apple.com/us/podcast/footballschland-american-football-made-in-germany/id1674301287"
+          ]
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://footballschland.media/#website",
+        "url": "https://footballschland.media",
+        "name": "Footballschland",
+        "inLanguage": "de",
+        "publisher": { "@id": "https://footballschland.media/#organization" }
+      }
+    ]
+  })} />
 </head>
 
 <body class="bg-[#231f20] text-white font-body antialiased">
@@ -214,7 +279,7 @@ const siteName = 'Footballschland';
         <p class="text-white/30 text-xs font-body uppercase tracking-widest mb-4 text-center">Mitglied im</p>
         <div class="flex items-center justify-center">
           <a
-            href="https://www.sportsocial.de/podcast-network/"
+            href="https://sport-social.co.uk/"
             target="_blank"
             rel="noopener noreferrer"
             class="group flex items-center gap-3 px-6 py-3 rounded-xl border border-white/10 hover:border-white/25 bg-white/3 hover:bg-white/6 transition-all duration-300"
