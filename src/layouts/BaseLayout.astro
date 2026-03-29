@@ -219,9 +219,7 @@ const siteName = 'Footballschland';
             rel="noopener noreferrer"
             class="group flex items-center gap-3 px-6 py-3 rounded-xl border border-white/10 hover:border-white/25 bg-white/3 hover:bg-white/6 transition-all duration-300"
           >
-            <div class="flex items-center justify-center w-9 h-9 rounded-full bg-[#e30613] shrink-0">
-              <span class="font-bold text-white text-xs leading-none">SSP</span>
-            </div>
+            <img src="/assets/partners/SSPN.png" alt="SSPN" class="h-9 w-auto object-contain shrink-0" />
             <div class="text-left">
               <span class="block text-white/80 group-hover:text-white text-sm font-semibold font-body transition-colors leading-tight">Sport Social Podcast Network</span>
               <span class="block text-white/35 text-xs font-body mt-0.5">Deutschlands führendes Sport-Podcast-Netzwerk</span>
@@ -388,6 +386,17 @@ const siteName = 'Footballschland';
   }
   .section-label {
     @apply text-rot text-xs font-semibold uppercase tracking-[0.25em] mb-3;
+  }
+  .section-divider {
+    @apply relative flex items-center justify-center py-6 overflow-hidden;
+  }
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    @apply flex-1 h-px bg-gradient-to-r from-transparent to-white/8;
+  }
+  .section-divider::after {
+    @apply bg-gradient-to-l from-transparent to-white/8;
   }
   .btn-primary {
     @apply inline-flex items-center gap-2 px-6 py-3 bg-rot hover:bg-rot-light text-white font-semibold rounded transition-colors;
