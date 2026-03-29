@@ -21,7 +21,7 @@ if (!post) {
 
 const { title, description, pubDate, updatedDate, author, category, readTime, heroImage, body } = post;
 
-const canonicalUrl = `https://footballschland.media/blockblog/${slug}`;
+const canonicalUrl = `https://footballschland.de/blockblog/${slug}`;
 const articleSchema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -36,14 +36,14 @@ const articleSchema = {
       "author": {
         "@type": "Person",
         "name": author || 'Daniel Düngel',
-        "url": "https://footballschland.media"
+        "url": "https://footballschland.de"
       },
       "publisher": {
-        "@id": "https://footballschland.media/#organization"
+        "@id": "https://footballschland.de/#organization"
       },
       "image": heroImage?.asset?.url
         ? { "@type": "ImageObject", "url": heroImage.asset.url }
-        : { "@type": "ImageObject", "url": "https://footballschland.media/assets/og-default.png" },
+        : { "@type": "ImageObject", "url": "https://footballschland.de/assets/og-default.png" },
       "inLanguage": "de",
       "articleSection": category || 'Football',
       "keywords": category === 'Draft'
@@ -55,13 +55,71 @@ const articleSchema = {
     {
       "@type": "BreadcrumbList",
       "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://footballschland.media" },
-        { "@type": "ListItem", "position": 2, "name": "Blockblog", "item": "https://footballschland.media/blockblog" },
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://footballschland.de" },
+        { "@type": "ListItem", "position": 2, "name": "Blockblog", "item": "https://footballschland.de/blockblog" },
         { "@type": "ListItem", "position": 3, "name": title, "item": canonicalUrl }
       ]
     }
   ]
 };
+
+// FAQ-Schema je Artikel (GEO: KI-Systeme lieben strukturierte Q&A)
+const faqData: Record<string, { q: string; a: string }[]> = {
+  'deutsche-talente-d1-2025': [
+    {
+      q: 'Wie viele deutsche Spieler spielen in D1 College Football 2025?',
+      a: 'In der Saison 2025 stehen erstmals über 50 deutsche Talente in den Kadern der NCAA Division 1 – genau 53 Spieler, verteilt auf 30 FBS- und 23 FCS-Programme.'
+    },
+    {
+      q: 'Welche Position spielen die meisten deutschen D1-Footballer?',
+      a: 'Mit Abstand die meisten deutschen Spieler in D1 spielen auf der Offensive Line (18 Spieler), gefolgt von Defensive Line (12) und Tight End (7). Deutsche Athleten überzeugen vor allem durch ihre Körpergröße und Athletik im Lineman-Bereich.'
+    },
+    {
+      q: 'In welchen Conferences spielen die meisten deutschen D1-Spieler?',
+      a: 'Im FBS dominiert die SEC mit 7 deutschen Spielern, gefolgt von Sun Belt und AAC mit je 5. Im FCS führen SoCon und Big Sky mit je 4 Spielern.'
+    },
+    {
+      q: 'Was ist der Unterschied zwischen FBS und FCS im College Football?',
+      a: 'FBS (Football Bowl Subdivision) ist die höchste Spielklasse mit den größten Programmen wie Alabama, Michigan oder Georgia. FCS (Football Championship Subdivision) ist die zweite Division mit starken Programmen wie North Dakota State. Von 53 deutschen D1-Spielern 2025 spielen 30 in der FBS und 23 in der FCS.'
+    },
+    {
+      q: 'Welcher deutsche Spieler hat die beste NFL-Draft-Chance aus D1 College Football 2025?',
+      a: 'Mehrere deutsche D1-Spieler stehen vor dem NFL Draft 2026. Tight End Marlin Klein von der University of Michigan gilt als potenzieller Dritt-Runden-Pick und ist der prominenteste deutsche NFL-Draft-Kandidat aus der Saison 2025.'
+    }
+  ],
+  'deutsche-spieler-im-nfl-draft-2026': [
+    {
+      q: 'Wie viele deutsche Spieler sind im NFL Draft 2026?',
+      a: 'Sieben deutsche Spieler wollen beim NFL Draft 2026 den Sprung in die NFL schaffen: Marlin Klein (TE, Michigan), Paul Rubelt (OL, UCF), Mark Petry (OL, Syracuse), Florian Staehler (OL, Idaho), Maurice Heims (DL, Idaho), Felix Lepper (OL, IPP) und Leo Blumentritt (P/K, Northern Colorado).'
+    },
+    {
+      q: 'Wer ist der beste deutsche NFL Draft Kandidat 2026?',
+      a: 'Marlin Klein (Tight End, University of Michigan) gilt als bester deutscher NFL-Draft-Kandidat 2026. Mit 47 Receptions, 584 Yards und 7 Touchdowns in der Saison 2025 sowie einer 4,61-Sekunden-Zeit im 40-Yard-Dash (bei 6\'6" und 253 lbs) ist ein Pick in der 3. Runde realistisch.'
+    },
+    {
+      q: 'Was ist das International Player Pathway Program (IPP) der NFL?',
+      a: 'Das International Player Pathway Program (IPP) der NFL ermöglicht internationalen Spielern ohne US-College-Erfahrung den Einstieg in die NFL. Spieler absolvieren ein intensives Trainingsprogramm und können als zusätzlicher Practice-Squad-Spieler verpflichtet werden. 2026 nimmt Felix Lepper (OL, 6\'9") aus Deutschland am IPP teil.'
+    },
+    {
+      q: 'Wo kommen die deutschen NFL Draft Kandidaten 2026 her?',
+      a: 'Die sieben deutschen NFL-Draft-Kandidaten 2026 kommen aus ganz Deutschland: Marlin Klein aus Köln, Paul Rubelt aus Frankfurt an der Oder, Leo Blumentritt aus der Fursty Razorbacks-Region. Alle haben ihren Weg über das deutsche Football-System und US-College-Programme in den Draft gefunden.'
+    },
+    {
+      q: 'Wie kann man den NFL Draft 2026 mit deutschen Spielern verfolgen?',
+      a: 'Den NFL Draft 2026 mit deutschen Spielern verfolgt man am besten über den Footballschland Podcast und Blockblog. Footballschland berichtet exklusiv über deutsche Talente in High School, College und NFL – auf Deutsch, mit Hintergrundgeschichten und Interviews.'
+    }
+  ]
+};
+const faqItems = faqData[slug as string] || [];
+const faqSchema = faqItems.length > 0 ? {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": faqItems.map(({ q, a }) => ({
+    "@type": "Question",
+    "name": q,
+    "acceptedAnswer": { "@type": "Answer", "text": a }
+  }))
+} : null;
 
 const formatDate = (date: string) =>
   new Date(date).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
@@ -212,6 +270,7 @@ const bodyHtml = body ? toHTML(body, {
   ogImage={heroImage?.asset?.url || '/assets/og-default.png'}
 >
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} slot="head" />
+  {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />}
 
   <!-- Article Hero -->
   <section class="bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D] pt-28 pb-0 px-4">
@@ -352,6 +411,26 @@ const bodyHtml = body ? toHTML(body, {
         set:html={bodyHtml}
       />
 
+      {faqItems.length > 0 && (
+        <div class="not-prose mt-12 rounded-2xl overflow-hidden border border-[#231f20]/10 bg-white shadow-sm">
+          <div class="px-6 py-4 bg-[#231f20] flex items-center gap-3">
+            <span class="text-gold font-bold text-lg">?</span>
+            <p class="font-display font-bold text-white text-sm tracking-widest uppercase">Häufige Fragen</p>
+          </div>
+          <div class="divide-y divide-[#231f20]/8">
+            {faqItems.map(({ q, a }) => (
+              <details class="group px-6 py-4 cursor-pointer">
+                <summary class="flex items-center justify-between gap-4 font-semibold text-[#231f20] text-sm list-none select-none">
+                  <span>{q}</span>
+                  <span class="shrink-0 text-[#231f20]/30 group-open:text-crimson text-lg transition-colors">+</span>
+                </summary>
+                <p class="mt-3 text-sm text-[#231f20]/70 leading-relaxed font-body">{a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      )}
+
       <div class="mt-12 pt-8 border-t border-[#231f20]/10 flex flex-wrap gap-3">
         <a href="/blockblog" class="px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded border bg-[#231f20]/5 text-[#231f20]/60 border-[#231f20]/20 hover:border-[#231f20]/40">← Alle Artikel</a>
         <span class={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded border ${badgeClass}`}>{category}</span>
@@ -360,8 +439,8 @@ const bodyHtml = body ? toHTML(body, {
       <div class="mt-8 p-6 bg-[#231f20]/5 border border-[#231f20]/10 rounded-xl">
         <p class="text-[#231f20]/60 text-sm font-body mb-3">Artikel teilen:</p>
         <div class="flex flex-wrap gap-3">
-          <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent('https://footballschland.netlify.app/blockblog/' + slug)}&via=footballschland`} target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-[#1DA1F2]/10 border border-[#1DA1F2]/30 text-[#1DA1F2] text-sm rounded hover:bg-[#1DA1F2]/20 transition-colors">𝕏 Twitter</a>
-          <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://footballschland.netlify.app/blockblog/' + slug)}`} target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-[#1877F2]/10 border border-[#1877F2]/30 text-[#1877F2] text-sm rounded hover:bg-[#1877F2]/20 transition-colors">Facebook</a>
+          <a href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent('https://footballschland.de/blockblog/' + slug)}&via=footballschland`} target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-[#1DA1F2]/10 border border-[#1DA1F2]/30 text-[#1DA1F2] text-sm rounded hover:bg-[#1DA1F2]/20 transition-colors">𝕏 Twitter</a>
+          <a href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent('https://footballschland.de/blockblog/' + slug)}`} target="_blank" rel="noopener noreferrer" class="px-4 py-2 bg-[#1877F2]/10 border border-[#1877F2]/30 text-[#1877F2] text-sm rounded hover:bg-[#1877F2]/20 transition-colors">Facebook</a>
         </div>
       </div>
     </div>

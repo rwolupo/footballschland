@@ -6,7 +6,7 @@ import netlify from '@astrojs/netlify';
 import react from '@astrojs/react';
 
 export default defineConfig({
-  site: 'https://footballschland.media',
+  site: 'https://footballschland.de',
   output: 'server',
   adapter: netlify(),
   integrations: [
