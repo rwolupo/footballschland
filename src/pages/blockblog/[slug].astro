@@ -49,9 +49,11 @@ for (const pc of playerCards) {
 const sortedPos = Object.entries(posCounts).sort((a, b) => b[1] - a[1]);
 const maxPosCount = sortedPos[0]?.[1] ?? 1;
 
-// Division FBS / FCS
-const fbsCount = playerCards.filter((pc: any) => ((pc.division as string) || '').toUpperCase() === 'FBS').length;
-const fcsCount = playerCards.filter((pc: any) => ((pc.division as string) || '').toUpperCase() === 'FCS').length;
+// Division FBS / FCS — Sanity speichert "D1-FBS" / "D1-FCS"
+const isFbs = (div: string) => (div || '').toUpperCase().includes('FBS');
+const isFcs = (div: string) => (div || '').toUpperCase().includes('FCS');
+const fbsCount = playerCards.filter((pc: any) => isFbs(pc.division as string)).length;
+const fcsCount = playerCards.filter((pc: any) => isFcs(pc.division as string)).length;
 const totalCount = playerCards.length;
 const fbsPct = totalCount > 0 ? Math.round((fbsCount / totalCount) * 100) : 0;
 const fcsPct = totalCount > 0 ? Math.round((fcsCount / totalCount) * 100) : 0;
@@ -61,8 +63,8 @@ const fbsConfs: Record<string, number> = {};
 const fcsConfs: Record<string, number> = {};
 for (const pc of playerCards) {
   const conf = ((pc.conference as string) || 'Unbekannt').trim();
-  const div = ((pc.division as string) || '').toUpperCase();
-  if (div === 'FBS') fbsConfs[conf] = (fbsConfs[conf] || 0) + 1;
+  const div = (pc.division as string) || '';
+  if (isFbs(div)) fbsConfs[conf] = (fbsConfs[conf] || 0) + 1;
   else fcsConfs[conf] = (fcsConfs[conf] || 0) + 1;
 }
 const sortedFbs = Object.entries(fbsConfs).sort((a, b) => b[1] - a[1]);
@@ -205,43 +207,43 @@ const bodyHtml = body ? toHTML(body, {
 
       {hasStats && (
         <div class="not-prose mb-10 rounded-2xl overflow-hidden border border-[#231f20]/10 bg-white shadow-sm">
+
+          <!-- Header -->
           <div class="px-6 py-4 bg-[#231f20] flex items-center gap-3">
-            <span class="text-crimson text-lg font-bold">▪</span>
+            <span class="text-crimson font-bold">▪</span>
             <p class="font-display font-bold text-white text-sm tracking-widest uppercase">Statistiken &middot; {totalCount} deutsche Spieler im D1 Football 2025</p>
           </div>
+
+          <!-- 3-Spalten-Grid: FBS Confs | Zahlen + Positionen | FCS Confs -->
           <div class="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#231f20]/10">
 
+            <!-- Spalte 1: FBS Conferences -->
             <div class="p-5">
-              <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#231f20]/40 mb-4">Spieler je Position</p>
-              <div class="space-y-2">
-                {sortedPos.map(([pos, count]) => (
-                  <div class="flex items-center gap-3">
-                    <span class="w-12 text-right text-xs font-bold text-[#231f20]/50 shrink-0">{pos}</span>
-                    <div class="flex-1 h-2 bg-[#231f20]/10 rounded-full overflow-hidden">
-                      <div class="h-full rounded-full bg-crimson" style={`width:${Math.round((count / maxPosCount) * 100)}%`}></div>
-                    </div>
-                    <span class="w-5 text-right text-xs font-bold text-[#231f20]">{count}</span>
-                  </div>
-                ))}
-              </div>
+              <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-crimson mb-3">FBS · Bowl Subdivision</p>
+              {sortedFbs.map(([conf, count]) => (
+                <div class="flex items-center justify-between py-[5px] border-b border-[#231f20]/5 last:border-0">
+                  <span class="text-xs text-[#231f20]/70">{conf}</span>
+                  <span class="text-xs font-bold text-crimson">{count}</span>
+                </div>
+              ))}
             </div>
 
-            <div class="p-5 flex flex-col gap-4">
-              <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#231f20]/40">Division-Split</p>
-              <div class="flex items-end gap-8">
-                <div class="text-center">
-                  <p class="font-display text-5xl font-black text-crimson">{fbsCount}</p>
-                  <p class="text-xs font-bold text-[#231f20]/50 mt-1">FBS</p>
-                  <p class="text-[10px] text-[#231f20]/30">Bowl Subdivision</p>
+            <!-- Spalte 2: FBS/FCS Zahlen + Positionen -->
+            <div class="p-5 flex flex-col gap-5">
+              <!-- Gesamtzahlen -->
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#231f20]/40 mb-3">Division-Split</p>
+                <div class="flex items-end gap-8 mb-3">
+                  <div class="text-center">
+                    <p class="font-display text-5xl font-black text-crimson leading-none">{fbsCount}</p>
+                    <p class="text-xs font-bold text-[#231f20]/50 mt-1">FBS</p>
+                  </div>
+                  <div class="text-center">
+                    <p class="font-display text-5xl font-black text-blue-500 leading-none">{fcsCount}</p>
+                    <p class="text-xs font-bold text-[#231f20]/50 mt-1">FCS</p>
+                  </div>
                 </div>
-                <div class="text-center">
-                  <p class="font-display text-5xl font-black text-blue-500">{fcsCount}</p>
-                  <p class="text-xs font-bold text-[#231f20]/50 mt-1">FCS</p>
-                  <p class="text-[10px] text-[#231f20]/30">Championship Subdiv.</p>
-                </div>
-              </div>
-              <div class="mt-auto">
-                <div class="h-3 rounded-full overflow-hidden bg-[#231f20]/10 flex">
+                <div class="h-2 rounded-full overflow-hidden bg-[#231f20]/10 flex">
                   <div class="h-full bg-crimson" style={`width:${fbsPct}%`}></div>
                   <div class="h-full bg-blue-500" style={`width:${fcsPct}%`}></div>
                 </div>
@@ -250,36 +252,32 @@ const bodyHtml = body ? toHTML(body, {
                   <span class="text-[10px] text-[#231f20]/40">FCS {fcsPct}%</span>
                 </div>
               </div>
+              <!-- Positionen -->
+              <div>
+                <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#231f20]/40 mb-3">Spieler je Position</p>
+                <div class="space-y-[6px]">
+                  {sortedPos.map(([pos, count]) => (
+                    <div class="flex items-center gap-2">
+                      <span class="w-10 text-right text-[11px] font-bold text-[#231f20]/50 shrink-0">{pos}</span>
+                      <div class="flex-1 h-[6px] bg-[#231f20]/10 rounded-full overflow-hidden">
+                        <div class="h-full rounded-full bg-crimson" style={`width:${Math.round((count / maxPosCount) * 100)}%`}></div>
+                      </div>
+                      <span class="w-4 text-right text-[11px] font-bold text-[#231f20]">{count}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
 
+            <!-- Spalte 3: FCS Conferences -->
             <div class="p-5">
-              <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-[#231f20]/40 mb-3">Conferences</p>
-              {sortedFbs.length > 0 && (
-                <>
-                  <p class="text-[10px] font-bold uppercase tracking-[0.1em] text-crimson/60 mb-2">FBS</p>
-                  <div class="mb-4">
-                    {sortedFbs.map(([conf, count]) => (
-                      <div class="flex items-center justify-between py-1 border-b border-[#231f20]/5 last:border-0">
-                        <span class="text-xs text-[#231f20]/70">{conf}</span>
-                        <span class="text-xs font-bold text-crimson">{count}</span>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
-              {sortedFcs.length > 0 && (
-                <>
-                  <p class="text-[10px] font-bold uppercase tracking-[0.1em] text-blue-400 mb-2">FCS</p>
-                  <div>
-                    {sortedFcs.map(([conf, count]) => (
-                      <div class="flex items-center justify-between py-1 border-b border-[#231f20]/5 last:border-0">
-                        <span class="text-xs text-[#231f20]/70">{conf}</span>
-                        <span class="text-xs font-bold text-blue-500">{count}</span>
-                      </div>
-                    ))}
-                  </div>
-                </>
-              )}
+              <p class="text-[10px] font-bold uppercase tracking-[0.15em] text-blue-500 mb-3">FCS · Championship Subdiv.</p>
+              {sortedFcs.map(([conf, count]) => (
+                <div class="flex items-center justify-between py-[5px] border-b border-[#231f20]/5 last:border-0">
+                  <span class="text-xs text-[#231f20]/70">{conf}</span>
+                  <span class="text-xs font-bold text-blue-500">{count}</span>
+                </div>
+              ))}
             </div>
 
           </div>
