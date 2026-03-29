@@ -202,11 +202,11 @@ const categoryColors: Record<string, string> = {
                 class="group flex flex-col bg-[#1A1A1A] border border-white/10 hover:border-crimson/60 rounded-xl overflow-hidden transition-all duration-200 hover:-translate-y-1 hover:shadow-xl hover:shadow-crimson/10"
               >
                 <!-- Image -->
-                <div class="relative h-48 bg-[#111111] flex items-center justify-center overflow-hidden">
+                <div class={`relative aspect-[300/250] overflow-hidden ${partner.image.endsWith('.svg') ? 'bg-white/5 flex items-center justify-center' : 'bg-[#0D0D0D]'}`}>
                   <img
                     src={partner.image}
                     alt={partner.name}
-                    class="w-full h-full object-contain p-4 group-hover:scale-105 transition-transform duration-300"
+                    class={`w-full h-full group-hover:scale-105 transition-transform duration-300 ${partner.image.endsWith('.svg') ? 'object-contain p-8' : 'object-cover'}`}
                     loading="lazy"
                   />
                 </div>
