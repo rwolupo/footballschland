@@ -116,16 +116,30 @@ const podcastPlatforms = [
     <div class="max-w-3xl mx-auto">
       <h2 class="section-label text-center mb-1">Aktuelle Folge</h2>
       <p class="text-white/30 text-xs uppercase tracking-widest text-center font-body mb-8">Direkt reinhören</p>
-      <iframe
-        style="border-radius:12px"
-        src="https://open.spotify.com/embed/show/1DlSNLB5HsxSp12nilwjbc?utm_source=generator&theme=0"
-        width="100%"
-        height="232"
-        frameBorder="0"
-        allowfullscreen
-        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-        loading="lazy"
-      ></iframe>
+      <!-- Placeholder (sichtbar solange kein Consent) -->
+      <div class="consent-placeholder rounded-xl bg-white/5 border border-white/10 p-8 text-center space-y-4">
+        <div class="text-4xl">🎙</div>
+        <p class="text-white/70 text-sm font-semibold">Spotify-Player</p>
+        <p class="text-white/45 text-xs leading-relaxed max-w-xs mx-auto">
+          Zum Laden des Podcast-Players ist deine Zustimmung zu externen Inhalten erforderlich.
+        </p>
+        <button onclick="fsConsentAccept()" class="btn-primary text-sm py-2 px-5">
+          Akzeptieren &amp; laden
+        </button>
+      </div>
+      <!-- Actual player (hidden until consent) -->
+      <div class="consent-content" style="display:none">
+        <iframe
+          style="border-radius:12px"
+          data-consent-src="https://open.spotify.com/embed/show/1DlSNLB5HsxSp12nilwjbc?utm_source=generator&theme=0"
+          width="100%"
+          height="232"
+          frameBorder="0"
+          allowfullscreen
+          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+          loading="lazy"
+        ></iframe>
+      </div>
     </div>
   </section>
 
@@ -248,6 +262,95 @@ const podcastPlatforms = [
     </div>
   </section>
 
+  <!-- ── UNTERSTÜTZE UNS ── -->
+  <section class="py-24 px-4 bg-gradient-to-b from-[#111111] to-[#0D0D0D] border-t border-white/10 relative overflow-hidden">
+    <!-- Atmospheric glow -->
+    <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-crimson/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="max-w-3xl mx-auto relative z-10">
+
+      <!-- Label + Headline -->
+      <p class="section-label text-center mb-4">Mission</p>
+      <h2 class="font-display text-4xl md:text-5xl font-bold text-white text-center mb-14 leading-tight">
+        Unterstütze<br /><span class="text-crimson">uns</span>
+      </h2>
+
+      <!-- Schwarzrotgold accent bar -->
+      <div class="flex h-[3px] w-24 mx-auto mb-12 rounded-full overflow-hidden">
+        <div class="flex-1 bg-[#231f20]"></div>
+        <div class="flex-1 bg-rot"></div>
+        <div class="flex-1 bg-gold"></div>
+      </div>
+
+      <!-- Text -->
+      <div class="space-y-6 font-body text-base md:text-lg leading-relaxed">
+        <p class="text-white/90 font-semibold text-xl md:text-2xl leading-snug">
+          Footballschland ist mehr als ein Podcast.
+        </p>
+        <p class="text-white/65">
+          Wir erzählen die Geschichten junger deutscher Football-Talente, die den mutigen Weg von High School und College Football bis in die NFL gehen – und damit einen Traum leben, den viele für unerreichbar halten. Wir begleiten sie, sprechen mit ihren Familien, Coaches und Wegbegleiter:innen. Und wir zeigen: Schwarz-Rot-Gold hat im American Football eine Zukunft.
+        </p>
+        <p class="text-white/55">
+          Diese Geschichten verdienen es, gehört zu werden. Aber: Qualität, Tiefe und Reichweite entstehen nicht einfach so nebenbei.
+        </p>
+
+        <!-- Highlight box -->
+        <div class="my-8 p-6 rounded-xl border border-white/10 bg-white/5">
+          <p class="text-white font-semibold mb-3">🎙 Was wir tun, kostet Zeit, Herzblut und Geld.</p>
+          <p class="text-white/60 text-sm leading-relaxed">
+            Ob Interviews mit den Spielern, technische Ausstattung, Recherche, Postproduktion oder die Aufbereitung der Inhalte – all das stemmen wir in unserer Freizeit und ohne Budgets.
+          </p>
+        </div>
+
+        <p class="text-white/70 font-semibold">
+          Deshalb brauchen wir dich.
+        </p>
+        <p class="text-white/55">
+          Wenn dir unser Podcast gefällt, wenn du die Vision teilst, deutsche Talente sichtbar zu machen und dem Football hierzulande eine Bühne zu geben, dann hilf uns, Footballschland weiter auszubauen.
+        </p>
+
+        <div class="my-8 p-6 rounded-xl border border-crimson/20 bg-crimson/5">
+          <p class="text-white font-semibold mb-2">👊 Werde Teil unserer Mission.</p>
+          <p class="text-white/65 text-sm leading-relaxed">
+            Mit deiner Unterstützung auf Patreon hilfst du uns, unabhängig, hochwertig und regelmäßig neue Inhalte zu produzieren – für dich, für die Community und für all die Spieler:innen, die gerade den nächsten Schritt wagen.
+          </p>
+        </div>
+
+        <div class="text-center py-4">
+          <p class="text-white/80 font-semibold text-lg mb-1">❤️ Jede Unterstützung zählt.</p>
+          <p class="text-white/50 text-sm">
+            Ob einmalig oder monatlich – du hilfst uns, den Traum vom „American Football MADE IN GERMANY" weiterzuerzählen.
+          </p>
+        </div>
+      </div>
+
+      <!-- CTAs -->
+      <div class="mt-12 flex flex-col sm:flex-row gap-4 justify-center flex-wrap">
+        <a
+          href="https://www.patreon.com/footballschland"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-primary text-base px-8 py-4"
+        >
+          ❤️ Auf Patreon unterstützen
+        </a>
+        <a
+          href="https://shop.footballschland.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-outline text-base px-8 py-4"
+        >
+          🛍 Shop besuchen
+        </a>
+        <a
+          href="/partner"
+          class="btn-outline text-base px-8 py-4"
+        >
+          🤝 Unsere Partner
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- ── CTA ── -->
   <section class="py-20 px-4 bg-gradient-to-b from-[#1A1A1A] to-[#0D0D0D]">
     <div class="max-w-4xl mx-auto text-center">
@@ -287,15 +390,27 @@ const podcastPlatforms = [
       </div>
 
 
-      <!-- LightWidget: echter Instagram-Feed -->
-      <script is:inline src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
-      <iframe
-        src="https://cdn.lightwidget.com/widgets/3706973b6a6956aeac050f493e2323c3.html"
-        scrolling="no"
-        allowtransparency="true"
-        class="lightwidget-widget"
-        style="width:100%;border:0;overflow:hidden;"
-      ></iframe>
+      <!-- Placeholder (sichtbar solange kein Consent) -->
+      <div class="consent-placeholder rounded-xl bg-white/5 border border-white/10 p-8 text-center space-y-4">
+        <div class="text-4xl">📸</div>
+        <p class="text-white/70 text-sm font-semibold">Instagram-Feed</p>
+        <p class="text-white/45 text-xs leading-relaxed max-w-xs mx-auto">
+          Zum Laden des Instagram-Feeds ist deine Zustimmung zu externen Inhalten erforderlich.
+        </p>
+        <button onclick="fsConsentAccept()" class="btn-primary text-sm py-2 px-5">
+          Akzeptieren &amp; laden
+        </button>
+      </div>
+      <!-- LightWidget: echter Instagram-Feed (geladen nach Consent) -->
+      <div class="consent-content" style="display:none">
+        <iframe
+          data-consent-src="https://cdn.lightwidget.com/widgets/3706973b6a6956aeac050f493e2323c3.html"
+          scrolling="no"
+          allowtransparency="true"
+          class="lightwidget-widget"
+          style="width:100%;border:0;overflow:hidden;"
+        ></iframe>
+      </div>
     </div>
   </section>
 </BaseLayout>

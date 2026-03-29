@@ -50,13 +50,8 @@ const siteName = 'Footballschland';
   <link rel="icon" type="image/png" href="/assets/logos/footballschland.png" />
   <link rel="apple-touch-icon" href="/assets/logos/footballschland.png" />
 
-  <!-- Google Fonts: Antonio (Display/Headlines) + Poppins (Body) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap"
-    rel="stylesheet"
-  />
+  <!-- Fonts: Antonio + Poppins (self-hosted, DSGVO-konform) -->
+  <link rel="stylesheet" href="/fonts/fonts.css" />
 
   <!-- Sitemap -->
   <link rel="sitemap" href="/sitemap-index.xml" />
@@ -255,6 +250,123 @@ const siteName = 'Footballschland';
       const isOpen = menu?.classList.toggle('hidden');
       btn.setAttribute('aria-expanded', String(!menu?.classList.contains('hidden')));
     });
+  </script>
+
+  <!-- ── COOKIE CONSENT BANNER ── -->
+  <div
+    id="cookie-banner"
+    class="fixed bottom-0 left-0 right-0 z-[200] bg-[#1a1617] border-t border-white/20 shadow-2xl"
+    style="display:none"
+    role="dialog"
+    aria-live="polite"
+    aria-label="Cookie-Einstellungen"
+  >
+    <div class="max-w-7xl mx-auto px-4 py-5 flex flex-col md:flex-row items-start md:items-center gap-4 justify-between">
+      <div class="flex-1 min-w-0">
+        <p class="text-white font-semibold text-sm mb-1">🍪 Externe Inhalte & Datenschutz</p>
+        <p class="text-white/55 text-xs leading-relaxed max-w-3xl">
+          Diese Website lädt externe Inhalte von <strong class="text-white/80">Spotify</strong> und <strong class="text-white/80">Instagram (LightWidget)</strong>.
+          Dabei können personenbezogene Daten (inkl. IP-Adresse) an diese Anbieter übertragen werden.
+          Mit „Akzeptieren" stimmst du dem Laden dieser Inhalte zu.
+          Weitere Infos in unserer <a href="/datenschutz" class="text-crimson underline">Datenschutzerklärung</a>.
+        </p>
+      </div>
+      <div class="flex gap-3 shrink-0 flex-wrap">
+        <button
+          id="cookie-decline"
+          class="px-4 py-2 text-white/60 text-sm border border-white/20 rounded hover:bg-white/10 transition-colors font-body"
+        >
+          Nur notwendige
+        </button>
+        <button
+          id="cookie-accept"
+          class="px-5 py-2 bg-rot text-white text-sm font-semibold rounded hover:bg-rot-light transition-colors font-body"
+        >
+          Akzeptieren
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── CONSENT MANAGER SCRIPT ── -->
+  <script is:inline>
+    (function () {
+      var CONSENT_KEY = 'fs_consent';
+
+      function loadExternalContent() {
+        // Activate iframes by moving data-consent-src → src
+        document.querySelectorAll('[data-consent-src]').forEach(function (el) {
+          el.src = el.getAttribute('data-consent-src');
+          el.removeAttribute('data-consent-src');
+        });
+        // Load LightWidget script
+        if (!document.querySelector('script[src*="lightwidget"]')) {
+          var s = document.createElement('script');
+          s.src = 'https://cdn.lightwidget.com/widgets/lightwidget.js';
+          document.body.appendChild(s);
+        }
+        // Show consent-content, hide placeholders
+        document.querySelectorAll('.consent-placeholder').forEach(function (el) {
+          el.style.display = 'none';
+        });
+        document.querySelectorAll('.consent-content').forEach(function (el) {
+          el.style.display = '';
+        });
+      }
+
+      function showPlaceholders() {
+        document.querySelectorAll('.consent-content').forEach(function (el) {
+          el.style.display = 'none';
+        });
+        // Placeholders are visible by default — nothing extra needed
+      }
+
+      var stored = localStorage.getItem(CONSENT_KEY);
+
+      if (stored === 'accepted') {
+        // Load immediately without showing banner
+        document.addEventListener('DOMContentLoaded', loadExternalContent);
+      } else if (stored === 'declined') {
+        // Just hide consent-content (placeholders stay visible)
+        document.addEventListener('DOMContentLoaded', showPlaceholders);
+      } else {
+        // Show banner, keep placeholders visible
+        document.addEventListener('DOMContentLoaded', function () {
+          var banner = document.getElementById('cookie-banner');
+          if (banner) banner.style.display = 'block';
+        });
+      }
+
+      // Button handlers
+      document.addEventListener('DOMContentLoaded', function () {
+        var btnAccept = document.getElementById('cookie-accept');
+        var btnDecline = document.getElementById('cookie-decline');
+        var banner = document.getElementById('cookie-banner');
+
+        if (btnAccept) {
+          btnAccept.addEventListener('click', function () {
+            localStorage.setItem(CONSENT_KEY, 'accepted');
+            if (banner) banner.style.display = 'none';
+            loadExternalContent();
+          });
+        }
+        if (btnDecline) {
+          btnDecline.addEventListener('click', function () {
+            localStorage.setItem(CONSENT_KEY, 'declined');
+            if (banner) banner.style.display = 'none';
+            showPlaceholders();
+          });
+        }
+      });
+
+      // Allow inline "Zustimmen & laden" buttons on placeholder cards
+      window.fsConsentAccept = function () {
+        localStorage.setItem(CONSENT_KEY, 'accepted');
+        var banner = document.getElementById('cookie-banner');
+        if (banner) banner.style.display = 'none';
+        loadExternalContent();
+      };
+    })();
   </script>
 
 </body>
