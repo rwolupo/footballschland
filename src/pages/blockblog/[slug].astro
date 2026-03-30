@@ -135,6 +135,17 @@ const categoryColors: Record<string, string> = {
 };
 const badgeClass = categoryColors[category] ?? 'bg-white/10 text-white/60 border-white/20';
 
+// Autoren — Mehrfach-Autoren-Unterstützung
+const authorOverrides: Record<string, string> = {
+  'deutsche-talente-d1-2025': 'Sandra Janat & Daniel Düngel',
+};
+const displayAuthor = authorOverrides[slug as string] || author || 'Daniel Düngel';
+const authorList = displayAuthor.split(/\s*&\s*/).map((a: string) => a.trim());
+const authorAvatars: Record<string, string> = {
+  'Daniel Düngel': '/assets/fbs%20daniel_edited_edited.jpg',
+  'Sandra Janat':  '/assets/fbs%20sandra_edited.jpg',
+};
+
 // Extract unique conferences and divisions from player cards for filter UI
 const playerCards = (body || []).filter((b: any) => b._type === 'playerCard');
 const conferences = [...new Set(playerCards.map((c: any) => c.conference).filter(Boolean))] as string[];
@@ -383,13 +394,25 @@ const bodyHtml = body ? toHTML(body, {
         {title}
       </h1>
 
-      <!-- Author -->
+      <!-- Author(en) -->
       <div class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-full overflow-hidden shadow-lg ring-2 ring-white/20">
-          <img src="/assets/fbs%20daniel_edited_edited.jpg" alt="Daniel Düngel" class="w-full h-full object-cover object-top" />
+        <div class="flex" style={authorList.length > 1 ? 'gap: 0; margin-right: 4px;' : ''}>
+          {authorList.map((name, i) => (
+            <div
+              class="w-9 h-9 rounded-full overflow-hidden shadow-lg ring-2 ring-white/20 bg-crimson"
+              style={i > 0 ? 'margin-left: -10px;' : ''}
+            >
+              {authorAvatars[name]
+                ? <img src={authorAvatars[name]} alt={name} class="w-full h-full object-cover object-top" />
+                : <span class="w-full h-full flex items-center justify-center text-white font-bold text-xs font-display">
+                    {name.split(' ').map((n: string) => n[0]).join('')}
+                  </span>
+              }
+            </div>
+          ))}
         </div>
         <div>
-          <p class="text-white text-sm font-semibold font-body">{author}</p>
+          <p class="text-white text-sm font-semibold font-body">{displayAuthor}</p>
           {updatedDate && (
             <p class="text-white/40 text-xs font-body">Aktualisiert: {formatDate(updatedDate)}</p>
           )}
