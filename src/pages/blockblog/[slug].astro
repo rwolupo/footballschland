@@ -174,6 +174,74 @@ for (const pc of playerCards) {
 const sortedFbs = Object.entries(fbsConfs).sort((a, b) => b[1] - a[1]);
 const sortedFcs = Object.entries(fcsConfs).sort((a, b) => b[1] - a[1]);
 
+// Bio-Text: Absätze + Links + Projection-Box formatieren
+function renderBio(bio: string): string {
+  if (!bio) return '';
+
+  // Podcast-Episode → Spotify-URL Mapping
+  const episodeLinks: Record<string, string> = {
+    'S03E12': 'https://open.spotify.com/episode/6Z2IpliQE2qztM2DVaqDAL',
+    'S01E72': 'https://open.spotify.com/episode/7Ihm51GaeZCv82RPlotTYx',
+    'S03E03': 'https://open.spotify.com/episode/0TzjtRLDH6Ts2hYrNk55SP',
+  };
+
+  // Externe Organisations-Links
+  const orgLinks: Record<string, string> = {
+    'Gridiron Imports Foundation': 'https://gridironimports.com',
+    'Gridiron Imports': 'https://gridironimports.com',
+    'PPI Recruits': 'https://ppirecruits.com',
+    'Hamburg Sea Devils': 'https://www.seahelperdevilsels.de',
+    'NFL International Player Pathway': 'https://operations.nfl.com/journey-to-the-nfl/international-player-pathway-program/',
+    'International Player Pathway Programme': 'https://operations.nfl.com/journey-to-the-nfl/international-player-pathway-program/',
+    'International Player Pathway Program': 'https://operations.nfl.com/journey-to-the-nfl/international-player-pathway-program/',
+    'International Pathway Programmes': 'https://operations.nfl.com/journey-to-the-nfl/international-player-pathway-program/',
+  };
+
+  const paragraphs = bio.split(/\n\n+/).filter(p => p.trim());
+
+  return paragraphs.map(para => {
+    let p = para.trim();
+
+    // Footballschland Projection → hervorgehobene Box
+    if (p.startsWith('Footballschland Projection:')) {
+      const content = p.replace('Footballschland Projection:', '').trim();
+      return `<div class="mt-4 mb-0 flex items-start gap-2 px-3 py-2 bg-[#e31837]/8 border-l-2 border-[#e31837] rounded-r text-sm"><span class="shrink-0 font-semibold text-[#e31837] whitespace-nowrap">🏈 Projection:</span><span class="text-[#231f20]/80">${content}</span></div>`;
+    }
+
+    // Pro Day Zeile → Info-Badge
+    if (p.startsWith('Pro Day:')) {
+      const content = p.replace('Pro Day:', '').trim();
+      return `<p class="mt-3 mb-0 text-xs font-semibold text-[#231f20]/50 uppercase tracking-wide">📅 Pro Day: <span class="font-bold text-[#231f20]/70">${content}</span></p>`;
+    }
+
+    // Early Projection (ohne Footballschland-Prefix)
+    if (p.startsWith('Early Projection:')) {
+      const content = p.replace('Early Projection:', '').trim();
+      return `<div class="mt-4 mb-0 flex items-start gap-2 px-3 py-2 bg-[#e31837]/8 border-l-2 border-[#e31837] rounded-r text-sm"><span class="shrink-0 font-semibold text-[#e31837] whitespace-nowrap">🏈 Projection:</span><span class="text-[#231f20]/80">${content}</span></div>`;
+    }
+
+    // Podcast-Episode-Links einfügen
+    for (const [ep, url] of Object.entries(episodeLinks)) {
+      const re = new RegExp(`(Folge ${ep})`, 'g');
+      p = p.replace(re, `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-[#e31837] hover:underline font-medium">$1 ↗</a>`);
+    }
+
+    // Organisations-Links (längste zuerst, um Teilübereinstimmungen zu vermeiden)
+    const sortedOrgs = Object.entries(orgLinks).sort((a, b) => b[0].length - a[0].length);
+    for (const [org, url] of sortedOrgs) {
+      if (p.includes(org)) {
+        p = p.replace(new RegExp(org.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),
+          `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-[#e31837] hover:underline font-medium">${org} ↗</a>`);
+      }
+    }
+
+    // \n innerhalb eines Absatzes → <br>
+    p = p.replace(/\n/g, '<br>');
+
+    return `<p class="mb-3 last:mb-0">${p}</p>`;
+  }).join('');
+}
+
 // Portable Text → HTML mit Custom Blocks
 const bodyHtml = body ? toHTML(body, {
   components: {
@@ -196,7 +264,7 @@ const bodyHtml = body ? toHTML(body, {
               ${(conference || division) ? `<p class="text-[#231f20]/40 text-xs mt-1 font-medium">${[conference, division].filter(Boolean).join(' · ')}</p>` : ''}
             </div>
             ${allUrls.length > 0 ? `<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 p-3 bg-[#f5f3f0]">${imgs}</div>` : ''}
-            ${bio ? `<p class="px-5 py-4 text-[#231f20]/70 text-sm font-body leading-relaxed">${bio}</p>` : ''}
+            ${bio ? `<div class="px-5 py-5 text-[#231f20]/70 text-sm font-body leading-relaxed space-y-0">${renderBio(bio)}</div>` : ''}
           </div>
         `;
       },
