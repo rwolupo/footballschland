@@ -10,6 +10,37 @@ const latestPosts = allPosts.slice(0, 3);
 const formatDate = (date: string) =>
   new Date(date).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
 
+const shopProducts = [
+  {
+    name: 'Footballmom Hoodie',
+    line: 'FAMILY LINE',
+    price: '€44,90',
+    image: 'https://shop.footballschland.com/cdn/shop/files/16108889214523771012_2048.jpg?v=1765193898',
+    url: 'https://shop.footballschland.com/products/family-line-footballmom-football-hoodie?variant=52914931663181',
+  },
+  {
+    name: 'Football & Family T-Shirt',
+    line: 'DÖNER LINE',
+    price: '€22,90',
+    image: 'https://shop.footballschland.com/cdn/shop/files/3251849832145403461_2048.jpg?v=1765195167',
+    url: 'https://shop.footballschland.com/products/doner-line-football-and-family-football-t-shirt?variant=52902857867597',
+  },
+  {
+    name: 'MVP Hoodie',
+    line: 'DÖNER LINE',
+    price: '€44,90',
+    image: 'https://shop.footballschland.com/cdn/shop/files/10223257913835367668_2048.jpg?v=1765193928',
+    url: 'https://shop.footballschland.com/products/doner-line-mvp-football-hoodie?variant=52902127796557',
+  },
+  {
+    name: 'Homecoming Reunion T-Shirt',
+    line: 'DÖNER LINE',
+    price: '€22,90',
+    image: 'https://shop.footballschland.com/cdn/shop/files/7312060120688802999_2048.jpg?v=1765194238',
+    url: 'https://shop.footballschland.com/products/doner-line-homecoming-reunion-football-t-shirt?variant=52902692028749',
+  },
+];
+
 const categoryColors: Record<string, string> = {
   Draft: 'bg-crimson/20 text-crimson border-crimson/40',
   'NFL Draft': 'bg-crimson/20 text-crimson border-crimson/40',
@@ -293,6 +324,94 @@ const podcastPlatforms = [
 
   <!-- ── DIVIDER ── -->
   <div class="section-divider bg-gradient-to-b from-[#0D0D0D] to-[#111111]" aria-hidden="true">
+    <div class="flex-1 h-px" style="background: linear-gradient(to right, transparent, rgba(255,255,255,0.06))"></div>
+    <div class="flex flex-col gap-[4px] mx-8">
+      <div class="w-20 h-[2px] rounded-full bg-[#231f20]"></div>
+      <div class="w-20 h-[2px] rounded-full bg-crimson/40"></div>
+      <div class="w-20 h-[2px] rounded-full bg-gold/40"></div>
+    </div>
+    <div class="flex-1 h-px" style="background: linear-gradient(to left, transparent, rgba(255,255,255,0.06))"></div>
+  </div>
+
+  <!-- ── SHOP ── -->
+  <section class="py-20 px-4 bg-[#111111]">
+    <div class="max-w-5xl mx-auto">
+
+      <!-- Header -->
+      <div class="flex items-end justify-between mb-10 gap-4">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <span class="text-[10px] font-bold uppercase tracking-[0.3em] text-gold/70 font-body">Official Merch</span>
+            <div class="flex-1 h-px bg-gold/20 w-8"></div>
+          </div>
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-white leading-tight">
+            SCHLAND <span class="text-gold">ATHLX</span>
+          </h2>
+          <p class="text-white/40 text-sm font-body mt-1">Wear the game. Support the mission.</p>
+        </div>
+        <a
+          href="https://shop.footballschland.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="shrink-0 text-white/40 hover:text-white text-xs font-medium uppercase tracking-widest transition-colors"
+        >
+          Alle Produkte →
+        </a>
+      </div>
+
+      <!-- Product Grid -->
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {shopProducts.map((product) => (
+          <a
+            href={product.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="group bg-[#1A1A1A] border border-white/10 hover:border-gold/40 rounded-xl overflow-hidden transition-all duration-300 flex flex-col"
+          >
+            <!-- Product Image -->
+            <div class="aspect-square overflow-hidden bg-[#0D0D0D] relative">
+              <img
+                src={product.image}
+                alt={product.name}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="lazy"
+              />
+              <!-- Line Badge -->
+              <span class="absolute top-2 left-2 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider rounded bg-[#231f20]/80 text-white/60 backdrop-blur-sm">
+                {product.line}
+              </span>
+            </div>
+            <!-- Product Info -->
+            <div class="p-4 flex flex-col flex-1 gap-2">
+              <p class="text-white/85 text-sm font-semibold font-body leading-snug line-clamp-2 flex-1">
+                {product.name}
+              </p>
+              <div class="flex items-center justify-between mt-1">
+                <span class="text-gold font-bold font-display text-base">{product.price}</span>
+                <span class="text-[10px] text-white/30 uppercase tracking-widest group-hover:text-gold/60 transition-colors">Shop →</span>
+              </div>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <!-- CTA -->
+      <div class="text-center mt-10">
+        <a
+          href="https://shop.footballschland.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn-gold inline-flex items-center gap-2"
+        >
+          🛍 Alle Produkte im Shop
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── DIVIDER ── -->
+  <div class="section-divider bg-[#111111]" aria-hidden="true">
     <div class="flex-1 h-px" style="background: linear-gradient(to right, transparent, rgba(255,255,255,0.06))"></div>
     <div class="flex flex-col gap-[4px] mx-8">
       <div class="w-20 h-[2px] rounded-full bg-[#231f20]"></div>
