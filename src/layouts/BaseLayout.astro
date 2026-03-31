@@ -16,6 +16,8 @@ const {
 } = Astro.props;
 
 const siteName = 'Footballschland';
+// OG:Image muss absolute URL sein für Social Previews
+const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `https://footballschland.de${ogImage}`;
 ---
 
 <!DOCTYPE html>
@@ -35,7 +37,7 @@ const siteName = 'Footballschland';
   <meta property="og:url" content={canonical} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={ogImage} />
+  <meta property="og:image" content={absoluteOgImage} />
   <meta property="og:site_name" content={siteName} />
   <meta property="og:locale" content="de_DE" />
 
@@ -44,7 +46,7 @@ const siteName = 'Footballschland';
   <meta name="twitter:site" content="@footballschland" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={ogImage} />
+  <meta name="twitter:image" content={absoluteOgImage} />
 
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="/assets/logos/footballschland.png" />

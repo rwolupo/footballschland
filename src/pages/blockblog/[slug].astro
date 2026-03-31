@@ -22,6 +22,18 @@ if (!post) {
 const { title, description, pubDate, updatedDate, author, category, readTime, heroImage, body } = post;
 
 const canonicalUrl = `https://footballschland.de/blockblog/${slug}`;
+
+// SEO-Titel: max ~55 Zeichen (ohne Brand-Suffix) — schneidet am ersten Trennzeichen
+function makeSeoTitle(fullTitle: string): string {
+  const MAX = 50;
+  if (fullTitle.length <= MAX) return fullTitle;
+  for (const sep of [': ', ' – ', ' - ']) {
+    const idx = fullTitle.indexOf(sep);
+    if (idx > 0 && idx <= MAX) return fullTitle.substring(0, idx);
+  }
+  return fullTitle.substring(0, MAX).replace(/\s\S*$/, '') + '…';
+}
+const seoTitle = makeSeoTitle(title);
 const articleSchema = {
   "@context": "https://schema.org",
   "@graph": [
@@ -361,7 +373,7 @@ const bodyHtml = body ? toHTML(body, {
 ---
 
 <BaseLayout
-  title={`${title} | Footballschland Blockblog`}
+  title={`${seoTitle} | Footballschland`}
   description={description}
   canonical={canonicalUrl}
   ogImage={heroImage?.asset?.url || '/assets/og-default.png'}
