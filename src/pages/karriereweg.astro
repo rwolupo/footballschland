@@ -1,0 +1,265 @@
+---
+export const prerender = true;
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Wie kann ein deutscher Spieler in die NFL kommen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Es gibt vier Hauptwege: Das NFL International Player Pathway Programme (IPP), der klassische US-College-Weg (NCAA → Draft), die direkte Rekrutierung aus der GFL an ein US-College, oder der Weg als Undrafted Free Agent nach dem IPP. Der schnellste Weg ist das IPP – von Januar bis März, direkt zu einem NFL-Team."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was ist das NFL International Player Pathway Programme?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Das IPP ist ein NFL-Programm, das seit 2017 internationale Talente in die NFL bringt. Ausgewählte Spieler trainieren 10 Wochen an der IMG Academy in Florida, präsentieren sich beim Pro Day vor NFL-Scouts und können danach als Free Agents verpflichtet oder gedraftet werden. Jedes NFL-Team hat einen reservierten Practice-Squad-Platz für internationale Spieler."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Welche deutschen Spieler haben es bisher in die NFL geschafft?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Zu den bekanntesten deutschen NFL-Spielern zählen: Moritz Böhringer (erster Europäer im NFL Draft ohne College-Erfahrung, 2016), Jakob Johnson (Patriots/Raiders via IPP), Amon-Ra St. Brown (Detroit Lions, Pro Bowl, deutsche Mutter), Sebastian Vollmer (Patriots), Leander Wiegand (Jets via IPP 2025) und David Bada (Lions via IPP)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Welche Organisationen helfen deutschen Spielern beim Weg in die USA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Die wichtigsten Organisationen sind: Gridiron Imports Foundation (gegründet von Björn Werner, Non-Profit, über 100 platzierte Spieler), PPI Recruits (150 D1-Scholarships aus 20 Ländern, Büro Frankfurt) und die NFL selbst über das IPP. Der American Football Verband Deutschland (AFVD) ist die offizielle Dachorganisation mit über 73.000 Mitgliedern."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie läuft die NCAA-Rekrutierung für deutsche Spieler ab?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "US-Scouts besuchen GFL-Spiele und internationale Camps. Organisationen wie Gridiron Imports und PPI Recruits veranstalten jährlich Showcases in Deutschland. Die Zeitachse: Scouting im 1. Jahr, Camp-Teilnahme, College-Angebote 1-2 Jahre vor Enrollment. Viele Spieler absolvieren zunächst eine US-Prep-School (z.B. IMG Academy), bevor sie zu einem D1-Programm wechseln."
+      }
+    }
+  ]
+};
+
+const pageSchema = {
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "@id": "https://footballschland.de/karriereweg#article",
+  "headline": "Der Weg aus Deutschland in die NFL",
+  "description": "Der vollständige Guide: Wie deutsche Football-Talente es vom GFL-Spielfeld in die NFL schaffen – alle vier Karrierewege erklärt.",
+  "url": "https://footballschland.de/karriereweg",
+  "inLanguage": "de",
+  "author": { "@type": "Person", "name": "Daniel Düngel" },
+  "publisher": { "@id": "https://footballschland.de/#organization" },
+  "datePublished": "2026-04-01",
+  "dateModified": "2026-04-01",
+  "image": { "@type": "ImageObject", "url": "https://footballschland.de/assets/og-default.png" }
+};
+---
+
+<BaseLayout
+  title="Der Weg aus Deutschland in die NFL | Footballschland"
+  description="Wie deutsche Football-Spieler es vom GFL-Spielfeld in die NFL schaffen: alle vier Karrierewege erklärt – IPP, NCAA, College-Recruiting und mehr."
+  canonical="https://footballschland.de/karriereweg"
+>
+  <Fragment slot="head">
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
+  </Fragment>
+
+  <!-- ── HERO ── -->
+  <section class="relative min-h-[60vh] flex flex-col justify-end bg-[#0D0D0D] pt-20 pb-14 px-4 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-rot/15 via-[#231f20]/80 to-[#0D0D0D] pointer-events-none"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 20% 50%, rgba(196,18,48,0.12) 0%, transparent 60%)"></div>
+    <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-[#faf8f5] pointer-events-none"></div>
+    <div class="relative z-10 max-w-3xl mx-auto w-full">
+      <span class="inline-block text-rot text-xs font-bold uppercase tracking-[0.25em] mb-4">Guide</span>
+      <h1 class="font-display text-4xl md:text-6xl font-bold text-white leading-tight mb-5">
+        Der Weg aus Deutschland<br class="hidden md:block" /> <span class="text-rot">in die NFL</span>
+      </h1>
+      <p class="text-white/70 text-lg font-body leading-relaxed max-w-2xl">
+        Vier Karrierewege, echte Erfolgsgeschichten und alle Organisationen die du kennen musst – der vollständige Guide für deutsche Football-Talente.
+      </p>
+    </div>
+  </section>
+
+  <!-- ── CONTENT ── -->
+  <div class="bg-[#faf8f5]">
+    <div class="max-w-3xl mx-auto px-4 py-16">
+
+      <!-- Intro -->
+      <p class="text-[#231f20]/80 text-lg font-body leading-relaxed mb-12">
+        Noch vor zehn Jahren galt es als nahezu unmöglich: Ein Spieler aus der GFL, dem deutschen Spielfeld, der es bis in die beste Football-Liga der Welt schafft. Heute ist das Realität – und der Weg dorthin ist klarer denn je. Moritz Böhringer, Jakob Johnson, Leander Wiegand: Sie alle haben bewiesen, dass die NFL auch für deutsche Talente erreichbar ist. Hier sind die vier Wege, die dorthin führen.
+      </p>
+
+      <!-- ── WEG 1: IPP ── -->
+      <div class="mb-16">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="flex-shrink-0 w-10 h-10 rounded-full bg-rot text-white font-display font-bold text-lg flex items-center justify-center">1</span>
+          <h2 class="font-display text-3xl font-bold text-[#231f20]">International Player Pathway Programme</h2>
+        </div>
+        <div class="bg-white rounded-2xl border border-[#231f20]/8 p-7 mb-5 shadow-sm">
+          <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+            Das <strong class="text-[#231f20]">NFL International Player Pathway Programme (IPP)</strong> ist seit 2017 der direkteste Weg vom deutschen Spielfeld in die NFL. Die NFL identifiziert internationale Talente, hauptsächlich aus der GFL und der ELF, und lädt sie zu einem intensiven 10-wöchigen Trainingsprogramm an der <strong class="text-[#231f20]">IMG Academy in Bradenton, Florida</strong> ein – jedes Jahr ab Januar.
+          </p>
+          <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+            Im März präsentieren sich die IPP-Teilnehmer beim Pro Day an der University of South Florida vor Scouts aller 32 NFL-Teams. Wer überzeugt, kann direkt als Free Agent verpflichtet werden – ohne jemals College Football gespielt zu haben.
+          </p>
+          <p class="text-[#231f20]/75 font-body leading-relaxed">
+            Der entscheidende Vorteil: Jedes NFL-Team hat einen <strong class="text-[#231f20]">reservierten 17. Practice-Squad-Platz</strong> ausschließlich für internationale Spieler. Diese können bis zu dreimal pro Saison ins aktive Roster hochgestuft werden. Das bedeutet: Wer den Sprung ins IPP schafft, hat eine echte Chance auf NFL-Football.
+          </p>
+        </div>
+        <div class="bg-rot/5 border border-rot/15 rounded-xl p-5">
+          <p class="text-sm font-semibold text-rot uppercase tracking-wider mb-2">Deutschen IPP-Erfolgsgeschichten</p>
+          <ul class="space-y-2 text-[#231f20]/75 text-sm font-body">
+            <li><strong class="text-[#231f20]">Jakob Johnson</strong> — IPP 2019, New England Patriots. Erster IPP-Spieler mit NFL-Touchdown (2020 vs. Seattle Seahawks). Später Las Vegas Raiders.</li>
+            <li><strong class="text-[#231f20]">Leander Wiegand</strong> — IPP 2025, 38 Bench-Press-Wiederholungen (5 mehr als der Combine-Rekord), signiert bei den New York Jets.</li>
+            <li><strong class="text-[#231f20]">David Bada</strong> — IPP 2019, Washington Commanders, später Detroit Lions (2024).</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ── WEG 2: HIGH SCHOOL USA ── -->
+      <div class="mb-16">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="flex-shrink-0 w-10 h-10 rounded-full bg-rot text-white font-display font-bold text-lg flex items-center justify-center">2</span>
+          <h2 class="font-display text-3xl font-bold text-[#231f20]">High School in den USA → NCAA → NFL Draft</h2>
+        </div>
+        <div class="bg-white rounded-2xl border border-[#231f20]/8 p-7 mb-5 shadow-sm">
+          <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+            Wer als Teenager in die USA zieht und dort High School Football spielt, folgt exakt dem gleichen Weg wie amerikanische Spieler. Mit einem NCAA Division I Scholarship, vier Jahren College Football und einem soliden Pro Day ist der NFL Draft das natürliche Ziel.
+          </p>
+          <p class="text-[#231f20]/75 font-body leading-relaxed">
+            Das bekannteste Beispiel: <strong class="text-[#231f20]">Amon-Ra St. Brown</strong>. Sein Vater ist Bodybuilder aus den USA, seine Mutter Miriam kommt aus Leverkusen. Aufgewachsen in Californien, USC Trojans, 2021 gedraftet von den Detroit Lions im 4. Round. Heute einer der besten Wide Receiver der NFL: Pro Bowler, First-Team All-Pro 2023, 1.515 Receiving Yards in einer Saison.
+          </p>
+        </div>
+        <div class="bg-[#231f20]/4 rounded-xl p-5 border border-[#231f20]/8">
+          <p class="text-sm font-semibold text-[#231f20]/50 uppercase tracking-wider mb-2">Zeitachse</p>
+          <div class="flex flex-col gap-2">
+            {[
+              { phase: 'Jahr 1–4', label: 'High School Football in den USA' },
+              { phase: 'Jahr 4–5', label: 'NCAA Recruiting, College-Angebote' },
+              { phase: 'Jahr 5–9', label: '4 Jahre NCAA Division I College Football' },
+              { phase: 'Jahr 9', label: 'NFL Draft oder Undrafted Free Agent' },
+            ].map(({ phase, label }) => (
+              <div class="flex items-center gap-3">
+                <span class="text-xs font-mono text-rot font-bold w-20 shrink-0">{phase}</span>
+                <span class="text-sm text-[#231f20]/70 font-body">{label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- ── WEG 3: GFL → NCAA RECRUITING ── -->
+      <div class="mb-16">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="flex-shrink-0 w-10 h-10 rounded-full bg-rot text-white font-display font-bold text-lg flex items-center justify-center">3</span>
+          <h2 class="font-display text-3xl font-bold text-[#231f20]">GFL/ELF → NCAA-Recruiting → Draft</h2>
+        </div>
+        <div class="bg-white rounded-2xl border border-[#231f20]/8 p-7 mb-5 shadow-sm">
+          <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+            Immer mehr Power-Five-Coaches scouten aktiv in Deutschland und Europa. Organisationen wie <strong class="text-[#231f20]">Gridiron Imports Foundation</strong> und <strong class="text-[#231f20]">PPI Recruits</strong> schaffen dabei die Brücke: Sie identifizieren Talente in der GFL und ELF, veranstalten Showcases und stellen den Kontakt zu US-Colleges her.
+          </p>
+          <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+            Gridiron Imports – gegründet vom Ex-NFL-Profi Björn Werner – hat allein in drei Jahren fast 100 Spieler aus Europa, Mexiko, Asien und Afrika in US-Prep-Schools, Junior Colleges und Universitäten gebracht. PPI Recruits hat über 150 D1-Scholarships aus 20 Ländern vermittelt, mit einem Büro direkt in Frankfurt.
+          </p>
+          <p class="text-[#231f20]/75 font-body leading-relaxed">
+            Power-Five-Programme wie Michigan, Penn State, Notre Dame, Georgia Tech und Virginia Tech haben bereits deutsche Spieler aufgenommen. Europe gilt in NCAA-Kreisen als "next frontier" im internationalen Recruiting.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm">
+            <p class="font-display font-bold text-[#231f20] mb-1">Gridiron Imports Foundation</p>
+            <p class="text-sm text-[#231f20]/60 font-body mb-3">Gegründet von Björn Werner (Ex-NFL). Non-Profit, 501(c)3. ~100 platzierte Spieler in 3 Jahren.</p>
+            <a href="https://gridironimports.com" target="_blank" rel="noopener noreferrer" class="text-rot text-sm font-semibold hover:underline">gridironimports.com →</a>
+          </div>
+          <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm">
+            <p class="font-display font-bold text-[#231f20] mb-1">PPI Recruits</p>
+            <p class="text-sm text-[#231f20]/60 font-body mb-3">Büro in Frankfurt. Jährliche Showcases in Deutschland. 150+ D1-Scholarships aus 20 Ländern.</p>
+            <a href="https://ppirecruits.com" target="_blank" rel="noopener noreferrer" class="text-rot text-sm font-semibold hover:underline">ppirecruits.com →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── WEG 4: MORITZ BÖHRINGER ── -->
+      <div class="mb-16">
+        <div class="flex items-center gap-4 mb-6">
+          <span class="flex-shrink-0 w-10 h-10 rounded-full bg-rot text-white font-display font-bold text-lg flex items-center justify-center">4</span>
+          <h2 class="font-display text-3xl font-bold text-[#231f20]">Der Böhringer-Weg: Direkt aus Europa gedraftet</h2>
+        </div>
+        <div class="bg-white rounded-2xl border border-[#231f20]/8 p-7 shadow-sm">
+          <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+            2016 schrieb <strong class="text-[#231f20]">Moritz Böhringer</strong> Geschichte: Als erster Europäer wurde er in den NFL Draft ausgewählt, ohne jemals College Football gespielt zu haben. Die Minnesota Vikings holten ihn in der 6. Runde (180. Pick) – direkt von den Schwäbisch Hall Unicorns aus der GFL.
+          </p>
+          <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+            Der Weg: NFL-Scouts besuchten das Combine für internationale Spieler. Böhringer überzeugte mit seiner Athletik (6'5", 240 lbs Wide Receiver), seinen 40-Yard-Dash-Werten und seinem Raw Talent. Einen direkten Recruiting-Prozess über eine US-Universität gab es nicht.
+          </p>
+          <p class="text-[#231f20]/75 font-body leading-relaxed">
+            Dieser Weg ist heute seltener, weil das IPP diesen Prozess institutionalisiert hat – aber er zeigt: Wer in der GFL oder ELF außergewöhnliche Leistungen zeigt und NFL-Scouts auf sich aufmerksam macht, hat auch direkt Chancen.
+          </p>
+        </div>
+      </div>
+
+      <!-- ── FAQ ── -->
+      <div class="mb-16">
+        <h2 class="font-display text-3xl font-bold text-[#231f20] mb-8">Häufige Fragen</h2>
+        <div class="space-y-4">
+          {[
+            {
+              q: 'Wie alt muss man sein für das IPP?',
+              a: 'Das IPP hat keine feste Altersgrenze, aber die meisten Teilnehmer sind zwischen 20 und 26 Jahren. Entscheidend ist, dass du nicht bereits in einer US-Profiliga (NFL, CFL etc.) unter Vertrag warst.',
+            },
+            {
+              q: 'Brauche ich einen Agenten für den Weg in die NFL?',
+              a: 'Für den IPP-Weg ist kein Agent notwendig – die NFL managt den Prozess. Für den College-Weg sind NCAA-Regeln zu beachten (keine bezahlte Agenten-Beratung vor dem Draft). Nach dem Draft oder als Free Agent ist ein NFLPA-zertifizierter Agent empfehlenswert.',
+            },
+            {
+              q: 'Was ist der Unterschied zwischen Practice Squad und Active Roster?',
+              a: 'Der Practice Squad (16+1 reservierter internationaler Platz) ermöglicht es Spielern, beim Team zu trainieren, ohne im Gameday-Kader zu sein. Internationaler Practice-Squad-Spieler können bis zu 3x pro Saison ins Active Roster (53 Mann) hochgestuft werden – mit vollem Gehalt für diese Spiele.',
+            },
+            {
+              q: 'Welche Position hat die besten Chancen über das IPP?',
+              a: 'Historisch wurden über das IPP vor allem Offensive Linemen (Jakob Johnson als FB, Leander Wiegand als OG), Defensive Linemen (David Bada) und Specialists (Bastian Roppelt, Punter) verpflichtet. Athletische Positionen (WR, TE) haben mit dem Böhringer-Weg oder über das NCAA-Recruiting mehr Erfolg.',
+            },
+          ].map(({ q, a }) => (
+            <details class="group bg-white border border-[#231f20]/8 rounded-xl overflow-hidden shadow-sm">
+              <summary class="flex items-center justify-between px-6 py-5 cursor-pointer list-none">
+                <span class="font-display font-semibold text-[#231f20] pr-4">{q}</span>
+                <span class="text-rot text-lg shrink-0 group-open:rotate-45 transition-transform duration-200">+</span>
+              </summary>
+              <div class="px-6 pb-5 text-[#231f20]/70 font-body leading-relaxed text-sm border-t border-[#231f20]/6 pt-4">
+                {a}
+              </div>
+            </details>
+          ))}
+        </div>
+      </div>
+
+      <!-- ── CTA ── -->
+      <div class="bg-[#231f20] rounded-2xl p-8 text-center">
+        <p class="text-rot text-xs font-bold uppercase tracking-widest mb-3">Footballschland Podcast</p>
+        <h3 class="font-display text-2xl font-bold text-white mb-4">
+          Wir erzählen die Geschichten hinter diesen Wegen
+        </h3>
+        <p class="text-white/60 font-body mb-6 max-w-lg mx-auto">
+          In unserem Podcast sprechen wir mit den Spielern, Scouts und Coaches die diesen Weg kennen – aus erster Hand.
+        </p>
+        <div class="flex flex-wrap gap-3 justify-center">
+          <a href="/episoden" class="btn-primary text-sm">Alle Episoden →</a>
+          <a href="/blockblog/deutsche-spieler-im-nfl-draft-2026" class="btn-outline text-sm">NFL Draft 2026 Guide →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</BaseLayout>
