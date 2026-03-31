@@ -23,6 +23,8 @@ const partners = [
     url: 'https://www.awin1.com/cread.php?s=4561578&v=15016&q=585873&r=2598031',
     image: '/assets/partners/bodylab.jpg',
     description: 'No Tricks – Just Real Gains: Im Onlineshop mit Gutscheincode MONSTERMAX – Bis zu 42% Rabatt',
+    discountCode: 'MONSTERMAX',
+    discountLabel: 'bis zu 42% Rabatt',
   },
   {
     name: 'Maxi Nutrition',
@@ -37,6 +39,8 @@ const partners = [
     url: 'https://mojokaii.com?sca_ref=9877685.HzuZsLBp9U&utm_source=source&utm_medium=affiliate&utm_campaign=affiliate_name',
     image: '/assets/partners/mojokaii.png',
     description: 'Krasser Focus und Konzentration für Gamer und Sportler! Mit dem Code "footballschland10" gibt es 10% Rabatt.',
+    discountCode: 'footballschland10',
+    discountLabel: '10% Rabatt',
   },
   {
     name: 'Orgainic',
@@ -51,6 +55,8 @@ const partners = [
     url: 'https://shop.biotechusa.com',
     image: '/assets/partners/biotechusa.jpg',
     description: 'Mit dem Code GLASKUGEL15 erhaltet ihr 15% Rabatt auf euren Einkauf im BioTechUSA-Shop.',
+    discountCode: 'GLASKUGEL15',
+    discountLabel: '15% Rabatt',
   },
   {
     name: 'Nextgen',
@@ -93,6 +99,8 @@ const partners = [
     url: 'https://ultrahumanhealthcare.pxf.io/xL1BAy',
     image: '/assets/partners/ultrahuman.jpeg',
     description: 'Der bequemste Schlaf-Tracker der Welt: Ultrahuman Ring AIR® – Schlaf, HRV, Temperatur & mehr. Mit SCHLAND25 den höchsten Rabatt abgreifen!',
+    discountCode: 'SCHLAND25',
+    discountLabel: 'Höchster Rabatt',
   },
   {
     name: 'NordVPN',
@@ -121,6 +129,8 @@ const partners = [
     url: 'https://www.forelle.com/de_DE/',
     image: '/assets/partners/forelle.jpg',
     description: 'Der Komplettausstatter für American Football, Baseball und Co. Mit dem Code "FOOTBALLSCHLAND10" gibt es 10% Rabatt im gesamten Shop.',
+    discountCode: 'FOOTBALLSCHLAND10',
+    discountLabel: '10% Rabatt',
   },
   {
     name: 'Factor_',
@@ -128,6 +138,8 @@ const partners = [
     url: 'https://www.factormeals.de/FAMBFOOTBALLSCHLAND',
     image: '/assets/partners/factory.png',
     description: 'Mit Factor genießt du jede Woche 18 neue gesunde Gerichte – entwickelt von Ernährungsprofis. 30% Rabatt + kostenloser Versand mit Code FAMBFOOTBALLSCHLAND.',
+    discountCode: 'FAMBFOOTBALLSCHLAND',
+    discountLabel: '30% + gratis Versand',
   },
 ];
 
@@ -210,6 +222,16 @@ const categoryColors: Record<string, string> = {
                     class={`w-full h-full group-hover:scale-105 transition-transform duration-300 ${partner.image.endsWith('.svg') ? 'object-contain p-8' : 'object-cover'}`}
                     loading="lazy"
                   />
+                  {(partner as any).discountCode && (
+                    <div class="absolute bottom-3 left-3 flex flex-col items-start gap-0.5 pointer-events-none">
+                      <span class="bg-crimson text-white text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-t leading-tight">
+                        {(partner as any).discountLabel}
+                      </span>
+                      <span class="bg-white text-crimson font-mono font-black text-sm px-2 py-1 rounded-b rounded-tr leading-tight tracking-wide shadow-lg">
+                        {(partner as any).discountCode}
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <!-- Content -->
