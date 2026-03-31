@@ -85,6 +85,8 @@ const partners = [
     url: 'https://www.awin1.com/cread.php?s=3866133&v=113414&q=512100&r=2598031',
     image: '/assets/partners/lifesum.png',
     description: 'Lifesum vereinfacht gesundes Essen durch wissenschaftlich fundierte Einblicke und personalisierte Mahlzeitpläne. Mit Footballschland 50% günstiger!',
+    discountLabel: '50% günstiger',
+    discountIsLink: true,
   },
   {
     name: 'Yazio',
@@ -108,6 +110,8 @@ const partners = [
     url: 'https://go.nordvpn.net/SHASM',
     image: '/assets/partners/nordvpn.jpg',
     description: 'Dein Tor zu amerikanischer Sportberichterstattung! College Football, NFL & Co. streamen, egal wo du bist. Spezialpreis über unseren Link!',
+    discountLabel: 'Spezialpreis',
+    discountIsLink: true,
   },
   {
     name: 'pCloud',
@@ -115,6 +119,8 @@ const partners = [
     url: 'https://partner.pcloud.com/r/134991',
     image: '/assets/partners/pcloud.jpg',
     description: 'Sicherer EU Cloud-Storage mit TLS/SSL-Verschlüsselung und Schweizer Datenschutz. Unser Favorit für Cloud-Storage mit Sonderkonditionen!',
+    discountLabel: 'Sonderkonditionen',
+    discountIsLink: true,
   },
   {
     name: 'Fanatics',
@@ -222,14 +228,20 @@ const categoryColors: Record<string, string> = {
                     class={`w-full h-full group-hover:scale-105 transition-transform duration-300 ${partner.image.endsWith('.svg') ? 'object-contain p-8' : 'object-cover'}`}
                     loading="lazy"
                   />
-                  {(partner as any).discountCode && (
+                  {((partner as any).discountCode || (partner as any).discountIsLink) && (
                     <div class="absolute bottom-3 left-3 flex flex-col items-start gap-0.5 pointer-events-none">
                       <span class="bg-crimson text-white text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-t leading-tight">
                         {(partner as any).discountLabel}
                       </span>
-                      <span class="bg-white text-crimson font-mono font-black text-sm px-2 py-1 rounded-b rounded-tr leading-tight tracking-wide shadow-lg">
-                        {(partner as any).discountCode}
-                      </span>
+                      {(partner as any).discountIsLink ? (
+                        <span class="bg-white text-crimson text-xs font-semibold px-2 py-1 rounded-b rounded-tr leading-tight shadow-lg">
+                          über unseren Link →
+                        </span>
+                      ) : (
+                        <span class="bg-white text-crimson font-mono font-black text-sm px-2 py-1 rounded-b rounded-tr leading-tight tracking-wide shadow-lg">
+                          {(partner as any).discountCode}
+                        </span>
+                      )}
                     </div>
                   )}
                 </div>
