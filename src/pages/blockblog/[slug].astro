@@ -316,10 +316,10 @@ const bodyHtml = body ? toHTML(body, {
         const hasTeams = (players || []).some((p: any) => p.nflTeams);
         const rows = (players || []).map((p: any) => `
           <tr class="border-b border-[#231f20]/10 hover:bg-[#231f20]/5">
-            <td class="py-2 pr-4 font-semibold text-[#231f20] text-sm whitespace-nowrap">${p.name || ''}</td>
+            <td class="pl-4 py-2 pr-4 font-semibold text-[#231f20] text-sm whitespace-nowrap">${p.name || ''}</td>
             <td class="py-2 pr-3 text-[#231f20]/60 text-sm font-mono font-bold">${p.position || ''}</td>
             <td class="py-2 pr-4 text-[#231f20]/60 text-sm">${p.yearStatus || ''}</td>
-            ${hasTeams ? `<td class="py-2 text-[#231f20]/60 text-sm">${p.nflTeams || '—'}</td>` : ''}
+            ${hasTeams ? `<td class="py-2 pr-4 text-[#231f20]/60 text-sm">${p.nflTeams || '—'}</td>` : ''}
           </tr>
         `).join('');
         return `
@@ -339,10 +339,10 @@ const bodyHtml = body ? toHTML(body, {
                 <table class="w-full text-left">
                   <thead class="bg-[#231f20]/3">
                     <tr>
-                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50">Spieler</th>
-                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50">Pos.</th>
-                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50">Projection</th>
-                      ${hasTeams ? `<th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50">NFL Teams Interesse</th>` : ''}
+                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50 text-left">Spieler</th>
+                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50 text-left">Pos.</th>
+                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50 text-left">Projection</th>
+                      ${hasTeams ? `<th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50 text-left">NFL Teams Interesse</th>` : ''}
                     </tr>
                   </thead>
                   <tbody class="bg-white">${rows}</tbody>
