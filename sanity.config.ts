@@ -150,8 +150,9 @@ export default defineConfig({
                         fields: [
                           { name: 'name', title: 'Name', type: 'string' },
                           { name: 'position', title: 'Position', type: 'string' },
-                          { name: 'yearStatus', title: 'Jahr / Status', type: 'string' },
+                          { name: 'yearStatus', title: 'Projection (kurz)', type: 'string' },
                           { name: 'college', title: 'College', type: 'string' },
+                          { name: 'nflTeams', title: 'NFL Teams (Visits / Interviews / Pro Day)', type: 'string' },
                         ],
                       },
                     ],
