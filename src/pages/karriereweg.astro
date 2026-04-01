@@ -71,6 +71,7 @@ const pageSchema = {
   canonical="https://footballschland.de/karriereweg"
 >
   <Fragment slot="head">
+    <meta name="robots" content="noindex, nofollow" />
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
   </Fragment>
