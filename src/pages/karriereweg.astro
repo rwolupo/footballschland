@@ -35,7 +35,7 @@ const faqSchema = {
       "name": "Welche Organisationen helfen deutschen Spielern beim Weg in die USA?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Die wichtigsten Organisationen sind: Gridiron Imports Foundation (gegründet von Björn Werner, Non-Profit, über 100 platzierte Spieler), PPI Recruits (150 D1-Scholarships aus 20 Ländern, Büro Frankfurt) und die NFL selbst über das IPP. Der American Football Verband Deutschland (AFVD) ist die offizielle Dachorganisation mit über 73.000 Mitgliedern."
+        "text": "Die wichtigsten Organisationen sind: Gridiron Imports Foundation (gegründet von Björn Werner, Non-Profit 501(c)3, über 100 platzierte Spieler aus 3 Kontinenten, gridironimports.com), PPI Recruits (gegründet von Brandon Collier, Büro Frankfurt, 150+ D1-Scholarships aus 20 Ländern, ppirecruits.com), Global Football (seit 1996, weltweiter Marktführer im internationalen Football-Austausch, brachte u.a. Sebastian Vollmer ans US-College, globalfootball.com) und Europe's Elite (Non-Profit 501(c), seit 2018, erste Recruiting-Datenbank für internationale Youth-Spieler, europeselite.com). Über den AFVD (American Football Verband Deutschland) als Dachverband kann man zudem Kontakt zum deutschen Nationalmannschafts- und Talentsystem aufnehmen."
       }
     },
     {
@@ -167,26 +167,81 @@ const pageSchema = {
         </div>
         <div class="bg-white rounded-2xl border border-[#231f20]/8 p-7 mb-5 shadow-sm">
           <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
-            Immer mehr Power-Five-Coaches scouten aktiv in Deutschland und Europa. Organisationen wie <strong class="text-[#231f20]">Gridiron Imports Foundation</strong> und <strong class="text-[#231f20]">PPI Recruits</strong> schaffen dabei die Brücke: Sie identifizieren Talente in der GFL und ELF, veranstalten Showcases und stellen den Kontakt zu US-Colleges her.
+            Immer mehr Power-Five-Coaches scouten aktiv in Deutschland und Europa. Mehrere spezialisierte Organisationen schaffen dabei die Brücke: Sie identifizieren Talente in der GFL und ELF, veranstalten Showcases und stellen den direkten Kontakt zu US-Colleges her.
           </p>
           <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
-            Gridiron Imports – gegründet vom Ex-NFL-Profi Björn Werner – hat allein in drei Jahren fast 100 Spieler aus Europa, Mexiko, Asien und Afrika in US-Prep-Schools, Junior Colleges und Universitäten gebracht. PPI Recruits hat über 150 D1-Scholarships aus 20 Ländern vermittelt, mit einem Büro direkt in Frankfurt.
+            Power-Five-Programme wie Michigan, Penn State, Georgia Tech und Virginia Tech haben bereits deutsche Spieler aufgenommen. In NCAA-Kreisen gilt Europa heute als <em>"next frontier"</em> im internationalen Recruiting – und die Zahl der deutschen D1-Spieler hat in der Saison 2025/26 erstmals die 50er-Marke überschritten.
           </p>
           <p class="text-[#231f20]/75 font-body leading-relaxed">
-            Power-Five-Programme wie Michigan, Penn State, Notre Dame, Georgia Tech und Virginia Tech haben bereits deutsche Spieler aufgenommen. Europe gilt in NCAA-Kreisen als "next frontier" im internationalen Recruiting.
+            Die vier wichtigsten Anlaufstellen findest du unten – alle mit direktem Kontaktweg:
           </p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm">
-            <p class="font-display font-bold text-[#231f20] mb-1">Gridiron Imports Foundation</p>
-            <p class="text-sm text-[#231f20]/60 font-body mb-3">Gegründet von Björn Werner (Ex-NFL). Non-Profit, 501(c)3. ~100 platzierte Spieler in 3 Jahren.</p>
-            <a href="https://gridironimports.com" target="_blank" rel="noopener noreferrer" class="text-rot text-sm font-semibold hover:underline">gridironimports.com →</a>
+
+          <!-- Gridiron Imports -->
+          <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm flex flex-col">
+            <div class="flex items-start justify-between gap-2 mb-1">
+              <p class="font-display font-bold text-[#231f20] leading-snug">Gridiron Imports Foundation</p>
+              <span class="shrink-0 text-[10px] font-bold uppercase tracking-widest text-white bg-rot px-2 py-0.5 rounded-full leading-tight mt-0.5">Non-Profit</span>
+            </div>
+            <p class="text-sm text-[#231f20]/60 font-body mb-3 grow">Gegründet von Björn Werner (Ex-NFL-1st-Round-Pick). 501(c)3. 100+ platzierte Spieler aus 3 Kontinenten – Prep Schools, JUCOs und D1-Programme.</p>
+            <div class="border-t border-[#231f20]/6 pt-3 mt-auto space-y-1.5">
+              <a href="https://www.gridironimports.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-rot text-sm font-semibold hover:underline">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                gridironimports.com
+              </a>
+              <p class="text-xs text-[#231f20]/45 font-body">Kontakt: Bewerbungsformular auf der Website</p>
+            </div>
           </div>
-          <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm">
-            <p class="font-display font-bold text-[#231f20] mb-1">PPI Recruits</p>
-            <p class="text-sm text-[#231f20]/60 font-body mb-3">Büro in Frankfurt. Jährliche Showcases in Deutschland. 150+ D1-Scholarships aus 20 Ländern.</p>
-            <a href="https://ppirecruits.com" target="_blank" rel="noopener noreferrer" class="text-rot text-sm font-semibold hover:underline">ppirecruits.com →</a>
+
+          <!-- PPI Recruits -->
+          <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm flex flex-col">
+            <div class="flex items-start justify-between gap-2 mb-1">
+              <p class="font-display font-bold text-[#231f20] leading-snug">PPI Recruits</p>
+              <span class="shrink-0 text-[10px] font-bold uppercase tracking-widest text-white bg-[#231f20] px-2 py-0.5 rounded-full leading-tight mt-0.5">Frankfurt</span>
+            </div>
+            <p class="text-sm text-[#231f20]/60 font-body mb-3 grow">Gegründet von Brandon Collier (ex-US College-Spieler, wohnhaft in Deutschland). 150+ D1-Scholarships aus 20 Ländern. Jährliche Showcases in Deutschland und Europa.</p>
+            <div class="border-t border-[#231f20]/6 pt-3 mt-auto space-y-1.5">
+              <a href="https://www.ppirecruits.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-rot text-sm font-semibold hover:underline">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                ppirecruits.com
+              </a>
+              <p class="text-xs text-[#231f20]/45 font-body">Kontakt: Anmeldeformular für Spieler auf der Website</p>
+            </div>
           </div>
+
+          <!-- Global Football -->
+          <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm flex flex-col">
+            <div class="flex items-start justify-between gap-2 mb-1">
+              <p class="font-display font-bold text-[#231f20] leading-snug">Global Football</p>
+              <span class="shrink-0 text-[10px] font-bold uppercase tracking-widest text-white bg-[#231f20] px-2 py-0.5 rounded-full leading-tight mt-0.5">seit 1996</span>
+            </div>
+            <p class="text-sm text-[#231f20]/60 font-body mb-3 grow">Weltweiter Marktführer im internationalen Football-Austausch. Hat u.a. Sebastian Vollmer (später 2× Super-Bowl-Champion) ans US-College gebracht. Coaching Exchange (ICE) und International Student Program.</p>
+            <div class="border-t border-[#231f20]/6 pt-3 mt-auto space-y-1.5">
+              <a href="https://www.globalfootball.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-rot text-sm font-semibold hover:underline">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                globalfootball.com
+              </a>
+              <p class="text-xs text-[#231f20]/45 font-body">Kontakt: Kontaktformular auf der Website</p>
+            </div>
+          </div>
+
+          <!-- Europe's Elite -->
+          <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm flex flex-col">
+            <div class="flex items-start justify-between gap-2 mb-1">
+              <p class="font-display font-bold text-[#231f20] leading-snug">Europe's Elite</p>
+              <span class="shrink-0 text-[10px] font-bold uppercase tracking-widest text-white bg-rot px-2 py-0.5 rounded-full leading-tight mt-0.5">Non-Profit</span>
+            </div>
+            <p class="text-sm text-[#231f20]/60 font-body mb-3 grow">Erste internationale Recruiting-Datenbank für europäische Youth-Spieler. Publiziert Player Rankings, Highlight-Videos und Spotlight-Stories. Veranstaltet Camps in Europa.</p>
+            <div class="border-t border-[#231f20]/6 pt-3 mt-auto space-y-1.5">
+              <a href="https://www.europeselite.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-rot text-sm font-semibold hover:underline">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                europeselite.com
+              </a>
+              <p class="text-xs text-[#231f20]/45 font-body">Kontakt: Spielerprofil auf der Website anlegen</p>
+            </div>
+          </div>
+
         </div>
       </div>
 
