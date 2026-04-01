@@ -318,7 +318,6 @@ const bodyHtml = body ? toHTML(body, {
           <tr class="border-b border-[#231f20]/10 hover:bg-[#231f20]/5">
             <td class="py-2 pr-4 font-semibold text-[#231f20] text-sm whitespace-nowrap">${p.name || ''}</td>
             <td class="py-2 pr-3 text-[#231f20]/60 text-sm font-mono font-bold">${p.position || ''}</td>
-            <td class="py-2 pr-4 text-[#231f20]/60 text-sm">${p.college || ''}</td>
             <td class="py-2 pr-4 text-[#231f20]/60 text-sm">${p.yearStatus || ''}</td>
             ${hasTeams ? `<td class="py-2 text-[#231f20]/60 text-sm">${p.nflTeams || '—'}</td>` : ''}
           </tr>
@@ -342,9 +341,8 @@ const bodyHtml = body ? toHTML(body, {
                     <tr>
                       <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50">Spieler</th>
                       <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50">Pos.</th>
-                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50">College</th>
                       <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50">Projection</th>
-                      ${hasTeams ? `<th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50">NFL Teams</th>` : ''}
+                      ${hasTeams ? `<th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50">NFL Teams Interesse</th>` : ''}
                     </tr>
                   </thead>
                   <tbody class="bg-white">${rows}</tbody>
