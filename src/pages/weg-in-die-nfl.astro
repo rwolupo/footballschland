@@ -66,10 +66,10 @@ const pageSchema = {
 
 const funnelData = [
   { label: 'High School Football', sub: '(USA)', count: '~1.000.000', pct: null, w: 100 },
-  { label: 'College Football', sub: '(alle Level)', count: '~73.000', pct: '≈ 7 %', w: 85 },
-  { label: 'Division I', sub: '(D1)', count: '~16.000', pct: '≈ 22 %', w: 70 },
-  { label: 'NFL Draft', sub: '', count: '~250 Picks/Jahr', pct: '≈ 1,6 %', w: 40 },
-  { label: 'Active Roster', sub: '(53 Mann)', count: '~150 Spieler', pct: '≈ 60 %', w: 36 },
+  { label: 'College Football', sub: '(alle Level)', count: '~73.000', pct: '≈ 7 %', w: 58 },
+  { label: 'Division I', sub: '(D1)', count: '~16.000', pct: '≈ 22 %', w: 44 },
+  { label: 'NFL Draft', sub: '', count: '~250 Picks/Jahr', pct: '≈ 1,6 %', w: 14 },
+  { label: 'Active Roster', sub: '(53 Mann)', count: '~150 Spieler', pct: '≈ 60 %', w: 10 },
 ];
 
 const orgs = [
@@ -323,7 +323,7 @@ const faqItems = [
                   <div class="flex items-center gap-3">
                     <div
                       class="h-9 rounded-lg flex items-center px-4 shrink-0 transition-all"
-                      style={`width:max(${w}%, 120px); background-color: rgba(35,31,32,${0.06 + (w/100)*0.10});`}
+                      style={`width:max(${w}%, 70px); background-color: rgba(35,31,32,${0.06 + (w/100)*0.14});`}
                     >
                       <span class="text-sm font-display font-semibold text-[#231f20] truncate">
                         {label} <span class="font-normal text-[#231f20]/50 text-xs">{sub}</span>
