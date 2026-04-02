@@ -287,7 +287,7 @@ const bodyHtml = body ? toHTML(body, {
               ${(conference || division) ? `<p class="text-[#231f20]/40 text-xs mt-1 font-medium">${[conference, division].filter(Boolean).join(' · ')}</p>` : ''}
             </div>
             ${allUrls.length > 0 ? `<div class="grid grid-cols-1 sm:grid-cols-3 gap-2 p-3 bg-[#f5f3f0]">${imgs}</div>` : ''}
-            ${bio ? `<div class="px-5 py-6 text-[#231f20]/75 font-body space-y-0" style="font-size:15px;line-height:1.75">${renderBio(bio)}</div>` : ''}
+            ${bio ? `<div class="px-5 py-6 text-[#231f20]/75 font-body space-y-0" style="font-size:15px;line-height:1.625">${renderBio(bio)}</div>` : ''}
           </div>
         `;
       },
