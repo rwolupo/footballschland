@@ -11,7 +11,7 @@ const faqSchema = {
       "name": "Wie kann ein deutscher Spieler in die NFL kommen?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Es gibt vier Hauptwege: Das NFL International Player Pathway Programme (IPP), der klassische US-College-Weg (NCAA → Draft), die direkte Rekrutierung aus der GFL an ein US-College, oder der Weg als Undrafted Free Agent nach dem IPP. Der schnellste Weg ist das IPP – von Januar bis März, direkt zu einem NFL-Team."
+        "text": "Es gibt sechs Hauptwege: Das NFL International Player Pathway Programme (IPP), der klassische US-High-School-Weg (NCAA → Draft), der Sonderweg über Prep Schools oder Junior Colleges, der NFL Academy-Weg (Loughborough, UK), die direkte Rekrutierung aus der GFL/ELF über College-Recruiting, oder der direkte Draft aus Europa (Der Böhringer-Weg)."
       }
     },
     {
@@ -19,7 +19,7 @@ const faqSchema = {
       "name": "Was ist das NFL International Player Pathway Programme?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Das IPP ist ein NFL-Programm, das seit 2017 internationale Talente in die NFL bringt. Ausgewählte Spieler trainieren 10 Wochen an der IMG Academy in Florida, präsentieren sich beim Pro Day vor NFL-Scouts und können danach als Free Agents verpflichtet oder gedraftet werden. Jedes NFL-Team hat einen reservierten Practice-Squad-Platz für internationale Spieler."
+        "text": "Das IPP ist ein NFL-Programm, das seit 2017 internationale Talente in die NFL bringt. Ausgewählte Spieler trainieren 10 Wochen an der IMG Academy in Florida, präsentieren sich üblicherweise bei einem Pro Day vor NFL-Scouts und können danach als Free Agents verpflichtet, direkt unter Vertrag genommen oder für den NFL Draft nominiert werden. Jedes NFL-Team hat einen reservierten Practice-Squad-Platz für internationale Spieler."
       }
     },
     {
@@ -35,15 +35,15 @@ const faqSchema = {
       "name": "Welche Organisationen helfen deutschen Spielern beim Weg in die USA?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Die wichtigsten Organisationen sind: Gridiron Imports Foundation (gegründet von Björn Werner, Non-Profit 501(c)3, über 100 platzierte Spieler aus 3 Kontinenten, gridironimports.com), PPI Recruits (gegründet von Brandon Collier, Büro Frankfurt, 150+ D1-Scholarships aus 20 Ländern, ppirecruits.com), Global Football (seit 1996, weltweiter Marktführer im internationalen Football-Austausch, brachte u.a. Sebastian Vollmer ans US-College, globalfootball.com) und Europe's Elite (Non-Profit 501(c), seit 2018, erste Recruiting-Datenbank für internationale Youth-Spieler, europeselite.com). Über den AFVD (American Football Verband Deutschland) als Dachverband kann man zudem Kontakt zum deutschen Nationalmannschafts- und Talentsystem aufnehmen."
+        "text": "Die wichtigsten Organisationen sind: Gridiron Imports Foundation (gegründet von Björn Werner, Non-Profit, über 100 platzierte Spieler), PPI Recruits (Frankfurt, 150+ D1-Scholarships), The Frame Academy (Köln), APX Academy (europaweit), NCSA Sports und Scholarbook."
       }
     },
     {
       "@type": "Question",
-      "name": "Wie läuft die NCAA-Rekrutierung für deutsche Spieler ab?",
+      "name": "Wie läuft das College-Recruiting für deutsche Spieler ab?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "US-Scouts besuchen GFL-Spiele und internationale Camps. Organisationen wie Gridiron Imports und PPI Recruits veranstalten jährlich Showcases in Deutschland. Die Zeitachse: Scouting im 1. Jahr, Camp-Teilnahme, College-Angebote 1-2 Jahre vor Enrollment. Viele Spieler absolvieren zunächst eine US-Prep-School (z.B. IMG Academy), bevor sie zu einem D1-Programm wechseln."
+        "text": "US-Scouts besuchen GFL-Spiele und internationale Camps. Organisationen wie Gridiron Imports und PPI Recruits veranstalten jährlich Showcases in Deutschland. Die Zeitachse: Scouting im 1. Jahr, Camp-Teilnahme, College-Angebote 1-2 Jahre vor Enrollment. Viele Spieler absolvieren zunächst eine US-Prep-School, bevor sie zu einem D1-Programm wechseln."
       }
     }
   ]
@@ -54,20 +54,124 @@ const pageSchema = {
   "@type": "Article",
   "@id": "https://footballschland.de/karriereweg#article",
   "headline": "Der Weg aus Deutschland in die NFL",
-  "description": "Der vollständige Guide: Wie deutsche Football-Talente es vom GFL-Spielfeld in die NFL schaffen – alle vier Karrierewege erklärt.",
+  "description": "Der vollständige Guide: Wie deutsche Football-Talente es vom GFL-Spielfeld in die NFL schaffen – alle sechs Karrierewege erklärt.",
   "url": "https://footballschland.de/karriereweg",
   "inLanguage": "de",
   "author": { "@type": "Person", "name": "Daniel Düngel" },
   "publisher": { "@id": "https://footballschland.de/#organization" },
   "datePublished": "2026-04-01",
-  "dateModified": "2026-04-01",
+  "dateModified": "2026-04-02",
   "image": { "@type": "ImageObject", "url": "https://footballschland.de/assets/og-default.png" }
 };
+
+const funnelData = [
+  { label: 'High School Football', sub: '(USA)', count: '~1.000.000', pct: null, w: 100 },
+  { label: 'College Football', sub: '(alle Level)', count: '~73.000', pct: '≈ 7 %', w: 72 },
+  { label: 'Division I', sub: '(D1)', count: '~16.000', pct: '≈ 22 %', w: 48 },
+  { label: 'NFL Draft', sub: '', count: '~250 Picks/Jahr', pct: '≈ 1,6 %', w: 28 },
+  { label: 'Active Roster', sub: '(53 Mann)', count: '~150 Spieler', pct: '≈ 60 %', w: 14 },
+];
+
+const orgs = [
+  {
+    name: 'Gridiron Imports Foundation',
+    badge: 'Non-Profit',
+    badgeColor: 'rot',
+    desc: 'Gegründet von Björn Werner (Ex-NFL-1st-Round-Pick). 501(c)3. 100+ platzierte Spieler aus 3 Kontinenten – Prep Schools, JUCOs und D1-Programme.',
+    url: 'https://www.gridironimports.com',
+    urlLabel: 'gridironimports.com',
+    contact: 'Bewerbungsformular auf der Website',
+    type: 'Recruiting',
+  },
+  {
+    name: 'PPI Recruits',
+    badge: 'Frankfurt',
+    badgeColor: 'dark',
+    desc: 'Gegründet von Brandon Collier (ex-US College-Spieler, wohnhaft in Deutschland). 150+ D1-Scholarships aus 20 Ländern. Jährliche Showcases in Deutschland.',
+    url: 'https://www.ppirecruits.com',
+    urlLabel: 'ppirecruits.com',
+    contact: 'Anmeldeformular für Spieler auf der Website',
+    type: 'Recruiting',
+  },
+  {
+    name: 'The Frame Academy',
+    badge: 'Köln',
+    badgeColor: 'dark',
+    desc: 'Deutsche Akademie (Gründer: Joel Schawo) mit Fokus auf den Weg in die USA. Positionsspezifisches Training mit amerikanischen Coaches, Camps und Recruiting-Trips.',
+    url: 'https://theframe-academy.com',
+    urlLabel: 'theframe-academy.com',
+    contact: 'Kontaktformular auf der Website',
+    type: 'Akademie',
+  },
+  {
+    name: 'APX Academy',
+    badge: 'Europaweit',
+    badgeColor: 'dark',
+    desc: "Europas größte American-Football-Coaching-Plattform: 600+ Lehrvideos, 50+ Coaches, und direkte Verbindungen zu 10+ US High Schools für Recruiting-Pathways.",
+    url: 'https://www.apxacademy.com',
+    urlLabel: 'apxacademy.com',
+    contact: 'Spielerprofil direkt auf der Website anlegen',
+    type: 'Akademie',
+  },
+  {
+    name: 'NCSA Sports',
+    badge: 'USA',
+    badgeColor: 'dark',
+    desc: 'Größte US-Recruiting-Plattform für Student-Athletes. Speziell für internationale Spieler: Profil, Highlight-Video und direkter Zugang zu College-Coaches. Funktioniert auch ohne Agent.',
+    url: 'https://www.ncsasports.org',
+    urlLabel: 'ncsasports.org',
+    contact: 'Kostenloses Spielerprofil anlegen',
+    type: 'Plattform',
+  },
+  {
+    name: 'Scholarbook',
+    badge: 'International',
+    badgeColor: 'rot',
+    desc: 'Recruiting-Service speziell für internationale Athleten – inkl. Visa-Abwicklung, NCAA-Eligibility-Prüfung und 4.200+ platzierten Spielern weltweit. Zwei Modelle: standard und Premier (College zahlt).',
+    url: 'https://www.scholarbook.net',
+    urlLabel: 'scholarbook.net',
+    contact: 'Direktanfrage auf der Website',
+    type: 'Plattform',
+  },
+  {
+    name: '247 American Football School',
+    badge: 'Mannheim',
+    badgeColor: 'dark',
+    desc: 'Camps und Clinics für deutsche Jugend- und High-School-Spieler, in mehreren deutschen Städten. Gut als Einstieg in systematisches Training – kein direkter Recruiting-Service.',
+    url: 'https://www.247afs.de',
+    urlLabel: '247afs.de',
+    contact: 'Anmeldung direkt über die Website',
+    type: 'Camps',
+  },
+];
+
+const faqItems = [
+  {
+    q: 'Wie alt muss man sein für das IPP?',
+    a: 'Das IPP hat keine feste Altersgrenze, aber die meisten Teilnehmer sind zwischen 20 und 26 Jahren. Entscheidend ist, dass du nicht bereits in einer US-Profiliga (NFL, CFL etc.) unter Vertrag warst.',
+  },
+  {
+    q: 'Brauche ich einen Agenten für den Weg in die NFL?',
+    a: 'Für den IPP-Weg ist kein Agent notwendig – die NFL managt den Prozess. Für den College-Weg sind NCAA-Regeln zu beachten (keine bezahlte Agenten-Beratung vor dem Draft). Nach dem Draft oder als Free Agent ist ein NFLPA-zertifizierter Agent empfehlenswert.',
+  },
+  {
+    q: 'Was ist der Unterschied zwischen Practice Squad und Active Roster?',
+    a: 'Der Practice Squad (16+1 reservierter internationaler Platz) ermöglicht es Spielern, beim Team zu trainieren, ohne im Gameday-Kader zu sein. Internationaler Practice-Squad-Spieler können bis zu 3x pro Saison ins Active Roster (53 Mann) hochgestuft werden – mit vollem Gehalt für diese Spiele.',
+  },
+  {
+    q: 'Welche Position hat die besten Chancen über das IPP?',
+    a: 'Historisch wurden über das IPP vor allem Offensive Linemen, Defensive Linemen und Specialists verpflichtet. Athletische Positionen (WR, TE) haben mit dem Böhringer-Weg oder über das NCAA-Recruiting mehr Erfolg.',
+  },
+  {
+    q: 'Was ist der Unterschied zwischen Prep School und Junior College?',
+    a: 'Eine Prep School ist ein privates Vorbereitungsjahr in den USA – kein Wettbewerb, keine Eligibility verbraucht. Ziel: Spielniveau steigern, Recruiting-Tape drehen. Ein Junior College (JUCO) ist ein zweijähriges Community College mit echtem Spielbetrieb. Eligibility wird hier verbraucht, aber du transferierst danach als D1-Spieler. Beide Wege können Türen zu Power-Five-Programmen öffnen.',
+  },
+];
 ---
 
 <BaseLayout
   title="Der Weg aus Deutschland in die NFL | Footballschland"
-  description="Wie deutsche Football-Spieler es vom GFL-Spielfeld in die NFL schaffen: alle vier Karrierewege erklärt – IPP, NCAA, College-Recruiting und mehr."
+  description="Wie deutsche Football-Spieler es vom GFL-Spielfeld in die NFL schaffen: alle sechs Karrierewege erklärt – IPP, NCAA, NFL Academy, Prep School und mehr."
   canonical="https://footballschland.de/karriereweg"
 >
   <Fragment slot="head">
@@ -87,7 +191,7 @@ const pageSchema = {
         Der Weg aus Deutschland<br class="hidden md:block" /> <span class="text-rot">in die NFL</span>
       </h1>
       <p class="text-white/70 text-lg font-body leading-relaxed max-w-2xl">
-        Vier Karrierewege, echte Erfolgsgeschichten und alle Organisationen die du kennen musst – der vollständige Guide für deutsche Football-Talente.
+        Sechs Karrierewege, echte Erfolgsgeschichten und alle Organisationen die du kennen musst – der vollständige Guide für deutsche Football-Talente.
       </p>
     </div>
   </section>
@@ -98,160 +202,248 @@ const pageSchema = {
 
       <!-- Intro -->
       <p class="text-[#231f20]/80 text-lg font-body leading-relaxed mb-12">
-        Noch vor zehn Jahren galt es als nahezu unmöglich: Ein Spieler aus der GFL, dem deutschen Spielfeld, der es bis in die beste Football-Liga der Welt schafft. Heute ist das Realität – und der Weg dorthin ist klarer denn je. Moritz Böhringer, Jakob Johnson, Leander Wiegand: Sie alle haben bewiesen, dass die NFL auch für deutsche Talente erreichbar ist. Hier sind die vier Wege, die dorthin führen.
+        Noch vor zehn Jahren galt es als nahezu unmöglich: Ein Spieler aus der GFL, dem deutschen Spielfeld, der es bis in die beste Football-Liga der Welt schafft. Heute ist das Realität – und der Weg dorthin ist klarer denn je. Moritz Böhringer, Jakob Johnson, Leander Wiegand: Sie alle haben bewiesen, dass die NFL auch für deutsche Talente erreichbar ist. Hier sind die sechs Wege, die dorthin führen.
       </p>
 
-      <!-- ── WEG 1: IPP ── -->
+      <!-- ─────────────────────────────────────── -->
+      <!-- WEG 1: IPP -->
+      <!-- ─────────────────────────────────────── -->
       <div class="mb-16">
-        <div class="flex items-center gap-4 mb-6">
+        <div class="flex items-center gap-4 mb-2">
           <span class="flex-shrink-0 w-10 h-10 rounded-full bg-rot text-white font-display font-bold text-lg flex items-center justify-center">1</span>
           <h2 class="font-display text-3xl font-bold text-[#231f20]">International Player Pathway Programme</h2>
         </div>
+        <div class="flex items-center gap-2 mb-6 pl-14">
+          <span class="inline-flex items-center gap-1 text-xs font-semibold bg-[#231f20]/6 text-[#231f20]/50 px-2.5 py-1 rounded-full">Alter: ca. 20–26 Jahre</span>
+          <span class="inline-flex items-center gap-1 text-xs font-semibold bg-rot/10 text-rot px-2.5 py-1 rounded-full">Direktweg zur NFL</span>
+        </div>
+
         <div class="bg-white rounded-2xl border border-[#231f20]/8 p-7 mb-5 shadow-sm">
           <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
-            Das <strong class="text-[#231f20]">NFL International Player Pathway Programme (IPP)</strong> ist seit 2017 der direkteste Weg vom deutschen Spielfeld in die NFL. Die NFL identifiziert internationale Talente, hauptsächlich aus der GFL und der ELF, und lädt sie zu einem intensiven 10-wöchigen Trainingsprogramm an der <strong class="text-[#231f20]">IMG Academy in Bradenton, Florida</strong> ein – jedes Jahr ab Januar.
+            Das <strong class="text-[#231f20]">NFL International Player Pathway Programme (IPP)</strong> ist seit 2017 der direkteste Weg vom deutschen Spielfeld in die NFL. Die NFL identifiziert internationale Talente – hauptsächlich aus der GFL und der ELF – und lädt sie zu einem intensiven 10-wöchigen Trainingsprogramm an der <strong class="text-[#231f20]">IMG Academy in Bradenton, Florida</strong> ein, jeweils ab Januar.
           </p>
           <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
-            Im März präsentieren sich die IPP-Teilnehmer beim Pro Day an der University of South Florida vor Scouts aller 32 NFL-Teams. Wer überzeugt, kann direkt als Free Agent verpflichtet werden – ohne jemals College Football gespielt zu haben.
+            Im Anschluss nehmen die IPP-Teilnehmer üblicherweise an einem Pro Day teil, bei dem sie sich vor Scouts aller 32 NFL-Teams präsentieren. Dann gibt es – je nach Spieler – drei mögliche Ausgänge:
           </p>
-          <p class="text-[#231f20]/75 font-body leading-relaxed">
-            Der entscheidende Vorteil: Jedes NFL-Team hat einen <strong class="text-[#231f20]">reservierten 17. Practice-Squad-Platz</strong> ausschließlich für internationale Spieler. Diese können bis zu dreimal pro Saison ins aktive Roster hochgestuft werden. Das bedeutet: Wer den Sprung ins IPP schafft, hat eine echte Chance auf NFL-Football.
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
+            <div class="bg-[#faf8f5] rounded-xl p-4 border border-[#231f20]/6">
+              <p class="text-xs font-bold text-[#231f20]/40 uppercase tracking-wider mb-1">Option A</p>
+              <p class="text-sm font-semibold text-[#231f20] font-display mb-1">Practice Squad</p>
+              <p class="text-xs text-[#231f20]/55 font-body leading-relaxed">Reservierter 17. Platz im Practice Squad – bis zu 3× pro Saison ins Active Roster hochstufen möglich.</p>
+            </div>
+            <div class="bg-[#faf8f5] rounded-xl p-4 border border-[#231f20]/6">
+              <p class="text-xs font-bold text-[#231f20]/40 uppercase tracking-wider mb-1">Option B</p>
+              <p class="text-sm font-semibold text-[#231f20] font-display mb-1">Direktvertrag</p>
+              <p class="text-xs text-[#231f20]/55 font-body leading-relaxed">NFL-Team verpflichtet den Spieler direkt als Undrafted Free Agent – wie z. B. Lenny Krieg bei den Indianapolis Colts.</p>
+            </div>
+            <div class="bg-rot/5 rounded-xl p-4 border border-rot/15">
+              <p class="text-xs font-bold text-rot/50 uppercase tracking-wider mb-1">Option C</p>
+              <p class="text-sm font-semibold text-[#231f20] font-display mb-1">NFL Draft</p>
+              <p class="text-xs text-[#231f20]/55 font-body leading-relaxed">Spieler erklärt sich Draft-eligible und wird vor dem Draft gepickt – wie Felix Lepper im Jahr 2026.</p>
+            </div>
+          </div>
+          <p class="text-[#231f20]/75 font-body leading-relaxed text-sm">
+            Grundvoraussetzung: Du warst noch nicht in einer nordamerikanischen Profiliga (NFL, CFL) unter Vertrag und bist mindestens drei Jahre nach deinem Highschool-Abschluss – oder einem vergleichbaren Abschluss.
           </p>
         </div>
+
         <div class="bg-rot/5 border border-rot/15 rounded-xl p-5">
-          <p class="text-sm font-semibold text-rot uppercase tracking-wider mb-2">Deutschen IPP-Erfolgsgeschichten</p>
+          <p class="text-sm font-semibold text-rot uppercase tracking-wider mb-2">Deutsche IPP-Erfolgsgeschichten</p>
           <ul class="space-y-2 text-[#231f20]/75 text-sm font-body">
             <li><strong class="text-[#231f20]">Jakob Johnson</strong> — IPP 2019, New England Patriots. Erster IPP-Spieler mit NFL-Touchdown (2020 vs. Seattle Seahawks). Später Las Vegas Raiders.</li>
             <li><strong class="text-[#231f20]">Leander Wiegand</strong> — IPP 2025, 38 Bench-Press-Wiederholungen (5 mehr als der Combine-Rekord), signiert bei den New York Jets.</li>
+            <li><strong class="text-[#231f20]">Lenny Krieg</strong> — IPP-Absolvent, direkt als UDFA von den Indianapolis Colts verpflichtet.</li>
             <li><strong class="text-[#231f20]">David Bada</strong> — IPP 2019, Washington Commanders, später Detroit Lions (2024).</li>
+            <li><strong class="text-[#231f20]">Felix Lepper</strong> — IPP 2026, erklärt sich für den NFL Draft eligible – ein Novum für einen IPP-Teilnehmer.</li>
           </ul>
         </div>
       </div>
 
-      <!-- ── WEG 2: HIGH SCHOOL USA ── -->
+      <!-- ─────────────────────────────────────── -->
+      <!-- WEG 2: HIGH SCHOOL USA -->
+      <!-- ─────────────────────────────────────── -->
       <div class="mb-16">
-        <div class="flex items-center gap-4 mb-6">
+        <div class="flex items-center gap-4 mb-2">
           <span class="flex-shrink-0 w-10 h-10 rounded-full bg-rot text-white font-display font-bold text-lg flex items-center justify-center">2</span>
           <h2 class="font-display text-3xl font-bold text-[#231f20]">High School in den USA → NCAA → NFL Draft</h2>
         </div>
+        <div class="flex items-center gap-2 mb-6 pl-14">
+          <span class="inline-flex items-center gap-1 text-xs font-semibold bg-[#231f20]/6 text-[#231f20]/50 px-2.5 py-1 rounded-full">Einstieg: ab ca. 14–15 Jahren</span>
+        </div>
+
         <div class="bg-white rounded-2xl border border-[#231f20]/8 p-7 mb-5 shadow-sm">
           <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
-            Wer als Teenager in die USA zieht und dort High School Football spielt, folgt exakt dem gleichen Weg wie amerikanische Spieler. Mit einem NCAA Division I Scholarship, vier Jahren College Football und einem soliden Pro Day ist der NFL Draft das natürliche Ziel.
+            Wer als Teenager in die USA zieht und dort High School Football spielt, folgt exakt dem gleichen Weg wie amerikanische Spieler: vier Jahre High School, ein NCAA Division I Scholarship, vier Jahre College Football – und danach der NFL Draft. Der schwierigste Weg, aber der mit dem höchsten Ceiling.
           </p>
-          <p class="text-[#231f20]/75 font-body leading-relaxed">
-            Das bekannteste Beispiel: <strong class="text-[#231f20]">Amon-Ra St. Brown</strong>. Sein Vater ist Bodybuilder aus den USA, seine Mutter Miriam kommt aus Leverkusen. Aufgewachsen in Californien, USC Trojans, 2021 gedraftet von den Detroit Lions im 4. Round. Heute einer der besten Wide Receiver der NFL: Pro Bowler, First-Team All-Pro 2023, 1.515 Receiving Yards in einer Saison.
+          <p class="text-[#231f20]/75 font-body leading-relaxed mb-6">
+            Das bekannteste deutsche Beispiel: <strong class="text-[#231f20]">Amon-Ra St. Brown</strong>. Seine Mutter Miriam kommt aus Leverkusen. Aufgewachsen in Californien, USC Trojans, 2021 im 4. Round gedraftet von den Detroit Lions. Heute einer der besten Wide Receiver der NFL: Pro Bowler, First-Team All-Pro 2023, 1.515 Receiving Yards in einer Saison.
           </p>
-        </div>
-        <div class="bg-[#231f20]/4 rounded-xl p-5 border border-[#231f20]/8">
-          <p class="text-sm font-semibold text-[#231f20]/50 uppercase tracking-wider mb-2">Zeitachse</p>
-          <div class="flex flex-col gap-2">
-            {[
-              { phase: 'Jahr 1–4', label: 'High School Football in den USA' },
-              { phase: 'Jahr 4–5', label: 'NCAA Recruiting, College-Angebote' },
-              { phase: 'Jahr 5–9', label: '4 Jahre NCAA Division I College Football' },
-              { phase: 'Jahr 9', label: 'NFL Draft oder Undrafted Free Agent' },
-            ].map(({ phase, label }) => (
-              <div class="flex items-center gap-3">
-                <span class="text-xs font-mono text-rot font-bold w-20 shrink-0">{phase}</span>
-                <span class="text-sm text-[#231f20]/70 font-body">{label}</span>
-              </div>
-            ))}
+
+          <!-- Conversion Funnel -->
+          <div class="mb-2">
+            <p class="text-xs font-bold uppercase tracking-wider text-[#231f20]/40 mb-4">Wie viele schaffen jede Stufe? (US-weite Statistiken)</p>
+            <div class="space-y-1">
+              {funnelData.map(({ label, sub, count, pct, w }) => (
+                <div>
+                  {pct && (
+                    <div class="flex items-center gap-1.5 pl-1 py-1">
+                      <svg class="w-3 h-3 flex-shrink-0" style="color:#c41230" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7" />
+                      </svg>
+                      <span class="text-xs font-bold" style="color:#c41230">{pct}</span>
+                      <span class="text-[#231f20]/30 text-xs font-body">schaffen es weiter</span>
+                    </div>
+                  )}
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="h-9 rounded-lg flex items-center px-4 shrink-0 transition-all"
+                      style={`width:max(${w}%, 120px); background-color: rgba(35,31,32,${0.06 + (w/100)*0.10});`}
+                    >
+                      <span class="text-sm font-display font-semibold text-[#231f20] truncate">
+                        {label} <span class="font-normal text-[#231f20]/50 text-xs">{sub}</span>
+                      </span>
+                    </div>
+                    <span class="text-sm font-mono font-bold text-[#231f20]/50 whitespace-nowrap shrink-0">{count}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <p class="text-xs text-[#231f20]/35 font-body mt-3">Quelle: NCAA Research (US-Daten). Für deutsche Spieler ist jede Hürde nochmals schwieriger – diese Zahlen zeigen, wie kompetitiv das System insgesamt ist.</p>
           </div>
         </div>
       </div>
 
-      <!-- ── WEG 3: GFL → NCAA RECRUITING ── -->
+      <!-- ─────────────────────────────────────── -->
+      <!-- WEG 3: PREP SCHOOL / JUCO -->
+      <!-- ─────────────────────────────────────── -->
       <div class="mb-16">
-        <div class="flex items-center gap-4 mb-6">
+        <div class="flex items-center gap-4 mb-2">
           <span class="flex-shrink-0 w-10 h-10 rounded-full bg-rot text-white font-display font-bold text-lg flex items-center justify-center">3</span>
-          <h2 class="font-display text-3xl font-bold text-[#231f20]">GFL/ELF → NCAA-Recruiting → Draft</h2>
+          <h2 class="font-display text-3xl font-bold text-[#231f20]">Prep School / Junior College → NCAA → Draft</h2>
         </div>
+        <div class="flex items-center gap-2 mb-6 pl-14">
+          <span class="inline-flex items-center gap-1 text-xs font-semibold bg-[#231f20]/6 text-[#231f20]/50 px-2.5 py-1 rounded-full">Alter: ca. 17–21 Jahre</span>
+          <span class="inline-flex items-center gap-1 text-xs font-semibold bg-[#231f20]/6 text-[#231f20]/50 px-2.5 py-1 rounded-full">Sonderweg</span>
+        </div>
+
         <div class="bg-white rounded-2xl border border-[#231f20]/8 p-7 mb-5 shadow-sm">
+          <p class="text-[#231f20]/75 font-body leading-relaxed mb-5">
+            Nicht jeder Spieler schafft den Direktsprung von der GFL in ein D1-College. Hier kommen zwei Zwischenstationen ins Spiel, die in den USA fest etabliert sind – und für deutsche Spieler zunehmend relevant werden.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+            <!-- Prep School -->
+            <div class="bg-[#faf8f5] rounded-xl p-5 border border-[#231f20]/6">
+              <p class="font-display font-bold text-[#231f20] mb-1">Prep School</p>
+              <p class="text-xs text-[#231f20]/45 uppercase tracking-wider font-semibold mb-3">1 Jahr · keine Eligibility verbraucht</p>
+              <p class="text-sm text-[#231f20]/70 font-body leading-relaxed mb-3">
+                Ein privates Vorbereitungsjahr in den USA. Der Spieler trainiert, dreht Highlight-Tape und präsentiert sich College-Scouts – ohne Eligibility zu verbrauchen. Danach Transfer an ein D1-Programm.
+              </p>
+              <p class="text-xs text-[#231f20]/45 font-body">Bekannte Prep Schools: <span class="text-[#231f20]/65">IMG Academy (FL), Fork Union Military Academy (VA), Milford Academy (NY)</span></p>
+            </div>
+
+            <!-- JUCO -->
+            <div class="bg-[#faf8f5] rounded-xl p-5 border border-[#231f20]/6">
+              <p class="font-display font-bold text-[#231f20] mb-1">Junior College (JUCO)</p>
+              <p class="text-xs text-[#231f20]/45 uppercase tracking-wider font-semibold mb-3">2 Jahre · echter Spielbetrieb</p>
+              <p class="text-sm text-[#231f20]/70 font-body leading-relaxed mb-3">
+                Zweijähriges Community College mit echter NCAA-Eligibility. Spieler entwickeln sich im echten Wettbewerb und transferieren danach – oft zu Power-Five-Programmen. Ein etablierter Sprungbrett-Weg.
+              </p>
+              <p class="text-xs text-[#231f20]/45 font-body">Eligibility-Hinweis: <span class="text-[#231f20]/65">2 JUCO-Jahre werden auf die 5-Jahres-Eligibility angerechnet.</span></p>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-[#231f20]/4 border border-[#231f20]/8 rounded-xl p-5">
+          <p class="text-sm font-semibold text-[#231f20]/50 uppercase tracking-wider mb-2">Wann ist dieser Weg sinnvoll?</p>
+          <ul class="space-y-1.5 text-sm text-[#231f20]/70 font-body">
+            <li>→ Wenn ein D1-Direktangebot ausbleibt, aber das Talent vorhanden ist</li>
+            <li>→ Wenn sprachliche oder akademische Voraussetzungen für ein US-College noch fehlen</li>
+            <li>→ Wenn der Spieler noch Entwicklungszeit braucht, um NFL-Draft-Radar zu erscheinen</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────── -->
+      <!-- WEG 4: NFL ACADEMY -->
+      <!-- ─────────────────────────────────────── -->
+      <div class="mb-16">
+        <div class="flex items-center gap-4 mb-2">
+          <span class="flex-shrink-0 w-10 h-10 rounded-full bg-rot text-white font-display font-bold text-lg flex items-center justify-center">4</span>
+          <h2 class="font-display text-3xl font-bold text-[#231f20]">NFL Academy → College-Recruiting → Draft</h2>
+        </div>
+        <div class="flex items-center gap-2 mb-6 pl-14">
+          <span class="inline-flex items-center gap-1 text-xs font-semibold bg-[#231f20]/6 text-[#231f20]/50 px-2.5 py-1 rounded-full">Alter: 16–19 Jahre</span>
+          <span class="inline-flex items-center gap-1 text-xs font-semibold bg-rot/10 text-rot px-2.5 py-1 rounded-full">Offen für Deutsche</span>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-[#231f20]/8 p-7 mb-5 shadow-sm">
+          <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+            Die <strong class="text-[#231f20]">NFL Academy</strong> in <strong class="text-[#231f20]">Loughborough, England</strong> (in Kooperation mit dem Loughborough College und der Loughborough University) ist einer der spannendsten neuen Wege für europäische Talente. Das Programm nimmt Spieler aus ganz Europa und Afrika im Alter von 16 bis 19 Jahren auf – Vollzeitausbildung kombiniert mit professionellem Football-Training auf höchstem Niveau.
+          </p>
+          <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+            Das Ziel ist klar: College-Recruiting in die USA. Bisher haben über <strong class="text-[#231f20]">40 Alumni D1-College-Scholarships</strong> erhalten; in der Saison 2025/26 spielen 27 ehemalige NFL-Academy-Spieler in Division I. Auch deutsche Spieler können sich bewerben – Anmeldephasen laufen typischerweise im Herbst.
+          </p>
+          <div class="bg-rot/5 border border-rot/15 rounded-xl p-4">
+            <p class="text-sm font-semibold text-rot uppercase tracking-wider mb-1.5">Weg im Überblick</p>
+            <div class="flex flex-wrap gap-2 items-center text-sm font-body text-[#231f20]/70">
+              <span class="bg-white border border-[#231f20]/10 rounded-lg px-3 py-1.5 font-semibold text-[#231f20]">GFL / ELF / Europa</span>
+              <span class="text-rot font-bold">→</span>
+              <span class="bg-white border border-[#231f20]/10 rounded-lg px-3 py-1.5 font-semibold text-[#231f20]">NFL Academy UK (1–2 Jahre)</span>
+              <span class="text-rot font-bold">→</span>
+              <span class="bg-white border border-[#231f20]/10 rounded-lg px-3 py-1.5 font-semibold text-[#231f20]">NCAA D1 College</span>
+              <span class="text-rot font-bold">→</span>
+              <span class="bg-white border border-rot/20 rounded-lg px-3 py-1.5 font-semibold text-rot">NFL Draft</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="border border-[#231f20]/8 rounded-xl p-5">
+          <a href="https://www.nflacademy.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-rot text-sm font-semibold hover:underline mb-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+            nflacademy.com
+          </a>
+          <p class="text-xs text-[#231f20]/45 font-body">Bewerbung direkt auf der Website – Infos zu Aufnahmekriterien und Terminen im FAQ-Bereich der Akademie.</p>
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────── -->
+      <!-- WEG 5: GFL/ELF → COLLEGE-RECRUITING -->
+      <!-- ─────────────────────────────────────── -->
+      <div class="mb-16">
+        <div class="flex items-center gap-4 mb-2">
+          <span class="flex-shrink-0 w-10 h-10 rounded-full bg-rot text-white font-display font-bold text-lg flex items-center justify-center">5</span>
+          <h2 class="font-display text-3xl font-bold text-[#231f20]">GFL/ELF → College-Recruiting → Draft</h2>
+        </div>
+        <div class="flex items-center gap-2 mb-6 pl-14">
+          <span class="inline-flex items-center gap-1 text-xs font-semibold bg-[#231f20]/6 text-[#231f20]/50 px-2.5 py-1 rounded-full">Alter: je früher desto besser – ideal 16–22 Jahre</span>
+        </div>
+
+        <div class="bg-white rounded-2xl border border-[#231f20]/8 p-7 shadow-sm">
           <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
             Immer mehr Power-Five-Coaches scouten aktiv in Deutschland und Europa. Mehrere spezialisierte Organisationen schaffen dabei die Brücke: Sie identifizieren Talente in der GFL und ELF, veranstalten Showcases und stellen den direkten Kontakt zu US-Colleges her.
           </p>
           <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
-            Power-Five-Programme wie Michigan, Penn State, Georgia Tech und Virginia Tech haben bereits deutsche Spieler aufgenommen. In NCAA-Kreisen gilt Europa heute als <em>"next frontier"</em> im internationalen Recruiting – und die Zahl der deutschen D1-Spieler hat in der Saison 2025/26 erstmals die 50er-Marke überschritten.
+            Programme wie Michigan, Penn State, Georgia Tech und Virginia Tech haben bereits deutsche Spieler aufgenommen. In NCAA-Kreisen gilt Europa heute als <em>"next frontier"</em> im internationalen Recruiting – und die Zahl der deutschen D1-Spieler hat in der Saison 2025/26 erstmals die 50er-Marke überschritten.
           </p>
-          <p class="text-[#231f20]/75 font-body leading-relaxed">
-            Die vier wichtigsten Anlaufstellen findest du unten – alle mit direktem Kontaktweg:
+          <p class="text-[#231f20]/75 font-body leading-relaxed text-sm">
+            Die wichtigsten Anlaufstellen für diesen Weg findest du im Abschnitt <strong class="text-[#231f20]">Organisationen & Ressourcen</strong> weiter unten.
           </p>
-        </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-          <!-- Gridiron Imports -->
-          <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm flex flex-col">
-            <div class="flex items-start justify-between gap-2 mb-1">
-              <p class="font-display font-bold text-[#231f20] leading-snug">Gridiron Imports Foundation</p>
-              <span class="shrink-0 text-[10px] font-bold uppercase tracking-widest text-white bg-rot px-2 py-0.5 rounded-full leading-tight mt-0.5">Non-Profit</span>
-            </div>
-            <p class="text-sm text-[#231f20]/60 font-body mb-3 grow">Gegründet von Björn Werner (Ex-NFL-1st-Round-Pick). 501(c)3. 100+ platzierte Spieler aus 3 Kontinenten – Prep Schools, JUCOs und D1-Programme.</p>
-            <div class="border-t border-[#231f20]/6 pt-3 mt-auto space-y-1.5">
-              <a href="https://www.gridironimports.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-rot text-sm font-semibold hover:underline">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                gridironimports.com
-              </a>
-              <p class="text-xs text-[#231f20]/45 font-body">Kontakt: Bewerbungsformular auf der Website</p>
-            </div>
-          </div>
-
-          <!-- PPI Recruits -->
-          <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm flex flex-col">
-            <div class="flex items-start justify-between gap-2 mb-1">
-              <p class="font-display font-bold text-[#231f20] leading-snug">PPI Recruits</p>
-              <span class="shrink-0 text-[10px] font-bold uppercase tracking-widest text-white bg-[#231f20] px-2 py-0.5 rounded-full leading-tight mt-0.5">Frankfurt</span>
-            </div>
-            <p class="text-sm text-[#231f20]/60 font-body mb-3 grow">Gegründet von Brandon Collier (ex-US College-Spieler, wohnhaft in Deutschland). 150+ D1-Scholarships aus 20 Ländern. Jährliche Showcases in Deutschland und Europa.</p>
-            <div class="border-t border-[#231f20]/6 pt-3 mt-auto space-y-1.5">
-              <a href="https://www.ppirecruits.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-rot text-sm font-semibold hover:underline">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                ppirecruits.com
-              </a>
-              <p class="text-xs text-[#231f20]/45 font-body">Kontakt: Anmeldeformular für Spieler auf der Website</p>
-            </div>
-          </div>
-
-          <!-- Global Football -->
-          <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm flex flex-col">
-            <div class="flex items-start justify-between gap-2 mb-1">
-              <p class="font-display font-bold text-[#231f20] leading-snug">Global Football</p>
-              <span class="shrink-0 text-[10px] font-bold uppercase tracking-widest text-white bg-[#231f20] px-2 py-0.5 rounded-full leading-tight mt-0.5">seit 1996</span>
-            </div>
-            <p class="text-sm text-[#231f20]/60 font-body mb-3 grow">Weltweiter Marktführer im internationalen Football-Austausch. Hat u.a. Sebastian Vollmer (später 2× Super-Bowl-Champion) ans US-College gebracht. Coaching Exchange (ICE) und International Student Program.</p>
-            <div class="border-t border-[#231f20]/6 pt-3 mt-auto space-y-1.5">
-              <a href="https://www.globalfootball.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-rot text-sm font-semibold hover:underline">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                globalfootball.com
-              </a>
-              <p class="text-xs text-[#231f20]/45 font-body">Kontakt: Kontaktformular auf der Website</p>
-            </div>
-          </div>
-
-          <!-- Europe's Elite -->
-          <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm flex flex-col">
-            <div class="flex items-start justify-between gap-2 mb-1">
-              <p class="font-display font-bold text-[#231f20] leading-snug">Europe's Elite</p>
-              <span class="shrink-0 text-[10px] font-bold uppercase tracking-widest text-white bg-rot px-2 py-0.5 rounded-full leading-tight mt-0.5">Non-Profit</span>
-            </div>
-            <p class="text-sm text-[#231f20]/60 font-body mb-3 grow">Erste internationale Recruiting-Datenbank für europäische Youth-Spieler. Publiziert Player Rankings, Highlight-Videos und Spotlight-Stories. Veranstaltet Camps in Europa.</p>
-            <div class="border-t border-[#231f20]/6 pt-3 mt-auto space-y-1.5">
-              <a href="https://www.europeselite.com" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-rot text-sm font-semibold hover:underline">
-                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
-                europeselite.com
-              </a>
-              <p class="text-xs text-[#231f20]/45 font-body">Kontakt: Spielerprofil auf der Website anlegen</p>
-            </div>
-          </div>
-
         </div>
       </div>
 
-      <!-- ── WEG 4: MORITZ BÖHRINGER ── -->
+      <!-- ─────────────────────────────────────── -->
+      <!-- WEG 6: BÖHRINGER-WEG -->
+      <!-- ─────────────────────────────────────── -->
       <div class="mb-16">
-        <div class="flex items-center gap-4 mb-6">
-          <span class="flex-shrink-0 w-10 h-10 rounded-full bg-rot text-white font-display font-bold text-lg flex items-center justify-center">4</span>
+        <div class="flex items-center gap-4 mb-2">
+          <span class="flex-shrink-0 w-10 h-10 rounded-full bg-rot text-white font-display font-bold text-lg flex items-center justify-center">6</span>
           <h2 class="font-display text-3xl font-bold text-[#231f20]">Der Böhringer-Weg: Direkt aus Europa gedraftet</h2>
         </div>
+        <div class="flex items-center gap-2 mb-6 pl-14">
+          <span class="inline-flex items-center gap-1 text-xs font-semibold bg-[#231f20]/6 text-[#231f20]/50 px-2.5 py-1 rounded-full">Seltenster Weg · aber real</span>
+        </div>
+
         <div class="bg-white rounded-2xl border border-[#231f20]/8 p-7 shadow-sm">
           <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
             2016 schrieb <strong class="text-[#231f20]">Moritz Böhringer</strong> Geschichte: Als erster Europäer wurde er in den NFL Draft ausgewählt, ohne jemals College Football gespielt zu haben. Die Minnesota Vikings holten ihn in der 6. Runde (180. Pick) – direkt von den Schwäbisch Hall Unicorns aus der GFL.
@@ -265,28 +457,88 @@ const pageSchema = {
         </div>
       </div>
 
+      <!-- ─────────────────────────────────────── -->
+      <!-- ORGANISATIONEN & RESSOURCEN -->
+      <!-- ─────────────────────────────────────── -->
+      <div class="mb-16">
+        <h2 class="font-display text-3xl font-bold text-[#231f20] mb-2">Organisationen & Ressourcen</h2>
+        <p class="text-[#231f20]/60 font-body mb-8">Alle relevanten Anlaufstellen – von Recruiting-Agenturen bis Trainings-Akademien.</p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {orgs.map(({ name, badge, badgeColor, desc, url, urlLabel, contact, type }) => (
+            <div class="bg-white rounded-xl border border-[#231f20]/8 p-5 shadow-sm flex flex-col">
+              <div class="flex items-start justify-between gap-2 mb-1">
+                <p class="font-display font-bold text-[#231f20] leading-snug">{name}</p>
+                <span
+                  class="shrink-0 text-[10px] font-bold uppercase tracking-widest text-white px-2 py-0.5 rounded-full leading-tight mt-0.5"
+                  style={badgeColor === 'rot' ? 'background-color:#c41230' : 'background-color:#231f20'}
+                >
+                  {badge}
+                </span>
+              </div>
+              <span class="inline-block text-[10px] font-semibold uppercase tracking-wider text-[#231f20]/35 mb-2">{type}</span>
+              <p class="text-sm text-[#231f20]/60 font-body mb-3 grow">{desc}</p>
+              <div class="border-t border-[#231f20]/6 pt-3 mt-auto space-y-1.5">
+                <a href={url} target="_blank" rel="noopener noreferrer" class="flex items-center gap-1.5 text-rot text-sm font-semibold hover:underline">
+                  <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>
+                  {urlLabel}
+                </a>
+                <p class="text-xs text-[#231f20]/45 font-body">{contact}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- ─────────────────────────────────────── -->
+      <!-- INFOKASTEN: WER IST DRAFT ELIGIBLE? -->
+      <!-- ─────────────────────────────────────── -->
+      <div class="mb-16">
+        <div class="bg-[#231f20] rounded-2xl p-7 text-white">
+          <div class="flex items-center gap-3 mb-5">
+            <div class="w-9 h-9 rounded-full bg-rot flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h2 class="font-display text-2xl font-bold text-white">Wer ist Draft eligible?</h2>
+          </div>
+
+          <p class="text-white/70 font-body leading-relaxed mb-5">
+            In den NFL Draft eintreten darf, wer diese Voraussetzungen erfüllt:
+          </p>
+
+          <div class="space-y-3 mb-6">
+            {[
+              { title: '3-Jahres-Regel', text: 'Mindestens drei Jahre müssen seit dem High-School-Abschluss (oder einem vergleichbaren Schulabschluss) vergangen sein. Dies gilt für alle Spieler – inklusive IPP-Teilnehmer.' },
+              { title: 'Kein laufendes College-Eligibility', text: 'Wer noch College-Eligibility besitzt, muss diese aktiv aufgeben ("declare for the draft"). Nach vier Jahren NCAA-Football oder nach Ablauf der 5-Jahres-Eligibility entfällt dieser Schritt.' },
+              { title: 'Deadline einhalten', text: 'Die Anmeldefrist für den NFL Draft liegt typischerweise im Januar/Februar des Draft-Jahres. Wer die Deadline verpasst, muss ein weiteres Jahr warten.' },
+              { title: 'Undrafted Free Agent als Alternative', text: 'Wer nicht gedraftet wird, ist nicht raus: Undrafted Free Agents (UDFAs) können nach dem Draft direkt von NFL-Teams verpflichtet werden – und haben so ebenfalls einen Weg ins Roster.' },
+            ].map(({ title, text }) => (
+              <div class="flex gap-3">
+                <span class="w-1.5 h-1.5 rounded-full bg-rot mt-2 shrink-0"></span>
+                <div>
+                  <span class="font-semibold text-white">{title}: </span>
+                  <span class="text-white/65 font-body text-sm">{text}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div class="bg-white/5 border border-white/10 rounded-xl p-4">
+            <p class="text-xs font-bold text-rot uppercase tracking-wider mb-1">Aktuelles Beispiel</p>
+            <p class="text-sm text-white/70 font-body leading-relaxed">
+              <strong class="text-white">Felix Lepper</strong> hat als IPP-Teilnehmer 2026 als erster Spieler dieses Programms offiziell für den NFL Draft erklärt – ein Meilenstein für internationale Spieler, die über das IPP den direkten Draft-Weg anstreben.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <!-- ── FAQ ── -->
       <div class="mb-16">
         <h2 class="font-display text-3xl font-bold text-[#231f20] mb-8">Häufige Fragen</h2>
         <div class="space-y-4">
-          {[
-            {
-              q: 'Wie alt muss man sein für das IPP?',
-              a: 'Das IPP hat keine feste Altersgrenze, aber die meisten Teilnehmer sind zwischen 20 und 26 Jahren. Entscheidend ist, dass du nicht bereits in einer US-Profiliga (NFL, CFL etc.) unter Vertrag warst.',
-            },
-            {
-              q: 'Brauche ich einen Agenten für den Weg in die NFL?',
-              a: 'Für den IPP-Weg ist kein Agent notwendig – die NFL managt den Prozess. Für den College-Weg sind NCAA-Regeln zu beachten (keine bezahlte Agenten-Beratung vor dem Draft). Nach dem Draft oder als Free Agent ist ein NFLPA-zertifizierter Agent empfehlenswert.',
-            },
-            {
-              q: 'Was ist der Unterschied zwischen Practice Squad und Active Roster?',
-              a: 'Der Practice Squad (16+1 reservierter internationaler Platz) ermöglicht es Spielern, beim Team zu trainieren, ohne im Gameday-Kader zu sein. Internationaler Practice-Squad-Spieler können bis zu 3x pro Saison ins Active Roster (53 Mann) hochgestuft werden – mit vollem Gehalt für diese Spiele.',
-            },
-            {
-              q: 'Welche Position hat die besten Chancen über das IPP?',
-              a: 'Historisch wurden über das IPP vor allem Offensive Linemen (Jakob Johnson als FB, Leander Wiegand als OG), Defensive Linemen (David Bada) und Specialists (Bastian Roppelt, Punter) verpflichtet. Athletische Positionen (WR, TE) haben mit dem Böhringer-Weg oder über das NCAA-Recruiting mehr Erfolg.',
-            },
-          ].map(({ q, a }) => (
+          {faqItems.map(({ q, a }) => (
             <details class="group bg-white border border-[#231f20]/8 rounded-xl overflow-hidden shadow-sm">
               <summary class="flex items-center justify-between px-6 py-5 cursor-pointer list-none">
                 <span class="font-display font-semibold text-[#231f20] pr-4">{q}</span>
