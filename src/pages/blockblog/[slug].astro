@@ -315,37 +315,37 @@ const bodyHtml = body ? toHTML(body, {
         const count = (players || []).length;
         const hasTeams = (players || []).some((p: any) => p.nflTeams);
         const rows = (players || []).map((p: any) => `
-          <tr class="border-b border-[#231f20]/10 hover:bg-[#231f20]/5">
-            <td class="pl-4 py-2 pr-4 font-semibold text-[#231f20] text-sm whitespace-nowrap">${p.name || ''}</td>
-            <td class="py-2 pr-3 text-[#231f20]/60 text-sm font-mono font-bold">${p.position || ''}</td>
-            <td class="py-2 pr-4 text-[#231f20]/60 text-sm">${p.yearStatus || ''}</td>
-            ${hasTeams ? `<td class="py-2 pr-4 text-[#231f20]/60 text-sm">${p.nflTeams || '—'}</td>` : ''}
+          <tr style="border-bottom:1px solid rgba(255,255,255,0.1)">
+            <td class="pl-4 py-2 pr-4 text-sm whitespace-nowrap" style="font-weight:600;color:#ffffff">${p.name || ''}</td>
+            <td class="py-2 pr-3 text-sm font-mono font-bold" style="color:rgba(255,255,255,0.6)">${p.position || ''}</td>
+            <td class="py-2 pr-4 text-sm" style="color:rgba(255,255,255,0.6)">${p.yearStatus || ''}</td>
+            ${hasTeams ? `<td class="py-2 pr-4 text-sm" style="color:rgba(255,255,255,0.6)">${p.nflTeams || '—'}</td>` : ''}
           </tr>
         `).join('');
         return `
           <div class="not-prose my-8">
-            <details class="group rounded-xl border border-[#231f20]/10 overflow-hidden" open>
-              <summary class="flex items-center justify-between px-5 py-4 cursor-pointer bg-white hover:bg-[#231f20]/3 transition-colors list-none">
+            <details class="group rounded-xl overflow-hidden" style="border:1px solid rgba(255,255,255,0.15)" open>
+              <summary class="flex items-center justify-between px-5 py-4 cursor-pointer transition-colors list-none" style="background:#231f20">
                 <div class="flex items-center gap-3">
-                  <span class="font-display font-bold text-[#231f20] text-base">
+                  <span class="font-display font-bold text-base" style="color:#ffffff">
                     ${tableTitle || 'Alle Spieler'}
                   </span>
-                  <span class="px-2 py-0.5 rounded-full bg-[#231f20]/8 text-[#231f20]/60 text-xs font-semibold">${count} Spieler</span>
+                  <span class="px-2 py-0.5 rounded-full text-xs font-semibold" style="background:rgba(255,255,255,0.15);color:rgba(255,255,255,0.7)">${count} Spieler</span>
                 </div>
-                <span class="text-[#231f20]/40 text-sm font-medium group-open:hidden">Tabelle anzeigen ↓</span>
-                <span class="text-[#231f20]/40 text-sm font-medium hidden group-open:inline">Einklappen ↑</span>
+                <span class="text-sm font-medium group-open:hidden" style="color:rgba(255,255,255,0.4)">Tabelle anzeigen ↓</span>
+                <span class="text-sm font-medium hidden group-open:inline" style="color:rgba(255,255,255,0.4)">Einklappen ↑</span>
               </summary>
-              <div class="overflow-x-auto border-t border-[#231f20]/10">
+              <div class="overflow-x-auto" style="border-top:1px solid rgba(255,255,255,0.1)">
                 <table class="w-full text-left">
-                  <thead class="bg-[#231f20]/3">
+                  <thead style="background:rgba(255,255,255,0.08)">
                     <tr>
-                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50" style="text-align:left">Spieler</th>
-                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50" style="text-align:left">Pos.</th>
-                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50" style="text-align:left">Projection</th>
-                      ${hasTeams ? `<th class="px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#231f20]/50" style="text-align:left">NFL Teams Interesse</th>` : ''}
+                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider" style="text-align:left;color:rgba(255,255,255,0.5)">Spieler</th>
+                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider" style="text-align:left;color:rgba(255,255,255,0.5)">Pos.</th>
+                      <th class="px-4 py-2 text-xs font-bold uppercase tracking-wider" style="text-align:left;color:rgba(255,255,255,0.5)">Projection</th>
+                      ${hasTeams ? `<th class="px-4 py-2 text-xs font-bold uppercase tracking-wider" style="text-align:left;color:rgba(255,255,255,0.5)">NFL Teams Interesse</th>` : ''}
                     </tr>
                   </thead>
-                  <tbody class="bg-white">${rows}</tbody>
+                  <tbody style="background:#231f20">${rows}</tbody>
                 </table>
               </div>
             </details>
