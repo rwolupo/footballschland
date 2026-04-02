@@ -216,6 +216,7 @@ const seasonKeys = Object.keys(seasons).map(Number).sort((a, b) => b - a);
         <div class="space-y-1" role="list">
           {seasons[season].map((ep, idx) => (
             <button
+              id={ep.season > 0 && ep.episodeNum > 0 ? `s${ep.season}e${ep.episodeNum}` : undefined}
               class="episode-item w-full text-left group flex items-center gap-4 px-4 py-3 rounded-lg hover:bg-white/5 active:bg-white/10 transition-all border border-transparent hover:border-white/10 cursor-pointer"
               data-audio={ep.audioUrl}
               data-title={ep.title}
