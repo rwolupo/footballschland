@@ -143,6 +143,26 @@ const orgs = [
     contact: 'Anmeldung direkt über die Website',
     type: 'Camps',
   },
+  {
+    name: 'Podyum Preps',
+    badge: 'Florida',
+    badgeColor: 'dark',
+    desc: 'Recruiting-Plattform + Showcase-Events, gegründet von Ex-D1-Athleten. Jährlicher All-American Bowl in Fort Lauderdale (80 Top-Prospects, padded). International College Placement Program – Team Germany war 2026 beim Bowl vertreten.',
+    url: 'https://www.preps.thepodyum.com',
+    urlLabel: 'thepodyum.com',
+    contact: 'Spielerprofil direkt auf der Website anlegen',
+    type: 'Recruiting',
+  },
+  {
+    name: 'AVO Sports & Performance',
+    badge: 'Nürnberg',
+    badgeColor: 'rot',
+    desc: 'Dual-Pathway-Academy mit Standorten in Europa und den USA. Speziell auf europäische Spieler ausgerichtet, Partnerschaften mit deutschen Clubs (u.a. Nürnberg Rams). Platzierungen in US-College-Programme.',
+    url: 'https://www.instagram.com/avosp_',
+    urlLabel: '@avosp_',
+    contact: 'Kontakt per Instagram DM',
+    type: 'Akademie',
+  },
 ];
 
 const faqItems = [
@@ -181,9 +201,11 @@ const faqItems = [
   </Fragment>
 
   <!-- ── HERO ── -->
-  <section class="relative min-h-[60vh] flex flex-col justify-end bg-[#0D0D0D] pt-20 pb-14 px-4 overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-rot/15 via-[#231f20]/80 to-[#0D0D0D] pointer-events-none"></div>
-    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 20% 50%, rgba(196,18,48,0.12) 0%, transparent 60%)"></div>
+  <section class="relative min-h-[60vh] flex flex-col justify-end pt-20 pb-14 px-4 overflow-hidden">
+    <div class="absolute inset-0 bg-cover bg-center bg-no-repeat" style="background-image: url('/assets/karriereweg-hero.png')"></div>
+    <div class="absolute inset-0 bg-[#0D0D0D]/60 pointer-events-none"></div>
+    <div class="absolute inset-0 bg-gradient-to-br from-rot/10 via-[#231f20]/50 to-[#0D0D0D]/90 pointer-events-none"></div>
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(ellipse at 20% 50%, rgba(196,18,48,0.10) 0%, transparent 60%)"></div>
     <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-b from-transparent to-[#faf8f5] pointer-events-none"></div>
     <div class="relative z-10 max-w-3xl mx-auto w-full">
       <span class="inline-block text-rot text-xs font-bold uppercase tracking-[0.25em] mb-4">Guide</span>
