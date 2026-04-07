@@ -31,6 +31,7 @@ export default defineConfig({
                 { title: 'NFL', value: 'NFL' },
                 { title: 'NFL Draft', value: 'NFL Draft' },
                 { title: 'Feature', value: 'Feature' },
+                { title: 'Podcast', value: 'Podcast' },
               ],
             },
           },
