@@ -57,11 +57,13 @@ const articleSchema = {
         ? { "@type": "ImageObject", "url": heroImage.asset.url }
         : { "@type": "ImageObject", "url": "https://footballschland.de/assets/og-default.png" },
       "inLanguage": "de",
-      "articleSection": category || 'Football',
-      "keywords": category === 'Draft'
+      "articleSection": categories[0] || 'Football',
+      "keywords": categories.includes('Draft') || categories.includes('NFL Draft')
         ? "NFL Draft, deutsche Spieler, NFL Draft Deutschland, German NFL prospects"
-        : category === 'College'
+        : categories.includes('College')
         ? "College Football, deutsche Talente, D1 College Football Deutschland, German college football players"
+        : categories.includes('Podcast')
+        ? "Footballschland Podcast, American Football Podcast Deutschland, deutsche Football-Talente"
         : "American Football Deutschland, GFL, ELF, NFL"
     },
     {
@@ -142,10 +144,16 @@ const formatDate = (date: string) =>
 
 const categoryColors: Record<string, string> = {
   Draft: 'bg-crimson/20 text-crimson border-crimson/40',
+  'NFL Draft': 'bg-crimson/20 text-crimson border-crimson/40',
   NFL: 'bg-blue-900/50 text-blue-400 border-blue-700',
   College: 'bg-emerald-900/50 text-emerald-400 border-emerald-700',
+  Podcast: 'bg-purple-900/50 text-purple-400 border-purple-700',
+  'High School': 'bg-amber-900/50 text-amber-400 border-amber-700',
+  Feature: 'bg-white/10 text-white/60 border-white/20',
 };
-const badgeClass = categoryColors[category] ?? 'bg-white/10 text-white/60 border-white/20';
+// Backward compat: category can be string (old) or string[] (new)
+const categories: string[] = Array.isArray(category) ? category : category ? [category] : [];
+const badgeClass = categoryColors[categories[0]] ?? 'bg-white/10 text-white/60 border-white/20';
 
 // Autoren — Mehrfach-Autoren-Unterstützung
 const authorOverrides: Record<string, string> = {
@@ -409,9 +417,11 @@ const bodyHtml = body ? toHTML(body, {
     <div class="relative z-10 max-w-3xl mx-auto w-full">
       <!-- Category + Meta -->
       <div class="flex flex-wrap items-center gap-3 mb-5">
-        <span class={`px-3 py-1 text-xs font-bold uppercase tracking-widest rounded border ${badgeClass}`}>
-          {category}
-        </span>
+        {categories.map((cat: string) => (
+          <span class={`px-3 py-1 text-xs font-bold uppercase tracking-widest rounded border ${categoryColors[cat] ?? 'bg-white/10 text-white/60 border-white/20'}`}>
+            {cat}
+          </span>
+        ))}
         <span class="text-white/50 text-sm font-body">{formatDate(pubDate)}</span>
         {readTime && <span class="text-white/50 text-sm font-body">· {readTime}</span>}
       </div>
@@ -573,7 +583,9 @@ const bodyHtml = body ? toHTML(body, {
 
       <div class="mt-12 pt-8 border-t border-[#231f20]/10 flex flex-wrap gap-3">
         <a href="/blockblog" class="px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded border bg-[#231f20]/5 text-[#231f20]/60 border-[#231f20]/20 hover:border-[#231f20]/40">← Alle Artikel</a>
-        <span class={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded border ${badgeClass}`}>{category}</span>
+        {categories.map((cat: string) => (
+          <span class={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded border ${categoryColors[cat] ?? 'bg-white/10 text-white/60 border-white/20'}`}>{cat}</span>
+        ))}
       </div>
 
       <div class="mt-8 p-6 bg-[#231f20]/5 border border-[#231f20]/10 rounded-xl">

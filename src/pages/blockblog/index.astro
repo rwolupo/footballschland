@@ -14,6 +14,9 @@ const categoryColors: Record<string, string> = {
   'NFL Draft': 'bg-crimson/20 text-crimson border-crimson/40',
   NFL: 'bg-blue-900/50 text-blue-400 border-blue-700',
   College: 'bg-emerald-900/50 text-emerald-400 border-emerald-700',
+  Podcast: 'bg-purple-900/50 text-purple-400 border-purple-700',
+  'High School': 'bg-amber-900/50 text-amber-400 border-amber-700',
+  Feature: 'bg-white/10 text-white/60 border-white/20',
 };
 ---
 
@@ -43,6 +46,8 @@ const categoryColors: Record<string, string> = {
       <a href="/blockblog/categories/draft" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-white/5 text-white/60 border-white/20 hover:border-white/40">Draft</a>
       <a href="/blockblog/categories/nfl" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-white/5 text-white/60 border-white/20 hover:border-white/40">NFL</a>
       <a href="/blockblog/categories/college" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-white/5 text-white/60 border-white/20 hover:border-white/40">College</a>
+      <a href="/blockblog/categories/podcast" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-purple-900/30 text-purple-400 border-purple-700/40 hover:border-purple-500">Podcast</a>
+      <a href="/blockblog/categories/high-school" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-amber-900/30 text-amber-400 border-amber-700/40 hover:border-amber-500">High School</a>
     </div>
   </section>
 
@@ -56,7 +61,8 @@ const categoryColors: Record<string, string> = {
       ) : (
         <div class="flex flex-col gap-8">
           {posts.map((post: any) => {
-            const badgeClass = categoryColors[post.category] ?? 'bg-white/10 text-white/60 border-white/20';
+            const cats: string[] = Array.isArray(post.category) ? post.category : post.category ? [post.category] : [];
+            const badgeClass = categoryColors[cats[0]] ?? 'bg-white/10 text-white/60 border-white/20';
             const heroUrl = post.heroImage?.asset?.url;
             return (
               <article class="group grid grid-cols-1 md:grid-cols-[2fr_3fr] bg-[#1A1A1A] border border-white/10 hover:border-crimson/40 rounded-xl overflow-hidden transition-colors">
@@ -76,7 +82,9 @@ const categoryColors: Record<string, string> = {
                 </a>
                 <div class="flex flex-col p-6">
                   <div class="flex items-center gap-3 mb-3">
-                    <span class={`px-2 py-0.5 text-xs font-bold uppercase tracking-widest rounded border ${badgeClass}`}>{post.category}</span>
+                    {cats.map((cat: string) => (
+                      <span class={`px-2 py-0.5 text-xs font-bold uppercase tracking-widest rounded border ${categoryColors[cat] ?? 'bg-white/10 text-white/60 border-white/20'}`}>{cat}</span>
+                    ))}
                     <span class="text-white/40 text-xs font-body">{formatDate(post.pubDate)}</span>
                     {post.readTime && <span class="text-white/40 text-xs font-body">· {post.readTime}</span>}
                   </div>
