@@ -139,6 +139,36 @@ const faqSchema = faqItems.length > 0 ? {
   }))
 } : null;
 
+// Hero Image Alt-Text — per Artikel individuell
+const heroImageAlt: Record<string, string> = {
+  's04e02-cedric-anton-sacramento-state': 'Illustration zu Cedric Anton',
+};
+const heroAlt = heroImageAlt[slug as string] || '';
+
+// Person-Schema — für Spieler-Porträt-Artikel
+const personSchemaData: Record<string, object> = {
+  's04e02-cedric-anton-sacramento-state': {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Cedric Anton",
+    "nationality": { "@type": "Country", "name": "Germany" },
+    "jobTitle": "Tight End",
+    "affiliation": {
+      "@type": "SportsTeam",
+      "name": "Sacramento State Hornets",
+      "memberOf": { "@type": "SportsOrganization", "name": "Mid-American Conference" }
+    },
+    "description": "Deutscher Tight End aus Schweinfurt. Spielte bei den Eastern Michigan Eagles (MAC, FBS), den Tiffin University Dragons (Division II) und den Sacramento State Hornets (FBS, MAC).",
+    "url": "https://footballschland.de/blockblog/s04e02-cedric-anton-sacramento-state/",
+    "sameAs": [
+      "https://www.instagram.com/cedricanton82/",
+      "https://www.espn.com/college-football/player/_/id/5080786/cedric-anton",
+      "https://247sports.com/Player/Cedric-Anton-46116885/"
+    ]
+  }
+};
+const personSchema = personSchemaData[slug as string] || null;
+
 const formatDate = (date: string) =>
   new Date(date).toLocaleDateString('de-DE', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -373,7 +403,8 @@ const bodyHtml = body ? toHTML(body, {
     },
     marks: {
       link: ({ children, value }: any) => {
-        const blank = value?.blank !== false ? ' target="_blank" rel="noopener noreferrer"' : '';
+        const isInternal = value?.href?.startsWith('/');
+        const blank = (!isInternal && value?.blank !== false) ? ' target="_blank" rel="noopener noreferrer"' : '';
         return `<a href="${value?.href}"${blank}>${children}</a>`;
       },
     },
@@ -389,6 +420,7 @@ const bodyHtml = body ? toHTML(body, {
 >
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} slot="head" />
   {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />}
+  {personSchema && <script type="application/ld+json" set:html={JSON.stringify(personSchema)} slot="head" />}
 
   <!-- Article Hero — Full Bleed wie Startseite -->
   <section class="relative min-h-[72vh] flex flex-col justify-end bg-[#0D0D0D] pt-20 pb-14 px-4 overflow-hidden">
@@ -396,7 +428,7 @@ const bodyHtml = body ? toHTML(body, {
     {heroImage?.asset?.url ? (
       <img
         src={heroImage.asset.url}
-        alt=""
+        alt={heroAlt}
         class="absolute inset-0 w-full h-full object-cover object-center opacity-30 pointer-events-none"
         aria-hidden="true"
         loading="eager"
