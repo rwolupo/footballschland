@@ -21,6 +21,9 @@ if (!post) {
 
 const { title, description, pubDate, updatedDate, author, category, readTime, heroImage, body } = post;
 
+// Backward compat: category kann string (alt) oder string[] (neu) sein
+const categories: string[] = Array.isArray(category) ? category : category ? [category] : [];
+
 const canonicalUrl = `https://footballschland.de/blockblog/${slug}/`;
 
 // SEO-Titel: max ~55 Zeichen (ohne Brand-Suffix) — schneidet am ersten Trennzeichen
@@ -181,8 +184,6 @@ const categoryColors: Record<string, string> = {
   'High School': 'bg-amber-900/50 text-amber-400 border-amber-700',
   Feature: 'bg-white/10 text-white/60 border-white/20',
 };
-// Backward compat: category can be string (old) or string[] (new)
-const categories: string[] = Array.isArray(category) ? category : category ? [category] : [];
 const badgeClass = categoryColors[categories[0]] ?? 'bg-white/10 text-white/60 border-white/20';
 
 // Autoren — Mehrfach-Autoren-Unterstützung
