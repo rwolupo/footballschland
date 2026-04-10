@@ -113,39 +113,90 @@ const athleticTests = [
   { name: "20-Yard-Shuttle", desc: "5–10–5-Shuttle: Links, rechts, links. Laterale Schnelligkeit.", example: "Standard für nahezu alle Positionen" }
 ];
 
+// Logo-Helper: ESPN CDN
+const logo = (abbrev: string) => `https://a.espncdn.com/i/teamlogos/nfl/500/${abbrev}.png`;
+
+// Runde 1 – exakt (inkl. bekannte Trades)
 const draftOrder2026 = [
-  { pick: 1,  team: "Las Vegas Raiders",          conf: "AFC West" },
-  { pick: 2,  team: "New York Jets",              conf: "AFC East" },
-  { pick: 3,  team: "Arizona Cardinals",          conf: "NFC West" },
-  { pick: 4,  team: "Tennessee Titans",           conf: "AFC South" },
-  { pick: 5,  team: "New York Giants",            conf: "NFC East" },
-  { pick: 6,  team: "Cleveland Browns",           conf: "AFC North" },
-  { pick: 7,  team: "Washington Commanders",      conf: "NFC East" },
-  { pick: 8,  team: "New Orleans Saints",         conf: "NFC South" },
-  { pick: 9,  team: "Kansas City Chiefs",         conf: "AFC West" },
-  { pick: 10, team: "Cincinnati Bengals",         conf: "AFC North" },
-  { pick: 11, team: "Miami Dolphins",             conf: "AFC East" },
-  { pick: 12, team: "Dallas Cowboys",             conf: "NFC East" },
-  { pick: 13, team: "Los Angeles Rams",           conf: "NFC West", note: "via Atlanta" },
-  { pick: 14, team: "Baltimore Ravens",           conf: "AFC North" },
-  { pick: 15, team: "Tampa Bay Buccaneers",       conf: "NFC South" },
-  { pick: 16, team: "New York Jets",              conf: "AFC East",  note: "via Indianapolis" },
-  { pick: 17, team: "Detroit Lions",              conf: "NFC North" },
-  { pick: 18, team: "Minnesota Vikings",          conf: "NFC North" },
-  { pick: 19, team: "Carolina Panthers",          conf: "NFC South" },
-  { pick: 20, team: "Dallas Cowboys",             conf: "NFC East",  note: "via Green Bay" },
-  { pick: 21, team: "Pittsburgh Steelers",        conf: "AFC North" },
-  { pick: 22, team: "Los Angeles Chargers",       conf: "AFC West" },
-  { pick: 23, team: "Philadelphia Eagles",        conf: "NFC East" },
-  { pick: 24, team: "Cleveland Browns",           conf: "AFC North", note: "via Jacksonville" },
-  { pick: 25, team: "Chicago Bears",              conf: "NFC North" },
-  { pick: 26, team: "Buffalo Bills",              conf: "AFC East" },
-  { pick: 27, team: "San Francisco 49ers",        conf: "NFC West" },
-  { pick: 28, team: "Houston Texans",             conf: "AFC South" },
-  { pick: 29, team: "Kansas City Chiefs",         conf: "AFC West",  note: "via LA Rams" },
-  { pick: 30, team: "Miami Dolphins",             conf: "AFC East",  note: "via Denver" },
-  { pick: 31, team: "New England Patriots",       conf: "AFC East" },
-  { pick: 32, team: "Seattle Seahawks",           conf: "NFC West" },
+  { pick: 1,  team: "Las Vegas Raiders",       abbrev: "lv",  note: "" },
+  { pick: 2,  team: "New York Jets",           abbrev: "nyj", note: "" },
+  { pick: 3,  team: "Arizona Cardinals",       abbrev: "ari", note: "" },
+  { pick: 4,  team: "Tennessee Titans",        abbrev: "ten", note: "" },
+  { pick: 5,  team: "New York Giants",         abbrev: "nyg", note: "" },
+  { pick: 6,  team: "Cleveland Browns",        abbrev: "cle", note: "" },
+  { pick: 7,  team: "Washington Commanders",   abbrev: "wsh", note: "" },
+  { pick: 8,  team: "New Orleans Saints",      abbrev: "no",  note: "" },
+  { pick: 9,  team: "Kansas City Chiefs",      abbrev: "kc",  note: "" },
+  { pick: 10, team: "Cincinnati Bengals",      abbrev: "cin", note: "" },
+  { pick: 11, team: "Miami Dolphins",          abbrev: "mia", note: "" },
+  { pick: 12, team: "Dallas Cowboys",          abbrev: "dal", note: "" },
+  { pick: 13, team: "Los Angeles Rams",        abbrev: "lar", note: "via Atlanta" },
+  { pick: 14, team: "Baltimore Ravens",        abbrev: "bal", note: "" },
+  { pick: 15, team: "Tampa Bay Buccaneers",    abbrev: "tb",  note: "" },
+  { pick: 16, team: "New York Jets",           abbrev: "nyj", note: "via Indianapolis" },
+  { pick: 17, team: "Detroit Lions",           abbrev: "det", note: "" },
+  { pick: 18, team: "Minnesota Vikings",       abbrev: "min", note: "" },
+  { pick: 19, team: "Carolina Panthers",       abbrev: "car", note: "" },
+  { pick: 20, team: "Dallas Cowboys",          abbrev: "dal", note: "via Green Bay" },
+  { pick: 21, team: "Pittsburgh Steelers",     abbrev: "pit", note: "" },
+  { pick: 22, team: "Los Angeles Chargers",    abbrev: "lac", note: "" },
+  { pick: 23, team: "Philadelphia Eagles",     abbrev: "phi", note: "" },
+  { pick: 24, team: "Cleveland Browns",        abbrev: "cle", note: "via Jacksonville" },
+  { pick: 25, team: "Chicago Bears",           abbrev: "chi", note: "" },
+  { pick: 26, team: "Buffalo Bills",           abbrev: "buf", note: "" },
+  { pick: 27, team: "San Francisco 49ers",     abbrev: "sf",  note: "" },
+  { pick: 28, team: "Houston Texans",          abbrev: "hou", note: "" },
+  { pick: 29, team: "Kansas City Chiefs",      abbrev: "kc",  note: "via LA Rams" },
+  { pick: 30, team: "Miami Dolphins",          abbrev: "mia", note: "via Denver" },
+  { pick: 31, team: "New England Patriots",    abbrev: "ne",  note: "" },
+  { pick: 32, team: "Seattle Seahawks",        abbrev: "sea", note: "" },
+];
+
+// Runden 2–7: Basis-Reihenfolge (schlechteste → beste Regular-Season-Bilanz)
+// Jedes Team einmal; Trades & Comp-Picks können Reihenfolge verschieben
+const draftBaseOrder = [
+  { team: "Las Vegas Raiders",       abbrev: "lv"  },
+  { team: "New York Jets",           abbrev: "nyj" },
+  { team: "Arizona Cardinals",       abbrev: "ari" },
+  { team: "Tennessee Titans",        abbrev: "ten" },
+  { team: "New York Giants",         abbrev: "nyg" },
+  { team: "Cleveland Browns",        abbrev: "cle" },
+  { team: "Washington Commanders",   abbrev: "wsh" },
+  { team: "New Orleans Saints",      abbrev: "no"  },
+  { team: "Kansas City Chiefs",      abbrev: "kc"  },
+  { team: "Cincinnati Bengals",      abbrev: "cin" },
+  { team: "Miami Dolphins",          abbrev: "mia" },
+  { team: "Dallas Cowboys",          abbrev: "dal" },
+  { team: "Atlanta Falcons",         abbrev: "atl" },
+  { team: "Baltimore Ravens",        abbrev: "bal" },
+  { team: "Tampa Bay Buccaneers",    abbrev: "tb"  },
+  { team: "Indianapolis Colts",      abbrev: "ind" },
+  { team: "Detroit Lions",           abbrev: "det" },
+  { team: "Minnesota Vikings",       abbrev: "min" },
+  { team: "Carolina Panthers",       abbrev: "car" },
+  { team: "Green Bay Packers",       abbrev: "gb"  },
+  { team: "Pittsburgh Steelers",     abbrev: "pit" },
+  { team: "Los Angeles Chargers",    abbrev: "lac" },
+  { team: "Philadelphia Eagles",     abbrev: "phi" },
+  { team: "Jacksonville Jaguars",    abbrev: "jax" },
+  { team: "Chicago Bears",           abbrev: "chi" },
+  { team: "Buffalo Bills",           abbrev: "buf" },
+  { team: "San Francisco 49ers",     abbrev: "sf"  },
+  { team: "Houston Texans",          abbrev: "hou" },
+  { team: "Los Angeles Rams",        abbrev: "lar" },
+  { team: "Denver Broncos",          abbrev: "den" },
+  { team: "New England Patriots",    abbrev: "ne"  },
+  { team: "Seattle Seahawks",        abbrev: "sea" },
+];
+
+// Runden-Metadaten
+const draftRounds = [
+  { round: 2, startPick: 33,  endPick: 64  },
+  { round: 3, startPick: 65,  endPick: 100 },
+  { round: 4, startPick: 101, endPick: 136 },
+  { round: 5, startPick: 137, endPick: 176 },
+  { round: 6, startPick: 177, endPick: 218 },
+  { round: 7, startPick: 219, endPick: 257 },
 ];
 
 const players2026 = [
@@ -453,46 +504,86 @@ const glossary = [
         </div>
       </div>
 
-      <!-- Draft-Reihenfolge aufklappbar -->
+      <!-- Draft-Reihenfolge: alle 7 Runden aufklappbar -->
       <details class="rounded-2xl border border-[#231f20]/8 bg-[#faf8f5] overflow-hidden group mb-8">
         <summary class="px-6 py-5 cursor-pointer list-none flex justify-between items-center gap-4">
           <div>
-            <p class="font-display font-bold text-[#231f20] text-lg">Runde 1 – Die vollständige Pick-Reihenfolge</p>
-            <p class="text-[#231f20]/45 font-body text-xs mt-0.5">Stand: 10. April 2026 · inkl. bekannter Trades · Runde 2–7 folgen der gleichen Grundreihenfolge</p>
+            <p class="font-display font-bold text-[#231f20] text-lg">Pick-Reihenfolge 2026 – alle 7 Runden</p>
+            <p class="text-[#231f20]/45 font-body text-xs mt-0.5">Stand: 10. April 2026 · R1 inkl. bekannter Trades · R2–7 Basis-Reihenfolge</p>
           </div>
           <span class="text-rot text-xl shrink-0 group-open:rotate-45 transition-transform font-bold">+</span>
         </summary>
-        <div class="px-6 pb-6">
-          <!-- Orientierungspunkt für deutsche Fans -->
-          <div class="rounded-xl bg-rot/8 border border-rot/20 px-4 py-3 mb-4">
+        <div class="px-6 pb-6 pt-2">
+
+          <!-- Orientierungsbox -->
+          <div class="rounded-xl bg-rot/8 border border-rot/20 px-4 py-3 mb-5">
             <p class="text-rot text-xs font-bold font-body uppercase tracking-widest mb-1">Orientierung für deutsche Fans</p>
             <p class="text-[#231f20]/70 font-body text-sm leading-relaxed">
-              <strong>Marlin Klein</strong> (TE, Michigan) ist als Round-3-Kandidat eingestuft — das entspricht ca. Pick 65–100, also <strong>Day 2 (Freitag, 24. April)</strong>. Die meisten anderen deutschen Spieler sind UDFA-Kandidaten: Nach Day 3 (Samstag) beginnt die UDFA-Phase.
+              <strong>Marlin Klein</strong> (TE, Michigan) ist als Round-3-Kandidat eingestuft — ca. Pick 65–100, also <strong>Day 2 (Freitag, 24. April)</strong>. Alle anderen deutschen Spieler sind UDFA-Kandidaten: Nach Day 3 (Samstag, ca. 21 Uhr) beginnt die UDFA-Phase — dann geht es schnell.
             </p>
           </div>
-          <div class="overflow-x-auto rounded-xl border border-[#231f20]/8">
-            <table class="w-full text-sm font-body">
-              <thead>
-                <tr style="background-color:#231f20;">
-                  <th style="text-align:left; padding:10px 14px; color:rgba(255,255,255,0.5); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; width:60px;">Pick</th>
-                  <th style="text-align:left; padding:10px 14px; color:rgba(255,255,255,0.5); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">Team</th>
-                  <th style="text-align:left; padding:10px 14px; color:rgba(255,255,255,0.5); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; display:none;">Conf</th>
-                </tr>
-              </thead>
-              <tbody>
-                {draftOrder2026.map((p, i) => (
-                  <tr style={i % 2 === 0 ? "background-color:#ffffff;" : "background-color:#faf8f5;"}>
-                    <td style="padding:9px 14px; font-weight:700; color:#c8102e; font-family:inherit; font-size:13px;">{p.pick}</td>
-                    <td style="padding:9px 14px; color:#231f20; font-weight:500;">
-                      {p.team}
-                      {p.note && <span style="color:rgba(35,31,32,0.4); font-size:11px; margin-left:6px;">({p.note})</span>}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p class="text-[#231f20]/35 font-body text-xs mt-3">Quelle: Wikipedia / NFL.com · Trades können sich bis zum Draft noch ändern.</p>
+
+          <!-- Runde 1 -->
+          <details class="rounded-xl border border-[#231f20]/8 overflow-hidden mb-3 group/r1">
+            <summary class="bg-[#231f20] px-5 py-3 cursor-pointer list-none flex justify-between items-center">
+              <span class="font-display font-bold text-white text-sm">Runde 1 <span class="text-white/45 font-body font-normal text-xs ml-2">Picks 1–32 · Day 1, Donnerstag</span></span>
+              <span class="text-rot text-lg shrink-0 group-open/r1:rotate-45 transition-transform font-bold">+</span>
+            </summary>
+            <div>
+              <table class="w-full text-sm font-body">
+                <tbody>
+                  {draftOrder2026.map((p, i) => (
+                    <tr style={i % 2 === 0 ? "background-color:#ffffff;" : "background-color:#faf8f5;"}>
+                      <td style="padding:8px 14px; font-weight:700; color:#c8102e; width:44px; font-size:13px;">{p.pick}</td>
+                      <td style="padding:8px 8px; width:36px;">
+                        <img src={logo(p.abbrev)} alt={p.team} width="24" height="24" style="width:24px;height:24px;object-fit:contain;" loading="lazy" />
+                      </td>
+                      <td style="padding:8px 14px 8px 4px; color:#231f20; font-weight:500;">
+                        {p.team}
+                        {p.note && <span style="color:rgba(35,31,32,0.38); font-size:11px; margin-left:5px;">({p.note})</span>}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </details>
+
+          <!-- Runden 2–7 -->
+          {draftRounds.map((r) => (
+            <details class="rounded-xl border border-[#231f20]/8 overflow-hidden mb-3 group/rx">
+              <summary class="bg-white px-5 py-3 cursor-pointer list-none flex justify-between items-center border-b border-[#231f20]/6">
+                <span class="font-display font-bold text-[#231f20] text-sm">
+                  Runde {r.round}
+                  <span class="text-[#231f20]/40 font-body font-normal text-xs ml-2">
+                    Picks {r.startPick}–{r.endPick} ·
+                    {r.round <= 3 ? " Day 2, Freitag" : " Day 3, Samstag"}
+                  </span>
+                </span>
+                <span class="text-rot text-lg shrink-0 group-open/rx:rotate-45 transition-transform font-bold">+</span>
+              </summary>
+              <div>
+                <table class="w-full text-sm font-body">
+                  <tbody>
+                    {draftBaseOrder.map((t, i) => (
+                      <tr style={i % 2 === 0 ? "background-color:#ffffff;" : "background-color:#faf8f5;"}>
+                        <td style="padding:7px 14px; font-weight:700; color:#c8102e; width:44px; font-size:13px;">{r.startPick + i}</td>
+                        <td style="padding:7px 8px; width:36px;">
+                          <img src={logo(t.abbrev)} alt={t.team} width="24" height="24" style="width:24px;height:24px;object-fit:contain;" loading="lazy" />
+                        </td>
+                        <td style="padding:7px 14px 7px 4px; color:#231f20; font-weight:500;">{t.team}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                <p style="padding:8px 14px; color:rgba(35,31,32,0.35); font-size:11px; font-family:inherit;">
+                  Basis-Reihenfolge ohne Compensatory Picks und Round-spezifische Trades.
+                </p>
+              </div>
+            </details>
+          ))}
+
+          <p class="text-[#231f20]/35 font-body text-xs mt-2">Quelle: Wikipedia / NFL.com · Stand 10.04.2026 · Trades können sich noch ändern.</p>
         </div>
       </details>
 
