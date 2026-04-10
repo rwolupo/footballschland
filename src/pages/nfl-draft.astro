@@ -35,7 +35,7 @@ const faqSchema = {
       "name": "Was ist ein UDFA (Undrafted Free Agent)?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Nach dem Draft können Teams Spieler als Undrafted Free Agents (UDFAs) unter Vertrag nehmen, die in keiner der 7 Runden ausgewählt wurden. Viele deutsche Spieler – darunter Sebastian Vollmer und Jakob Johnson – schafften ihren NFL-Weg als UDFA. UDFAs werden meistens für Training Camps oder Practice Squads verpflichtet."
+        "text": "Nach dem Draft können Teams Spieler als Undrafted Free Agents (UDFAs) unter Vertrag nehmen, die in keiner der 7 Runden ausgewählt wurden. Viele deutsche Spieler – darunter Kasim Edebali, Jakob Johnson oder Kilian Zierer – schafften ihren NFL-Weg als UDFA. UDFAs werden meistens für Training Camps oder Practice Squads verpflichtet."
       }
     },
     {
@@ -43,7 +43,7 @@ const faqSchema = {
       "name": "Welche deutschen Spieler wurden bisher im NFL Draft ausgewählt?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Die wichtigsten deutschen NFL-Draft-Picks sind: Björn Werner (2013, #24, Colts), Mark Nzeocha (2015, #236, Cowboys) und Moritz Böhringer (2016, #180, Vikings) – der erste Europäer im Draft ohne jede US-College-Erfahrung. Sebastian Vollmer (Patriots) und Jakob Johnson (Patriots/Raiders) schafften es als Undrafted Free Agents in die NFL."
+        "text": "Gedraftete deutsche Spieler: Markus Koch (1986, R5, Washington Redskins – 2× Super Bowl), Sebastian Vollmer (2009, R2, Pick 58, Patriots – 2× Super Bowl), Markus Kuhn (2012, R7, Giants), Björn Werner (2013, R1, #24, Colts), Mark Nzeocha (2015, R7, Cowboys), Moritz Böhringer (2016, R6, Vikings – erster Europäer ohne College-Erfahrung), Equanimeous St. Brown (2018, R6, Packers) und Amon-Ra St. Brown (2021, R4, #112, Lions – Pro Bowler)."
       }
     },
     {
@@ -129,7 +129,7 @@ const draft2025 = [
     name: "Leander Wiegand",
     pos: "OT",
     from: "Aachen",
-    path: "Aachen Vampires → Cologne Centurions / Rhein Fire / Munich Ravens (ELF) → IPP 2025 → UDFA",
+    path: "Aachen Vampires → Centurions / Rhein Fire / Munich Ravens (ELF) → IPP 2025 → UDFA",
     team: "New York Jets",
     result: "UDFA nach dem Draft. NFL-Debüt in der Preseason gegen die Giants. Waived 26. August, noch am selben Tag auf die Practice Squad re-signed. Verbrachte die Saison 2025 auf der Practice Squad der Jets.",
     badge: "Practice Squad"
@@ -139,65 +139,116 @@ const draft2025 = [
     pos: "K",
     from: "Berlin",
     path: "Berlin Adler → Stuttgart Surge (ELF) → IPP 2025",
-    team: "Atlanta Falcons / New York Jets",
-    result: "Beim NFL Combine 2025 alle 14 Field Goals getroffen – kein einziger Miss. Signed 3-Jahres-Vertrag bei den Falcons (März 2025). Waived in den Roster Cuts (August), sofort auf Practice Squad. Im Januar 2026 Reserve/Futures-Vertrag mit den New York Jets.",
+    team: "Atlanta Falcons → New York Jets",
+    result: "Beim NFL Combine 2025 alle 14 Field Goals getroffen – kein einziger Miss. 3-Jahres-Vertrag bei den Falcons (März 2025). Waived in den Roster Cuts, sofort auf Practice Squad. Im Januar 2026 Reserve/Futures-Vertrag mit den New York Jets.",
     badge: "Practice Squad → Jets 2026"
+  },
+  {
+    name: "Bastian Roppelt",
+    pos: "OL",
+    from: "Deutschland",
+    path: "ELF → IPP 2025",
+    team: "NFL (via IPP)",
+    result: "Ging 2025 durch den Draft-Prozess und die IPP-Phase. Details zu seinem Team und Season-Verlauf werden nachgetragen.",
+    badge: "IPP 2025"
   }
 ];
 
 const draft2024 = [
   {
-    name: "Lorenz Metz",
-    pos: "OT",
-    from: "Deutschland",
-    path: "GFL/ELF → IPP 2024",
-    team: "Tampa Bay Buccaneers → New England Patriots",
-    result: "Signed 15. April 2024 bei Tampa Bay via IPP. Verbrachte die Saison 2024 auf der Practice Squad der Buccaneers. Waived August 2025, sofort re-signed auf Practice Squad. Im Januar 2026 Reserve/Futures-Vertrag mit den New England Patriots – wo die Reise weitergeht.",
-    badge: "Practice Squad → Patriots 2026"
-  },
-  {
     name: "Julius Welschof",
     pos: "LB/DE",
     from: "Miesbach, Bayern",
-    path: "Munich Cowboys → Michigan Wolverines → Charlotte 49ers → UDFA/IPP 2024",
+    path: "Munich Cowboys → Michigan Wolverines → Charlotte 49ers → UDFA 2024",
     team: "Pittsburgh Steelers",
-    result: "Über den schwierigen Weg von Bayern nach Michigan (ohne vorherige Football-Erfahrung), Schulterverletzung in Charlotte – und trotzdem ein NFL-Vertrag. Signed als UDFA bei den Steelers via IPP International Roster Spot. Im Januar 2026 Reserve/Futures-Vertrag mit Pittsburgh erneuert.",
+    result: "Vom Skiunterricht in Bayern bis zu den Pittsburgh Steelers: Welschof kam ohne Football-Erfahrung zu den Munich Cowboys, kämpfte sich nach Michigan und Charlotte (Schulterverletzung), und unterschrieb trotzdem als UDFA mit einem IPP International Roster Spot bei den Steelers. Im Januar 2026 Reserve/Futures-Vertrag erneuert.",
     badge: "Reserve/Futures 2026"
+  },
+  {
+    name: "Nouredin Nouili",
+    pos: "OL",
+    from: "Frankfurt",
+    path: "GFL/ELF → University at Buffalo → UDFA 2024",
+    team: "New Orleans Saints → Montreal Alouettes (CFL)",
+    result: "In Frankfurt aufgewachsen. Unterschrieb am 10. Mai 2024 bei den Saints als UDFA – released am 27. Juli. Anschließend CFL via Global Draft (Montreal Alouettes, 2. Runde, Pick 18). Verbrachte 2024 und 2025 auf der Practice Roster der Alouettes, danach Ottawa Redblacks.",
+    badge: "CFL"
+  },
+  {
+    name: "Fabian Weitz",
+    pos: "LB",
+    from: "Köln",
+    path: "Cologne Crocodiles → University at Buffalo → ELF → UDFA-Phase 2024",
+    team: "Winnipeg Blue Bombers (CFL)",
+    result: "Kein NFL-Vertrag in der UDFA-Phase 2024. Dafür CFL Global Draft 1. Runde, Pick 8 bei den Winnipeg Blue Bombers – Super Bowl-Equivalent im CFL. Spielte den 111th Grey Cup mit Winnipeg, der Blue Bombers verloren jedoch gegen die Toronto Argonauts.",
+    badge: "CFL – Grey Cup 2024"
+  },
+  {
+    name: "Hugo Klages",
+    pos: "–",
+    from: "Deutschland",
+    path: "UDFA-Phase 2024",
+    team: "–",
+    result: "Hugo Klages war 2024 im NFL-Orbit. Details zu Position und Team werden nachgetragen – Sandra hat ihn als deutschen Kandidaten des Jahrgangs 2024 gelistet.",
+    badge: "Details folgen"
   }
 ];
 
 const draft2023 = [
   {
+    name: "Kilian Zierer",
+    pos: "OT",
+    from: "München",
+    path: "Bayern → USA (College of the Canyons → Auburn) → UDFA 2023",
+    team: "Houston Texans → Atlanta / Cleveland / San Francisco → Jacksonville Jaguars",
+    result: "Unterschrieb nach dem 2023er Draft als UDFA bei den Houston Texans. Sprunggelenksverletzung im Preseason, Injured Reserve. 2024 als International Exempt Player weitergeführt. 2025 durch Atlanta, Cleveland und San Francisco gereicht – jeweils Practice Squad. Im Januar 2026 Reserve/Futures-Vertrag mit den Jacksonville Jaguars. Der Kilian gibt nicht auf.",
+    badge: "Reserve/Futures Jaguars 2026"
+  },
+  {
+    name: "Lorenz Metz",
+    pos: "OT",
+    from: "Deutschland",
+    path: "GFL/ELF → UDFA Chicago Bears (2023) → IPP Tampa Bay Buccaneers (2024) → New England Patriots (2026)",
+    team: "Bears → Buccaneers → Patriots",
+    result: "Unterschrieb im Mai 2023 als UDFA bei den Chicago Bears, released im Juli. Giants Tryout. Im April 2024 zweite Chance via IPP bei den Tampa Bay Buccaneers – Practice Squad 2024. Waived August 2025, sofort re-signed. Im Januar 2026 Reserve/Futures-Vertrag mit den New England Patriots.",
+    badge: "Reserve/Futures Patriots 2026"
+  },
+  {
+    name: "Marlon Werthmann",
+    pos: "–",
+    from: "Deutschland",
+    path: "ELF → IPP 2023",
+    team: "NFL (via IPP 2023)",
+    result: "War Teil der deutschen IPP-Klasse 2023. Details zu Position, zugewiesenem Team und Season-Verlauf werden nachgetragen.",
+    badge: "IPP 2023"
+  },
+  {
     name: "David Bada",
     pos: "DL",
     from: "Deutschland",
-    path: "GFL/ELF → IPP 2020 (Washington Commanders) → aktiver Kader Dez. 2022",
-    team: "Washington Commanders",
-    result: "Das große Highlight vor dem 2023er Draft-Jahr: Im Dezember 2022 erstmals auf den Active Roster der Commanders befördert – ein echter Meilenstein für einen IPP-Spieler. Im August 2023 Training Camp mit den Commanders, aber Trizepsverletzung beendete die Saison frühzeitig. Im Juli 2024 Wechsel zu den Detroit Lions.",
+    path: "GFL/ELF → IPP 2020 (Washington Commanders)",
+    team: "Washington Commanders → Detroit Lions (2024)",
+    result: "Highlight des Jahrgangszyklus: Im Dezember 2022 erstmals auf den Active Roster befördert – ein Meilenstein für IPP-Spieler. Im August 2023 Training Camp mit Washington, Trizepsverletzung beendete die Saison. Im Juli 2024 Wechsel zu den Detroit Lions.",
     badge: "Active Roster (Dez. 2022)"
-  },
-  {
-    name: "Marcel Dabo",
-    pos: "CB",
-    from: "Deutschland",
-    path: "GFL/ELF → IPP 2022 (Indianapolis Colts)",
-    team: "Indianapolis Colts",
-    result: "Blieb auch 2023 auf der Practice Squad der Colts. Mehrfach zwischen 53-Mann-Kader und Practice Squad hin- und hergeschoben. Konnte 2023 Preseason-Snaps sammeln. Im August 2023 nach Verletzung entlassen, danach re-signed. Hielt sich bis Mai 2025 bei den Colts.",
-    badge: "Practice Squad"
   }
 ];
 
 const historySummary = [
   { year: "2022", player: "Marcel Dabo", pos: "CB", team: "Colts (IPP)", note: "Practice Squad 2022–2025." },
   { year: "2021", player: "Aaron Donkor", pos: "DE", team: "Seahawks (IPP)", note: "Practice Squad 2021–2022. Danach XFL, CFL, ELF." },
+  { year: "2021", player: "Amon-Ra St. Brown", pos: "WR", team: "Detroit Lions (Draft R4, #112)", note: "Pro Bowler, All-Pro. Einer der besten WRs der Liga." },
   { year: "2020", player: "David Bada", pos: "DL", team: "Washington Commanders (IPP)", note: "Weg bis zum Active Roster Dez. 2022." },
+  { year: "2020", player: "Dominik Eberle", pos: "K", team: "Las Vegas Raiders (UDFA)", note: "NFL-Debut mit den Houston Texans 2021. Durch Raiders, Panthers, Packers, Lions." },
   { year: "2019", player: "Jakob Johnson", pos: "FB", team: "Patriots → Raiders → Giants → Texans (IPP/UDFA)", note: "Erster IPP-Spieler mit NFL-TD. 77 Spiele, aktiv bis mind. 2025." },
+  { year: "2018", player: "Equanimeous St. Brown", pos: "WR", team: "Green Bay Packers (Draft R6, #207)", note: "Auch bei den Chicago Bears. Bruder von Amon-Ra." },
   { year: "2018", player: "Christopher Ezeala", pos: "RB", team: "Baltimore Ravens (IPP)", note: "Training Camp / Practice Squad." },
   { year: "2017", player: "Eric Nzeocha", pos: "LB", team: "Tampa Bay Buccaneers (IPP)", note: "Practice Squad 2017–2018." },
-  { year: "2016", player: "Moritz Böhringer", pos: "WR/TE", team: "Minnesota Vikings → Bengals (Draft R6, #180)", note: "Erster Europäer im NFL Draft ohne US-College-Erfahrung." },
-  { year: "2015", player: "Mark Nzeocha", pos: "LB", team: "Cowboys → 49ers (Draft R7, #236)", note: "Super Bowl LIV mit San Francisco. Karriere-Int. gegen Jameis Winston 2019." },
-  { year: "2013", player: "Björn Werner", pos: "DE", team: "Indianapolis Colts (Draft R1, #24)", note: "Höchster je gedrafteter Deutschstämmiger. Via US-Highschool und Florida State." },
-  { year: "2009", player: "Sebastian Vollmer", pos: "OT", team: "New England Patriots (UDFA)", note: "2× Super Bowl Champion. Pro Bowl 2015. Die Blaupause für den NCAA-Weg." },
+  { year: "2016", player: "Moritz Böhringer", pos: "WR/TE", team: "Vikings → Bengals (Draft R6, #180)", note: "Erster Europäer im NFL Draft ohne US-College-Erfahrung." },
+  { year: "2015", player: "Mark Nzeocha", pos: "LB", team: "Cowboys → 49ers (Draft R7, #236)", note: "Super Bowl LIV mit SF. Karriere-Interception gegen Winston 2019." },
+  { year: "2014", player: "Kasim Edebali", pos: "DE", team: "Saints → Broncos → Lions → Rams → Bears → Bengals → Eagles → Raiders (UDFA)", note: "Deutscher NFL-Allzeitsackführer: 8,0 Career Sacks." },
+  { year: "2013", player: "Björn Werner", pos: "DE", team: "Indianapolis Colts (Draft R1, #24)", note: "Erster Deutscher in Runde 1. Via US-Highschool und Florida State." },
+  { year: "2012", player: "Markus Kuhn", pos: "DT", team: "New York Giants (Draft R7, #239)", note: "Erster NFL-Touchdown eines Deutschen (2014)." },
+  { year: "2009", player: "Sebastian Vollmer", pos: "OT", team: "New England Patriots (Draft R2, #58)", note: "2× Super Bowl Champion (XLIX, Super Bowl). Pro Bowl 2015." },
+  { year: "1986", player: "Markus Koch", pos: "DL", team: "Washington Redskins (Draft R5)", note: "2× Super Bowl Champion (1988, 1991). Pionier." },
 ];
 
 const glossary = [
@@ -212,7 +263,8 @@ const glossary = [
   { term: "RAS", def: "Relative Athletic Score – kombinierte Athletik-Bewertung (0–10) auf Basis der Combine-Zahlen im Positionsvergleich." },
   { term: "Practice Squad", def: "10–16 Spieler pro Team, die trainieren aber kein aktives Roster-Mitglied sind. Sprungbrett in den 53-Mann-Kader." },
   { term: "IPP", def: "NFL International Player Pathway Programme – Programm der NFL für internationale Talente ohne US-College-Erfahrung." },
-  { term: "Reserve/Futures Contract", def: "Vertrag, der nach Saisonende geschlossen wird und ab dem nächsten Training Camp gilt. Zeigt, dass ein Team an einem Spieler festhält." }
+  { term: "Reserve/Futures Contract", def: "Vertrag, der nach Saisonende geschlossen wird und ab dem nächsten Training Camp gilt. Zeigt, dass ein Team an einem Spieler festhält." },
+  { term: "International Exempt Spot", def: "IPP-Spieler zählen in ihrem ersten Jahr nicht gegen das 90-Mann-Roster-Limit. Das gibt Teams die Möglichkeit, internationale Spieler zu entwickeln ohne auf eine Roster-Stelle zu verzichten." }
 ];
 ---
 
@@ -439,7 +491,7 @@ const glossary = [
           <span class="font-display text-4xl font-bold text-[#231f20]/10">2024</span>
           <div>
             <h3 class="font-display text-xl font-bold text-[#231f20]">NFL Draft 2024</h3>
-            <p class="text-[#231f20]/45 font-body text-xs">Detroit, Ford Field – April 2024</p>
+            <p class="text-[#231f20]/45 font-body text-xs">Detroit, Ford Field – April 2024 · kein IPP-Spieler in diesem Jahrgang</p>
           </div>
         </div>
         <div class="space-y-4">
@@ -489,9 +541,9 @@ const glossary = [
 
       <!-- Ältere Jahrgänge als Tabelle -->
       <div>
-        <h3 class="font-display text-xl font-bold text-[#231f20] mb-2">2009–2022: Die Pioniere</h3>
+        <h3 class="font-display text-xl font-bold text-[#231f20] mb-2">1986–2022: Die Pioniere</h3>
         <p class="text-[#231f20]/55 font-body text-sm mb-6">
-          Alle deutschen Spieler, die seit 2009 den Schritt in die NFL geschafft haben – per Draft oder als UDFA/IPP. Jeder Einzelne zählt.
+          Alle deutschen Spieler, die den Schritt in die NFL geschafft haben – per Draft, UDFA oder IPP. Von Markus Koch 1986 bis Marcel Dabo 2022. Jeder Einzelne zählt.
         </p>
         <div class="overflow-x-auto rounded-2xl border border-[#231f20]/8">
           <table class="w-full text-sm font-body">
