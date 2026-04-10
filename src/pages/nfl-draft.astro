@@ -113,6 +113,41 @@ const athleticTests = [
   { name: "20-Yard-Shuttle", desc: "5–10–5-Shuttle: Links, rechts, links. Laterale Schnelligkeit.", example: "Standard für nahezu alle Positionen" }
 ];
 
+const draftOrder2026 = [
+  { pick: 1,  team: "Las Vegas Raiders",          conf: "AFC West" },
+  { pick: 2,  team: "New York Jets",              conf: "AFC East" },
+  { pick: 3,  team: "Arizona Cardinals",          conf: "NFC West" },
+  { pick: 4,  team: "Tennessee Titans",           conf: "AFC South" },
+  { pick: 5,  team: "New York Giants",            conf: "NFC East" },
+  { pick: 6,  team: "Cleveland Browns",           conf: "AFC North" },
+  { pick: 7,  team: "Washington Commanders",      conf: "NFC East" },
+  { pick: 8,  team: "New Orleans Saints",         conf: "NFC South" },
+  { pick: 9,  team: "Kansas City Chiefs",         conf: "AFC West" },
+  { pick: 10, team: "Cincinnati Bengals",         conf: "AFC North" },
+  { pick: 11, team: "Miami Dolphins",             conf: "AFC East" },
+  { pick: 12, team: "Dallas Cowboys",             conf: "NFC East" },
+  { pick: 13, team: "Los Angeles Rams",           conf: "NFC West", note: "via Atlanta" },
+  { pick: 14, team: "Baltimore Ravens",           conf: "AFC North" },
+  { pick: 15, team: "Tampa Bay Buccaneers",       conf: "NFC South" },
+  { pick: 16, team: "New York Jets",              conf: "AFC East",  note: "via Indianapolis" },
+  { pick: 17, team: "Detroit Lions",              conf: "NFC North" },
+  { pick: 18, team: "Minnesota Vikings",          conf: "NFC North" },
+  { pick: 19, team: "Carolina Panthers",          conf: "NFC South" },
+  { pick: 20, team: "Dallas Cowboys",             conf: "NFC East",  note: "via Green Bay" },
+  { pick: 21, team: "Pittsburgh Steelers",        conf: "AFC North" },
+  { pick: 22, team: "Los Angeles Chargers",       conf: "AFC West" },
+  { pick: 23, team: "Philadelphia Eagles",        conf: "NFC East" },
+  { pick: 24, team: "Cleveland Browns",           conf: "AFC North", note: "via Jacksonville" },
+  { pick: 25, team: "Chicago Bears",              conf: "NFC North" },
+  { pick: 26, team: "Buffalo Bills",              conf: "AFC East" },
+  { pick: 27, team: "San Francisco 49ers",        conf: "NFC West" },
+  { pick: 28, team: "Houston Texans",             conf: "AFC South" },
+  { pick: 29, team: "Kansas City Chiefs",         conf: "AFC West",  note: "via LA Rams" },
+  { pick: 30, team: "Miami Dolphins",             conf: "AFC East",  note: "via Denver" },
+  { pick: 31, team: "New England Patriots",       conf: "AFC East" },
+  { pick: 32, team: "Seattle Seahawks",           conf: "NFC West" },
+];
+
 const players2026 = [
   { name: "Marlin Klein", pos: "TE", college: "Michigan (Big Ten)", proj: "Runde 3 (Top 100 möglich)", teams: "Eagles, Lions, Falcons, Steelers" },
   { name: "Paul Rubelt", pos: "OT", college: "UCF (Big 12)", proj: "Late Day 3 / UDFA", teams: "~20 Teams kontaktiert" },
@@ -417,6 +452,49 @@ const glossary = [
           </div>
         </div>
       </div>
+
+      <!-- Draft-Reihenfolge aufklappbar -->
+      <details class="rounded-2xl border border-[#231f20]/8 bg-[#faf8f5] overflow-hidden group mb-8">
+        <summary class="px-6 py-5 cursor-pointer list-none flex justify-between items-center gap-4">
+          <div>
+            <p class="font-display font-bold text-[#231f20] text-lg">Runde 1 – Die vollständige Pick-Reihenfolge</p>
+            <p class="text-[#231f20]/45 font-body text-xs mt-0.5">Stand: 10. April 2026 · inkl. bekannter Trades · Runde 2–7 folgen der gleichen Grundreihenfolge</p>
+          </div>
+          <span class="text-rot text-xl shrink-0 group-open:rotate-45 transition-transform font-bold">+</span>
+        </summary>
+        <div class="px-6 pb-6">
+          <!-- Orientierungspunkt für deutsche Fans -->
+          <div class="rounded-xl bg-rot/8 border border-rot/20 px-4 py-3 mb-4">
+            <p class="text-rot text-xs font-bold font-body uppercase tracking-widest mb-1">Orientierung für deutsche Fans</p>
+            <p class="text-[#231f20]/70 font-body text-sm leading-relaxed">
+              <strong>Marlin Klein</strong> (TE, Michigan) ist als Round-3-Kandidat eingestuft — das entspricht ca. Pick 65–100, also <strong>Day 2 (Freitag, 24. April)</strong>. Die meisten anderen deutschen Spieler sind UDFA-Kandidaten: Nach Day 3 (Samstag) beginnt die UDFA-Phase.
+            </p>
+          </div>
+          <div class="overflow-x-auto rounded-xl border border-[#231f20]/8">
+            <table class="w-full text-sm font-body">
+              <thead>
+                <tr style="background-color:#231f20;">
+                  <th style="text-align:left; padding:10px 14px; color:rgba(255,255,255,0.5); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; width:60px;">Pick</th>
+                  <th style="text-align:left; padding:10px 14px; color:rgba(255,255,255,0.5); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">Team</th>
+                  <th style="text-align:left; padding:10px 14px; color:rgba(255,255,255,0.5); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; display:none;">Conf</th>
+                </tr>
+              </thead>
+              <tbody>
+                {draftOrder2026.map((p, i) => (
+                  <tr style={i % 2 === 0 ? "background-color:#ffffff;" : "background-color:#faf8f5;"}>
+                    <td style="padding:9px 14px; font-weight:700; color:#c8102e; font-family:inherit; font-size:13px;">{p.pick}</td>
+                    <td style="padding:9px 14px; color:#231f20; font-weight:500;">
+                      {p.team}
+                      {p.note && <span style="color:rgba(35,31,32,0.4); font-size:11px; margin-left:6px;">({p.note})</span>}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="text-[#231f20]/35 font-body text-xs mt-3">Quelle: Wikipedia / NFL.com · Trades können sich bis zum Draft noch ändern.</p>
+        </div>
+      </details>
 
       <h3 class="font-display text-xl font-bold text-[#231f20] mb-4">Deutsche Kandidaten 2026</h3>
       <p class="text-[#231f20]/65 font-body text-sm leading-relaxed mb-6">
