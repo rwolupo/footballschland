@@ -375,17 +375,17 @@ const draft2023 = [
     from: "Deutschland",
     path: "GFL/ELF → UDFA Chicago Bears (2023) → IPP Tampa Bay Buccaneers (2024) → New England Patriots (2026)",
     team: "Bears → Buccaneers → Patriots",
-    result: "Unterschrieb im Mai 2023 als UDFA bei den Chicago Bears, released im Juli. Giants Tryout. Im April 2024 zweite Chance via IPP bei den Tampa Bay Buccaneers – Practice Squad 2024. Waived August 2025, sofort re-signed. Im Januar 2026 Reserve/Futures-Vertrag mit den New England Patriots.",
-    badge: "Reserve/Futures Patriots 2026"
+    result: "Unterschrieb im Mai 2023 als UDFA bei den Chicago Bears, released im Juli. Giants Tryout. Im April 2024 zweite Chance via IPP bei den Tampa Bay Buccaneers – Practice Squad 2024. Waived August 2025, sofort re-signed. Vor dem Super Bowl LX von den New England Patriots verpflichtet und gehörte somit zum Super-Bowl-Kader der Patriots.",
+    badge: "Super Bowl LX Kader – Patriots"
   },
   {
     name: "Marlon Werthmann",
     pos: "OL",
     from: "Deutschland",
-    path: "Munich Ravens (ELF) → IPP 2022/2023 → Stuttgart Surge (ELF)",
-    team: "Cleveland Browns (IPP) → Stuttgart Surge",
-    result: "Nahm 2022/2023 am NFL International Player Pathway teil, wurde zu Pro Days der Wisconsin Badgers eingeladen und trainierte mit den Cleveland Browns. Erhielt keinen festen NFL-Vertrag. Spielte für die Munich Ravens in der ELF, aktuell bei der Stuttgart Surge.",
-    badge: "IPP → ELF"
+    path: "Munich Ravens (ELF) → IPP 2022/2023 → Baltimore Ravens → Stuttgart Surge → Baltimore Ravens",
+    team: "Baltimore Ravens → Stuttgart Surge → Baltimore Ravens",
+    result: "Nahm 2022/2023 am NFL International Player Pathway teil, wurde zu Pro Days der Wisconsin Badgers eingeladen und trainierte mit den Cleveland Browns. Erhielt einen Platz bei den Baltimore Ravens, wechselte zwischenzeitlich zur Stuttgart Surge in die ELF und ist aktuell zurück bei den Baltimore Ravens.",
+    badge: "Baltimore Ravens"
   },
   {
     name: "David Bada",
@@ -398,8 +398,10 @@ const draft2023 = [
   }
 ];
 
+// Moderne Ära: 1986–heute (Draft, UDFA, IPP)
 const historySummary = [
-  { year: "2024", player: "Brandon Coleman", pos: "OT/OG", team: "Washington Commanders (Draft R3, #67)", note: "Aufgewachsen in Berlin. Jüngster deutscher Draft-Pick. Starter seit Rookie-Saison." },
+  { year: "2024", player: "Brandon Coleman", pos: "OT/OG", team: "Washington Commanders (Draft R3, #67)", note: "Aufgewachsen in Berlin. Starter seit Rookie-Saison." },
+  { year: "2022", player: "Devery Hamilton", pos: "OT", team: "New York Giants (UDFA)", note: "9 Spiele in der Saison 2022." },
   { year: "2022", player: "Marcel Dabo", pos: "CB", team: "Colts (IPP)", note: "Practice Squad 2022–2025." },
   { year: "2021", player: "Aaron Donkor", pos: "DE", team: "Seahawks (IPP)", note: "Practice Squad 2021–2022. Danach XFL, CFL, ELF." },
   { year: "2021", player: "Amon-Ra St. Brown", pos: "WR", team: "Detroit Lions (Draft R4, #112)", note: "Pro Bowler, All-Pro. Einer der besten WRs der Liga." },
@@ -414,8 +416,18 @@ const historySummary = [
   { year: "2014", player: "Kasim Edebali", pos: "DE", team: "Saints → Broncos → Lions → Rams → Bears → Bengals → Eagles → Raiders (UDFA)", note: "Deutscher NFL-Allzeitsackführer: 8,0 Career Sacks." },
   { year: "2013", player: "Björn Werner", pos: "DE", team: "Indianapolis Colts (Draft R1, #24)", note: "Erster Deutscher in Runde 1. Via US-Highschool und Florida State." },
   { year: "2012", player: "Markus Kuhn", pos: "DT", team: "New York Giants (Draft R7, #239)", note: "Erster NFL-Touchdown eines Deutschen (2014)." },
-  { year: "2009", player: "Sebastian Vollmer", pos: "OT", team: "New England Patriots (Draft R2, #58)", note: "2× Super Bowl Champion (XLIX, Super Bowl). Pro Bowl 2015." },
-  { year: "1986", player: "Markus Koch", pos: "DL", team: "Washington Redskins (Draft R5)", note: "2× Super Bowl Champion (1988, 1991). Pionier." },
+  { year: "2009", player: "Sebastian Vollmer", pos: "OT", team: "New England Patriots (Draft R2, #58)", note: "2× Super Bowl Champion (XLIX, LI). Pro Bowl 2015." },
+  { year: "2007", player: "Christian Mohr", pos: "OL", team: "Tampa Bay Buccaneers (UDFA)", note: "Training Camp / Practice Squad." },
+  { year: "2005", player: "Constantin Ritzmann", pos: "DE", team: "Atlanta Falcons (UDFA)", note: "1 NFL-Spiel in der Saison 2005." },
+  { year: "1986", player: "Markus Koch", pos: "DL", team: "Washington Redskins (Draft R5)", note: "2× Super Bowl Champion (1988, 1991). Erster gedrafteter Deutscher der Neuzeit." },
+];
+
+// Frühe Pioniere: Deutsche in der NFL vor 1986
+const earlyPioneers = [
+  { year: "1979", player: "Uwe von Schamann", pos: "K", team: "Miami Dolphins (Draft R7)", note: "89 Spiele, 101 Field Goals. In Berlin geboren, als Kind in die USA ausgewandert." },
+  { year: "1969", player: "Horst Mühlmann", pos: "K", team: "Cincinnati Bengals → Philadelphia Eagles", note: "121 NFL-Spiele, 154 Field Goals über 9 Saisons. Kam aus Dortmund." },
+  { year: "1969", player: "Karl Kremser", pos: "K", team: "Miami Dolphins", note: "15 Spiele, 13 Field Goals. Einer der ersten Deutschen im professionellen US-Football." },
+  { year: "1950", player: "Ernie Stautner", pos: "DT", team: "Pittsburgh Steelers (Draft R2)", note: "173 Spiele, 9× Pro Bowl, Hall of Fame. In Prinzing (Bayern) geboren, als Kind emigriert. Die #70 der Steelers ist für ihn retired." },
 ];
 
 const glossary = [
@@ -426,21 +438,22 @@ const glossary = [
   { term: "Bust", def: "Ein hoch gedrafteter Spieler, der die Erwartungen weit verfehlt." },
   { term: "Sleeper", def: "Ein spät gedrafteter oder undrafted Spieler, der überraschend gut wird." },
   { term: "Big Board", def: "Die interne Rangliste der besten Prospects eines Teams – unabhängig von Positionen." },
-  { term: "Mock Draft", def: "Spekulativer Entwurf: Journalisten und Analysten versuchen vorherzusagen, wer wo landet." },
   { term: "RAS", def: "Relative Athletic Score – kombinierte Athletik-Bewertung (0–10) auf Basis der Combine-Zahlen im Positionsvergleich." },
-  { term: "Practice Squad", def: "10–16 Spieler pro Team, die trainieren aber kein aktives Roster-Mitglied sind. Sprungbrett in den 53-Mann-Kader." },
+  { term: "Practice Squad", def: "16 Spieler pro Team, die trainieren aber kein aktives Roster-Mitglied sind. Sprungbrett in den 53-Mann-Kader." },
   { term: "IPP", def: "NFL International Player Pathway Programme – Programm der NFL für internationale Talente ohne US-College-Erfahrung." },
   { term: "Reserve/Futures Contract", def: "Vertrag, der nach Saisonende geschlossen wird und ab dem nächsten Training Camp gilt. Zeigt, dass ein Team an einem Spieler festhält." },
   { term: "International Exempt Spot", def: "IPP-Spieler zählen in ihrem ersten Jahr nicht gegen das 90-Mann-Roster-Limit. Das gibt Teams die Möglichkeit, internationale Spieler zu entwickeln ohne auf eine Roster-Stelle zu verzichten." },
   { term: "Trade Up / Trade Down", def: "Trade Up: Ein Team gibt mehrere Picks ab, um einen früheren Pick zu bekommen (z.B. für einen Top-Quarterback). Trade Down: Das Team tauscht seinen frühen Pick gegen mehrere spätere Picks – sammelt Kapital." },
-  { term: "Mock Draft", def: "Spekulativer Entwurf, bei dem Analysten und Journalisten vorhersagen, welches Team welchen Spieler draften wird. Beliebtestes Format in der Draft-Vorbereitung." },
-  { term: "Combine (NFL Scouting Combine)", def: "Zentrales Scouting-Event im Februar/März in Indianapolis. Eingeladene Top-Prospects absolvieren athletische Tests (40-Yard-Dash, Bench Press etc.), medizinische Checks und Team-Interviews." }
+  { term: "Mock Draft", def: "Spekulativer Entwurf, bei dem Analysten und Journalisten vorhersagen, welches Team welchen Spieler draften wird. Beliebtestes Format in der Draft-Vorbereitung. Die Trefferquote liegt selbst bei Top-Experten unter 50%." },
+  { term: "Combine (NFL Scouting Combine)", def: "Zentrales Scouting-Event im Februar/März in Indianapolis. Eingeladene Top-Prospects absolvieren athletische Tests (40-Yard-Dash, Bench Press etc.), medizinische Checks und Team-Interviews." },
+  { term: "Roster Cuts", def: "Im August muss jedes Team von 90 auf 53 Spieler reduzieren. Mehrere Cut-Runden vor Saisonstart. Wer es nicht schafft, kann auf den Practice Squad oder wird entlassen." },
+  { term: "Active Roster (53-Mann-Kader)", def: "Die 53 Spieler, die am Spieltag zur Verfügung stehen. Davon werden 48 pro Spiel aktiviert (46 + 2 Emergency)." }
 ];
 ---
 
 <BaseLayout
   title="NFL Draft erklärt: Ablauf, Runden, Draft 2026 & deutsche Spieler | Footballschland"
-  description="NFL Draft einfach erklärt: Wie der Draft funktioniert, was Combine & Pro Days bedeuten, alle deutschen NFL-Spieler von 1986 bis 2026 – und die Draft-Reihenfolge 2026 mit allen 7 Runden."
+  description="NFL Draft einfach erklärt: Ablauf, Runden, Roster Cuts, Combine & Pro Days. Alle deutschen NFL-Spieler von Ernie Stautner (1950) bis Brandon Coleman (2024) – plus die Draft-Reihenfolge 2026 mit allen 7 Runden."
   canonical="https://footballschland.de/nfl-draft/"
 >
   <!-- noindex: Seite noch in Entwicklung -->
@@ -474,6 +487,7 @@ const glossary = [
         {[
           ['Was ist der Draft?', '#was-ist-der-draft'],
           ['Ablauf', '#ablauf'],
+          ['Roster & Practice Squad', '#roster'],
           ['Combine & Pro Days', '#combine'],
           ['Draft 2026', '#draft-2026'],
           ['Deutsche Spieler', '#jahrgaenge'],
@@ -514,10 +528,10 @@ const glossary = [
       <div class="space-y-4 mb-12">
         {draftDays.map((d) => (
           <div class="rounded-2xl border border-[#231f20]/8 p-6 bg-[#faf8f5]">
-            <div class="flex items-start gap-4">
-              <div class="shrink-0 text-center">
-                <span class="block font-display text-2xl font-bold text-rot">{d.day}</span>
-                <span class="text-xs text-[#231f20]/45 font-body">{d.date}</span>
+            <div style="display:grid; grid-template-columns:88px 1fr; gap:16px; align-items:start;">
+              <div style="text-align:center; padding-top:2px;">
+                <span class="font-display text-2xl font-bold text-rot" style="display:block; line-height:1.1;">{d.day}</span>
+                <span class="text-xs text-[#231f20]/45 font-body" style="display:block; margin-top:2px;">{d.date}</span>
               </div>
               <div>
                 <p class="font-display font-bold text-[#231f20] text-lg mb-1">{d.rounds} <span class="text-[#231f20]/40 font-body font-normal text-sm">({d.picks})</span></p>
@@ -534,6 +548,52 @@ const glossary = [
       </p>
       <p class="text-[#231f20]/75 font-body leading-relaxed">
         <strong>Compensatory Picks</strong> sind Zusatzpicks, die die NFL an Teams vergibt, die in der Free Agency mehr hochwertige Spieler verloren als gewonnen haben. Sie werden am Ende der Runden 3–7 hinzugefügt.
+      </p>
+    </div>
+  </section>
+
+  <!-- Roster & Practice Squad -->
+  <section id="roster" class="bg-[#faf8f5] py-16 px-4">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="font-display text-3xl font-bold text-[#231f20] mb-2">Nach dem Draft: Roster Cuts & Practice Squad</h2>
+      <p class="text-[#231f20]/55 font-body text-sm mb-8">Warum „gedraftet werden" erst der Anfang ist – und was der Practice Squad für deutsche Spieler bedeutet</p>
+
+      <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+        Wer gedraftet oder als UDFA unter Vertrag genommen wird, hat noch keinen Platz im Team sicher. Im Sommer folgen <strong>Roster Cuts</strong> — von 90 Mann auf den finalen <strong>53-Mann-Kader</strong>. Zusätzlich gibt es den <strong>Practice Squad</strong> (16 Spieler) und einen <strong>International Exempt Spot</strong> für IPP-Spieler. Die Zahlen im Überblick:
+      </p>
+
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(140px, 1fr)); gap:12px; margin-bottom:24px;">
+        <div class="rounded-xl border border-[#231f20]/8 bg-white p-4 text-center">
+          <span class="font-display text-3xl font-bold text-rot" style="display:block;">90</span>
+          <span class="text-[#231f20]/55 font-body text-xs" style="display:block; margin-top:4px;">Offseason Roster</span>
+        </div>
+        <div class="rounded-xl border border-[#231f20]/8 bg-white p-4 text-center">
+          <span class="font-display text-3xl font-bold text-rot" style="display:block;">53</span>
+          <span class="text-[#231f20]/55 font-body text-xs" style="display:block; margin-top:4px;">Active Roster</span>
+        </div>
+        <div class="rounded-xl border border-[#231f20]/8 bg-white p-4 text-center">
+          <span class="font-display text-3xl font-bold text-rot" style="display:block;">16</span>
+          <span class="text-[#231f20]/55 font-body text-xs" style="display:block; margin-top:4px;">Practice Squad</span>
+        </div>
+        <div class="rounded-xl border border-[#231f20]/8 bg-white p-4 text-center">
+          <span class="font-display text-3xl font-bold text-rot" style="display:block;">+1</span>
+          <span class="text-[#231f20]/55 font-body text-xs" style="display:block; margin-top:4px;">International Exempt</span>
+        </div>
+      </div>
+
+      <h3 class="font-display text-xl font-bold text-[#231f20] mb-3">So läuft der Kaderprozess</h3>
+      <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+        Nach dem Draft starten die Teams mit bis zu <strong>90 Spielern</strong> ins Training Camp (Mai–August). In mehreren Schnitt-Runden (Roster Cuts) muss der Kader bis zum Saisonstart auf <strong>53 aktive Spieler</strong> reduziert werden. Die wichtigsten Termine: erste Cuts nach der Preseason (von 90 auf 53), dann laufende Anpassungen während der Saison.
+      </p>
+
+      <h3 class="font-display text-xl font-bold text-[#231f20] mb-3">Der Practice Squad – Sprungbrett für deutsche Spieler</h3>
+      <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+        Wer es nicht in den 53er-Kader schafft, kann auf den <strong>Practice Squad</strong> (16 Spieler) berufen werden. Diese Spieler trainieren mit dem Team, stehen aber am Spieltag nicht auf dem Feld. Sie können jederzeit in den aktiven Kader hochgezogen werden — und genau das ist der Weg, den die meisten deutschen NFL-Spieler gehen: Leander Wiegand, Lenny Krieg, Kilian Zierer, David Bada — sie alle starteten auf dem Practice Squad.
+      </p>
+
+      <h3 class="font-display text-xl font-bold text-[#231f20] mb-3">International Exempt Spot</h3>
+      <p class="text-[#231f20]/75 font-body leading-relaxed">
+        Spieler, die über das <a href="/weg-in-die-nfl" class="text-rot hover:underline">IPP-Programm</a> in die NFL kommen, erhalten in ihrem ersten Jahr einen <strong>International Exempt Spot</strong>: Sie zählen nicht gegen das 90-Mann-Roster-Limit und können sich in Ruhe entwickeln. Nach dem ersten Jahr müssen sie sich regulär einen Platz erkämpfen — Practice Squad oder 53-Mann-Kader.
       </p>
     </div>
   </section>
@@ -807,10 +867,10 @@ const glossary = [
       </div>
 
       <!-- Ältere Jahrgänge als Tabelle -->
-      <div>
-        <h3 class="font-display text-xl font-bold text-[#231f20] mb-2">1986–2022: Die Pioniere</h3>
+      <div class="mb-14">
+        <h3 class="font-display text-xl font-bold text-[#231f20] mb-2">Alle deutschen NFL-Spieler seit 1986</h3>
         <p class="text-[#231f20]/55 font-body text-sm mb-6">
-          Alle deutschen Spieler, die den Schritt in die NFL geschafft haben – per Draft, UDFA oder IPP. Von Markus Koch 1986 bis Marcel Dabo 2022. Jeder Einzelne zählt.
+          Von Markus Koch bis Brandon Coleman: Jeder Deutsche, der es per Draft, UDFA oder IPP in einen NFL-Kader geschafft hat. Jeder Einzelne zählt.
         </p>
         <div class="overflow-x-auto rounded-2xl border border-[#231f20]/8">
           <table class="w-full text-sm font-body">
@@ -824,6 +884,36 @@ const glossary = [
             </thead>
             <tbody>
               {historySummary.map((h, i) => (
+                <tr style={i % 2 === 0 ? "background-color:#ffffff;" : "background-color:#faf8f5;"}>
+                  <td style="padding:10px 16px; font-weight:700; color:#231f20;">{h.year}</td>
+                  <td style="padding:10px 16px; font-weight:600; color:#231f20;">{h.player}</td>
+                  <td style="padding:10px 16px; color:rgba(35,31,32,0.55);">{h.pos}</td>
+                  <td style="padding:10px 16px; color:rgba(35,31,32,0.65); font-size:12px;">{h.team}<br/><span style="color:rgba(35,31,32,0.4); font-size:11px;">{h.note}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Frühe Pioniere vor 1986 -->
+      <div>
+        <h3 class="font-display text-xl font-bold text-[#231f20] mb-2">Die frühen Pioniere: Deutsche in der NFL vor 1986</h3>
+        <p class="text-[#231f20]/55 font-body text-sm mb-6">
+          Schon lange bevor das IPP-Programm existierte, schafften es gebürtige Deutsche in die NFL. Diese Männer ebneten den Weg – oft als Kinder in die USA ausgewandert, aber mit deutschen Wurzeln.
+        </p>
+        <div class="overflow-x-auto rounded-2xl border border-[#231f20]/8">
+          <table class="w-full text-sm font-body">
+            <thead>
+              <tr style="background-color:#231f20;">
+                <th style="text-align:left; padding:10px 16px; color:rgba(255,255,255,0.5); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">Jahr</th>
+                <th style="text-align:left; padding:10px 16px; color:rgba(255,255,255,0.5); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">Spieler</th>
+                <th style="text-align:left; padding:10px 16px; color:rgba(255,255,255,0.5); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">Pos</th>
+                <th style="text-align:left; padding:10px 16px; color:rgba(255,255,255,0.5); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em;">Team / Weg</th>
+              </tr>
+            </thead>
+            <tbody>
+              {earlyPioneers.map((h, i) => (
                 <tr style={i % 2 === 0 ? "background-color:#ffffff;" : "background-color:#faf8f5;"}>
                   <td style="padding:10px 16px; font-weight:700; color:#231f20;">{h.year}</td>
                   <td style="padding:10px 16px; font-weight:600; color:#231f20;">{h.player}</td>
