@@ -43,7 +43,7 @@ const faqSchema = {
       "name": "Welche deutschen Spieler wurden bisher im NFL Draft ausgewählt?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Gedraftete deutsche Spieler: Markus Koch (1986, R5, Washington Redskins – 2× Super Bowl), Sebastian Vollmer (2009, R2, Pick 58, Patriots – 2× Super Bowl), Markus Kuhn (2012, R7, Giants), Björn Werner (2013, R1, #24, Colts), Mark Nzeocha (2015, R7, Cowboys), Moritz Böhringer (2016, R6, Vikings – erster Europäer ohne College-Erfahrung), Equanimeous St. Brown (2018, R6, Packers) und Amon-Ra St. Brown (2021, R4, #112, Lions – Pro Bowler)."
+        "text": "Gedraftete deutsche Spieler: Markus Koch (1986, R5, Washington Redskins – 2× Super Bowl), Sebastian Vollmer (2009, R2, Pick 58, Patriots – 2× Super Bowl), Markus Kuhn (2012, R7, Giants), Björn Werner (2013, R1, #24, Colts), Mark Nzeocha (2015, R7, Cowboys), Moritz Böhringer (2016, R6, Vikings – erster Europäer ohne College-Erfahrung), Equanimeous St. Brown (2018, R6, Packers), Amon-Ra St. Brown (2021, R4, #112, Lions – Pro Bowler) und Brandon Coleman (2024, R3, #67, Commanders – aufgewachsen in Berlin)."
       }
     },
     {
@@ -61,6 +61,38 @@ const faqSchema = {
         "@type": "Answer",
         "text": "Runde 1 (Top-32) enthält die besten Prospects mit garantierten Rookie-Verträgen. Runden 2–3 (Day 2) sind Starter-Kandidaten. Runden 4–7 (Day 3) sind Developmental-Picks, Spezialisten und Risiko-Picks. Nach Runde 7 beginnt die UDFA-Phase."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Wie viele Spieler werden beim NFL Draft ausgewählt?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pro Draft werden ca. 257 Spieler in 7 Runden ausgewählt. Jedes der 32 NFL-Teams hat in jeder Runde einen Pick, plus zusätzliche Compensatory Picks. Die genaue Zahl variiert leicht je nach Trades und Comp-Picks."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was passiert nach dem NFL Draft?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Direkt nach dem Draft (meist Samstagnacht) beginnt die UDFA-Phase: Teams kontaktieren Spieler, die nicht gedraftet wurden, und bieten Verträge für Training Camp und Practice Squad an. Für viele deutsche Spieler ist dieser Weg in die NFL sogar wahrscheinlicher als ein Draft-Pick."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Kann man NFL Draft Picks traden?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ja, Draft Picks können frei gehandelt werden – auch über mehrere Jahre hinweg. Teams können 'Trade Up' gehen (früher picken, aber mehr Picks abgeben) oder 'Trade Down' (später picken, dafür mehr Picks sammeln). Einige der größten Trades der NFL-Geschichte passierten am Draft-Tag selbst."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Was ist ein Mock Draft?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ein Mock Draft ist ein spekulativer Entwurf, bei dem Journalisten und Analysten versuchen vorherzusagen, welches Team welchen Spieler draften wird. Mock Drafts sind ein beliebtes Diskussionsformat in der Draft-Vorbereitung – die Trefferquote liegt selbst bei den besten Experten unter 50%."
+      }
     }
   ]
 };
@@ -73,11 +105,23 @@ const pageSchema = {
   "description": "Alles über den NFL Draft: Ablauf, Runden, Combine, Pro Days, Datum 2026 – und alle deutschen Spieler, die je im Draft waren oder es werden wollen.",
   "url": "https://footballschland.de/nfl-draft/",
   "inLanguage": "de",
+  "isPartOf": { "@id": "https://footballschland.de/#website" },
+  "mainEntityOfPage": { "@id": "https://footballschland.de/nfl-draft/#article" },
   "author": { "@type": "Person", "name": "Daniel Düngel" },
   "publisher": { "@id": "https://footballschland.de/#organization" },
   "datePublished": "2026-04-07",
-  "dateModified": "2026-04-07",
+  "dateModified": "2026-04-12",
   "image": { "@type": "ImageObject", "url": "https://footballschland.de/assets/og-nfl-draft.png", "width": 1200, "height": 630 }
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Start", "item": "https://footballschland.de/" },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://footballschland.de/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "NFL Draft Guide" }
+  ]
 };
 
 const draftDays = [
@@ -234,9 +278,36 @@ const draft2025 = [
     pos: "OL",
     from: "Deutschland",
     path: "ELF → IPP 2025",
-    team: "NFL (via IPP)",
-    result: "Ging 2025 durch den Draft-Prozess und die IPP-Phase. Details zu seinem Team und Season-Verlauf werden nachgetragen.",
-    badge: "IPP 2025"
+    team: "IPP → Frankfurt Galaxy (ELF)",
+    result: "Nahm 2025 am IPP teil, wurde aber nicht gedraftet und erhielt keinen NFL-Vertrag. Spielt seitdem für die Frankfurt Galaxy in der European League of Football.",
+    badge: "ELF (Frankfurt Galaxy)"
+  },
+  {
+    name: "Maximilian Mang",
+    pos: "TE",
+    from: "Potsdam",
+    path: "Potsdam Royals (GFL) → Berlin Rebels → Syracuse Orange (NCAA D1) → UDFA 2025",
+    team: "Indianapolis Colts",
+    result: "Mit 6'7\" einer der größten Tight Ends im Draft. Kam mit 16 zu den Potsdam Royals, wechselte zu den Berlin Rebels und schaffte es nach Syracuse in die ACC. Vier Jahre Starter, primär als Blocking-TE eingesetzt. Nach dem Draft 2025 als UDFA bei den Indianapolis Colts unterschrieben. War beim NFL-Spiel in Berlin dabei.",
+    badge: "UDFA Colts"
+  },
+  {
+    name: "Kariem Al Soufi",
+    pos: "OT",
+    from: "Paderborn",
+    path: "Friedrich-Spee-Gesamtschule Paderborn → Ellsworth CC → Virginia → Tarleton State (FCS) → Draft 2025",
+    team: "Nicht gedraftet → Frankfurt Galaxy (ELF)",
+    result: "2025 Draft-eligible nach starker Senior-Saison bei Tarleton State: Alle 14 Spiele gestartet, Academic All-WAC. Ehemaliger deutscher Nationalspieler. Wurde nicht gedraftet und erhielt keinen NFL-Vertrag. Spielt seitdem für die Frankfurt Galaxy in der ELF.",
+    badge: "ELF (Frankfurt Galaxy)"
+  },
+  {
+    name: "Roberto Miranda",
+    pos: "TE",
+    from: "Berlin",
+    path: "Schul- und Leistungssportzentrum Berlin → Arizona Wildcats (NCAA D1, Big 12) → Draft 2025 → Stuttgart Surge (ELF)",
+    team: "Nicht gedraftet → Stuttgart Surge (ELF)",
+    result: "Gebürtiger Berliner, kam über Leichtathletik (200m/400m) zum Football. Fünf Saisons bei den Arizona Wildcats, 35+ Spiele, primär als Blocking-TE. Von den Tucson-Medien 'Das Gronk' getauft. 2025 Draft-eligible, wurde nicht gepickt und erhielt keinen NFL-Vertrag. Wechselte im Januar 2025 zur Stuttgart Surge in die ELF.",
+    badge: "ELF (Stuttgart Surge)"
   }
 ];
 
@@ -269,13 +340,22 @@ const draft2024 = [
     badge: "CFL – Grey Cup 2024"
   },
   {
+    name: "Brandon Coleman",
+    pos: "OT/OG",
+    from: "Berlin",
+    path: "Berlin (aufgewachsen) → Denton High School (Texas) → Trinity Valley CC → TCU Horned Frogs → Draft 2024",
+    team: "Washington Commanders",
+    result: "Der jüngste deutsche Draft-Pick: Geboren in Newport News (Virginia), aufgewachsen in Berlin als Sohn eines US-Soldaten und einer deutschen Mutter. Ab 2016 zurück in den USA, über Community College nach TCU – dort 2022 Starter im National Championship Game. Im Draft 2024 in Runde 3, Pick 67, von den Washington Commanders gepickt. Rookie-Saison: 16 Spiele, 12 Starts als Left Tackle. 2025 Positionswechsel auf Left Guard. RAS-Score: 9.97 von 10 – einer der athletischsten OL-Prospects der Draft-Geschichte.",
+    badge: "Draft R3, #67 – Commanders"
+  },
+  {
     name: "Hugo Klages",
-    pos: "–",
-    from: "Deutschland",
-    path: "UDFA-Phase 2024",
-    team: "–",
-    result: "Hugo Klages war 2024 im NFL-Orbit. Details zu Position und Team werden nachgetragen – Sandra hat ihn als deutschen Kandidaten des Jahrgangs 2024 gelistet.",
-    badge: "Details folgen"
+    pos: "DT",
+    from: "Deutschland (geboren in Spanien)",
+    path: "UMass (NCAA D1, 2020–2024) → Rhein Fire (ELF)",
+    team: "Nicht gedraftet → Rhein Fire",
+    result: "Defensive Tackle mit deutscher Nationalität, geboren 1998 in Spanien. Spielte vier Jahre NCAA D1 bei UMass, wurde 2024 aber nicht gedraftet. Wechselte zu Rhein Fire in die ELF und wurde prompt ELF All-Star First Team sowie ELF-Champion 2024. Ehemaliger deutscher Jugendnationalspieler (3. Platz Jugend-EM 2017).",
+    badge: "ELF-Champion 2024"
   }
 ];
 
@@ -300,12 +380,12 @@ const draft2023 = [
   },
   {
     name: "Marlon Werthmann",
-    pos: "–",
+    pos: "OL",
     from: "Deutschland",
-    path: "ELF → IPP 2023",
-    team: "NFL (via IPP 2023)",
-    result: "War Teil der deutschen IPP-Klasse 2023. Details zu Position, zugewiesenem Team und Season-Verlauf werden nachgetragen.",
-    badge: "IPP 2023"
+    path: "Munich Ravens (ELF) → IPP 2022/2023 → Stuttgart Surge (ELF)",
+    team: "Cleveland Browns (IPP) → Stuttgart Surge",
+    result: "Nahm 2022/2023 am NFL International Player Pathway teil, wurde zu Pro Days der Wisconsin Badgers eingeladen und trainierte mit den Cleveland Browns. Erhielt keinen festen NFL-Vertrag. Spielte für die Munich Ravens in der ELF, aktuell bei der Stuttgart Surge.",
+    badge: "IPP → ELF"
   },
   {
     name: "David Bada",
@@ -319,6 +399,7 @@ const draft2023 = [
 ];
 
 const historySummary = [
+  { year: "2024", player: "Brandon Coleman", pos: "OT/OG", team: "Washington Commanders (Draft R3, #67)", note: "Aufgewachsen in Berlin. Jüngster deutscher Draft-Pick. Starter seit Rookie-Saison." },
   { year: "2022", player: "Marcel Dabo", pos: "CB", team: "Colts (IPP)", note: "Practice Squad 2022–2025." },
   { year: "2021", player: "Aaron Donkor", pos: "DE", team: "Seahawks (IPP)", note: "Practice Squad 2021–2022. Danach XFL, CFL, ELF." },
   { year: "2021", player: "Amon-Ra St. Brown", pos: "WR", team: "Detroit Lions (Draft R4, #112)", note: "Pro Bowler, All-Pro. Einer der besten WRs der Liga." },
@@ -350,38 +431,52 @@ const glossary = [
   { term: "Practice Squad", def: "10–16 Spieler pro Team, die trainieren aber kein aktives Roster-Mitglied sind. Sprungbrett in den 53-Mann-Kader." },
   { term: "IPP", def: "NFL International Player Pathway Programme – Programm der NFL für internationale Talente ohne US-College-Erfahrung." },
   { term: "Reserve/Futures Contract", def: "Vertrag, der nach Saisonende geschlossen wird und ab dem nächsten Training Camp gilt. Zeigt, dass ein Team an einem Spieler festhält." },
-  { term: "International Exempt Spot", def: "IPP-Spieler zählen in ihrem ersten Jahr nicht gegen das 90-Mann-Roster-Limit. Das gibt Teams die Möglichkeit, internationale Spieler zu entwickeln ohne auf eine Roster-Stelle zu verzichten." }
+  { term: "International Exempt Spot", def: "IPP-Spieler zählen in ihrem ersten Jahr nicht gegen das 90-Mann-Roster-Limit. Das gibt Teams die Möglichkeit, internationale Spieler zu entwickeln ohne auf eine Roster-Stelle zu verzichten." },
+  { term: "Trade Up / Trade Down", def: "Trade Up: Ein Team gibt mehrere Picks ab, um einen früheren Pick zu bekommen (z.B. für einen Top-Quarterback). Trade Down: Das Team tauscht seinen frühen Pick gegen mehrere spätere Picks – sammelt Kapital." },
+  { term: "Mock Draft", def: "Spekulativer Entwurf, bei dem Analysten und Journalisten vorhersagen, welches Team welchen Spieler draften wird. Beliebtestes Format in der Draft-Vorbereitung." },
+  { term: "Combine (NFL Scouting Combine)", def: "Zentrales Scouting-Event im Februar/März in Indianapolis. Eingeladene Top-Prospects absolvieren athletische Tests (40-Yard-Dash, Bench Press etc.), medizinische Checks und Team-Interviews." }
 ];
 ---
 
 <BaseLayout
-  title="NFL Draft Guide – Ablauf, Runden, Deutsche Spieler | Footballschland"
-  description="Der große NFL Draft Guide auf Deutsch: Ablauf, Runden, Combine, Pro Days, historische und aktuelle deutsche Spieler – alles was du als Fan wissen musst."
+  title="NFL Draft erklärt: Ablauf, Runden, Draft 2026 & deutsche Spieler | Footballschland"
+  description="NFL Draft einfach erklärt: Wie der Draft funktioniert, was Combine & Pro Days bedeuten, alle deutschen NFL-Spieler von 1986 bis 2026 – und die Draft-Reihenfolge 2026 mit allen 7 Runden."
   canonical="https://footballschland.de/nfl-draft/"
 >
   <!-- noindex: Seite noch in Entwicklung -->
   <meta name="robots" content="noindex, nofollow" slot="head" />
 
-  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-  <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
+
+  <!-- Breadcrumb -->
+  <nav aria-label="Breadcrumb" class="bg-[#231f20] pt-24 pb-0 px-4">
+    <ol class="max-w-3xl mx-auto flex items-center gap-2 text-xs font-body text-white/35">
+      <li><a href="/" class="hover:text-white/60 transition-colors">Start</a></li>
+      <li class="before:content-['›'] before:mx-1.5"><a href="/guides" class="hover:text-white/60 transition-colors">Guides</a></li>
+      <li class="before:content-['›'] before:mx-1.5 text-white/55">NFL Draft Guide</li>
+    </ol>
+  </nav>
 
   <!-- Hero -->
-  <section class="bg-[#231f20] pt-32 pb-16 px-4">
+  <section class="bg-[#231f20] pt-6 pb-16 px-4">
     <div class="max-w-3xl mx-auto">
       <p class="text-rot text-xs font-bold uppercase tracking-widest mb-3">Guide · NFL Draft</p>
       <h1 class="font-display text-4xl md:text-5xl font-bold text-white mb-4">
-        Der NFL Draft: Alles was du wissen musst
+        NFL Draft erklärt: Ablauf, Runden & deutsche Spieler
       </h1>
       <p class="text-white/60 text-lg font-body leading-relaxed mb-8">
         Wie der Draft funktioniert, was Combine und Pro Days bedeuten, welche Deutschen je gedraftet wurden – und wer beim nächsten Draft seine Chance bekommt.
       </p>
       <!-- Schnellnavigation -->
-      <nav class="flex flex-wrap gap-3">
+      <nav aria-label="Inhaltsverzeichnis" class="flex flex-wrap gap-3">
         {[
+          ['Was ist der Draft?', '#was-ist-der-draft'],
           ['Ablauf', '#ablauf'],
           ['Combine & Pro Days', '#combine'],
           ['Draft 2026', '#draft-2026'],
-          ['Jahrgänge', '#jahrgaenge'],
+          ['Deutsche Spieler', '#jahrgaenge'],
           ['Glossar', '#glossar'],
           ['FAQ', '#faq'],
         ].map(([label, href]) => (
@@ -392,17 +487,20 @@ const glossary = [
   </section>
 
   <!-- Was ist der NFL Draft -->
-  <section class="bg-[#faf8f5] py-16 px-4">
+  <section id="was-ist-der-draft" class="bg-[#faf8f5] py-16 px-4">
     <div class="max-w-3xl mx-auto">
       <h2 class="font-display text-3xl font-bold text-[#231f20] mb-6">Was ist der NFL Draft?</h2>
       <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
-        Der NFL Draft ist das wichtigste Transferevent im American Football. Jedes Jahr im April wählen alle 32 NFL-Teams reihum College-Spieler aus, die sich für die Profiliga qualifiziert haben. Der Draft besteht aus 7 Runden über drei Tage – insgesamt werden ca. 257 Spieler ausgewählt.
+        Der NFL Draft ist das wichtigste Transferevent im American Football. Jedes Jahr im April wählen alle 32 NFL-Teams reihum College-Spieler aus, die sich für die Profiliga qualifiziert haben. Der Draft besteht aus <strong>7 Runden über drei Tage</strong> – insgesamt werden ca. 257 Spieler ausgewählt.
       </p>
       <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
         Das Prinzip dahinter ist simpel: Je schlechter ein Team in der Vorsaison abgeschnitten hat, desto früher darf es picken. Das soll die Liga ausgeglichen halten und Rebuilding-Teams die Chance geben, Top-Talente zu verpflichten. Die Reihenfolge in Runde 1 ist umgekehrt zur Abschlusstabelle der letzten Saison.
       </p>
+      <p class="text-[#231f20]/75 font-body leading-relaxed mb-4">
+        Der Draft existiert seit 1936. Heute ist er eines der meistgesehenen Sportereignisse in den USA – die erste Runde zieht regelmäßig mehr als 12 Millionen TV-Zuschauer. Für deutsche Footballfans ist der Draft besonders spannend, seit immer mehr deutsche Talente den Sprung in die NFL schaffen – ob per Draft-Pick, als Undrafted Free Agent (UDFA) oder über das <a href="/weg-in-die-nfl" class="text-rot hover:underline">NFL International Player Pathway Programme (IPP)</a>.
+      </p>
       <p class="text-[#231f20]/75 font-body leading-relaxed">
-        Der Draft existiert seit 1936. Heute ist er eines der meistgesehenen Sportereignisse in den USA – die erste Runde zieht regelmäßig mehr als 12 Millionen TV-Zuschauer.
+        Spieler, die nicht gedraftet werden, können als sogenannte <strong>Undrafted Free Agents (UDFAs)</strong> trotzdem NFL-Verträge bekommen. Für viele deutsche Spieler ist dieser Weg sogar der realistischere Einstieg in die NFL. Direkt nach dem Draft beginnt ein hektisches Telefonieren: Teams kontaktieren die besten übrig gebliebenen Spieler und bieten Verträge für Training Camp und Practice Squad.
       </p>
     </div>
   </section>
@@ -410,8 +508,8 @@ const glossary = [
   <!-- Ablauf -->
   <section id="ablauf" class="bg-white py-16 px-4">
     <div class="max-w-3xl mx-auto">
-      <h2 class="font-display text-3xl font-bold text-[#231f20] mb-2">Wie läuft der Draft ab?</h2>
-      <p class="text-[#231f20]/55 font-body text-sm mb-8">7 Runden, 3 Tage, 32 Teams</p>
+      <h2 class="font-display text-3xl font-bold text-[#231f20] mb-2">Wie läuft der NFL Draft ab?</h2>
+      <p class="text-[#231f20]/55 font-body text-sm mb-8">7 Runden, 3 Tage, 32 Teams – so funktioniert der Draft</p>
 
       <div class="space-y-4 mb-12">
         {draftDays.map((d) => (
@@ -443,8 +541,8 @@ const glossary = [
   <!-- Combine & Pro Days -->
   <section id="combine" class="bg-[#231f20] py-16 px-4">
     <div class="max-w-3xl mx-auto">
-      <h2 class="font-display text-3xl font-bold text-white mb-2">Combine & Pro Days</h2>
-      <p class="text-white/50 font-body text-sm mb-8">Der Weg vor dem Draft</p>
+      <h2 class="font-display text-3xl font-bold text-white mb-2">NFL Combine & Pro Days erklärt</h2>
+      <p class="text-white/50 font-body text-sm mb-8">Scouting-Events vor dem Draft: Athletik-Tests, Interviews und medizinische Checks</p>
 
       <div class="mb-10">
         <h3 class="font-display text-xl font-bold text-white mb-3">NFL Scouting Combine</h3>
@@ -468,7 +566,7 @@ const glossary = [
           Pro Days sind universitätseigene Scouting-Events, bei denen Scouts und Coaches der NFL-Teams direkt an die jeweilige Uni reisen. Spieler können dort Combine-Messungen wiederholen oder nachholen – besonders wichtig für Spieler, die nicht zum Combine eingeladen wurden.
         </p>
         <p class="text-white/65 font-body leading-relaxed">
-          Für <strong class="text-white">deutsche Spieler</strong> sind Pro Days besonders relevant: Wer aus der GFL oder ELF kommt und noch studiert, kann seinen Pro Day an einer US-Uni nutzen, um sich NFL-Scouts zu präsentieren – oder über das IPP-Programm einen separaten Pro Day abhalten.
+          Für <strong class="text-white">deutsche Spieler</strong> sind Pro Days besonders relevant: Wer aus der GFL oder ELF kommt und noch studiert, kann seinen Pro Day an einer US-Uni nutzen, um sich NFL-Scouts zu präsentieren – oder über das <a href="/weg-in-die-nfl" class="text-rot hover:underline">IPP-Programm</a> einen separaten Pro Day abhalten.
         </p>
       </div>
     </div>
@@ -625,8 +723,8 @@ const glossary = [
   <!-- Jahrgänge -->
   <section id="jahrgaenge" class="bg-[#faf8f5] py-16 px-4">
     <div class="max-w-3xl mx-auto">
-      <h2 class="font-display text-3xl font-bold text-[#231f20] mb-2">Deutsche im NFL Draft – die Jahrgänge</h2>
-      <p class="text-[#231f20]/55 font-body text-sm mb-12">Wer hat den Sprung gewagt – und was wurde daraus?</p>
+      <h2 class="font-display text-3xl font-bold text-[#231f20] mb-2">Deutsche Spieler im NFL Draft – alle Jahrgänge</h2>
+      <p class="text-[#231f20]/55 font-body text-sm mb-12">Jeder deutsche Spieler, der den Sprung in die NFL geschafft hat – per Draft-Pick, als UDFA oder über das IPP-Programm. Für den vollständigen Überblick über alle Karrierewege: <a href="/weg-in-die-nfl" class="text-rot hover:underline">Weg in die NFL – Guide für deutsche Talente</a>.</p>
 
       <!-- 2025 -->
       <div class="mb-14">
@@ -660,7 +758,7 @@ const glossary = [
           <span class="font-display text-4xl font-bold text-[#231f20]/10">2024</span>
           <div>
             <h3 class="font-display text-xl font-bold text-[#231f20]">NFL Draft 2024</h3>
-            <p class="text-[#231f20]/45 font-body text-xs">Detroit, Ford Field – April 2024 · kein IPP-Spieler in diesem Jahrgang</p>
+            <p class="text-[#231f20]/45 font-body text-xs">Detroit, Ford Field – April 2024 · Brandon Coleman als erster Deutscher seit Amon-Ra St. Brown gedraftet</p>
           </div>
         </div>
         <div class="space-y-4">
@@ -690,7 +788,7 @@ const glossary = [
           </div>
         </div>
         <p class="text-[#231f20]/65 font-body text-sm leading-relaxed mb-4">
-          Kein neuer deutscher Spieler wurde 2023 gedraftet oder als UDFA verpflichtet. Aber zwei Deutsche hielten sich weiterhin in der Liga:
+          Kein deutscher Spieler wurde 2023 direkt im Draft ausgewählt — aber gleich mehrere schafften den Sprung als UDFA oder über das IPP-Programm. Dazu kam David Bada, der sich weiter im NFL-System hielt:
         </p>
         <div class="space-y-4">
           {draft2023.map((p) => (
@@ -759,7 +857,7 @@ const glossary = [
   <!-- FAQ -->
   <section id="faq" class="bg-[#faf8f5] py-16 px-4">
     <div class="max-w-3xl mx-auto">
-      <h2 class="font-display text-3xl font-bold text-[#231f20] mb-8">Häufige Fragen</h2>
+      <h2 class="font-display text-3xl font-bold text-[#231f20] mb-8">Häufige Fragen zum NFL Draft</h2>
       <div class="space-y-4">
         {faqSchema.mainEntity.map((item) => (
           <details class="rounded-2xl border border-[#231f20]/8 bg-white overflow-hidden group">
@@ -776,20 +874,35 @@ const glossary = [
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- CTAs -->
   <section class="bg-[#231f20] py-12 px-4">
-    <div class="max-w-3xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-6">
-      <div>
-        <p class="text-rot text-xs font-bold uppercase tracking-widest mb-1 font-body">Tiefer einsteigen</p>
-        <p class="font-display text-xl font-bold text-white">Deutsche im Draft 2026 – alle Profile</p>
-        <p class="text-white/50 font-body text-sm mt-1">Scouting-Reports, Pro-Day-Zahlen und NFL-Teamkontakte.</p>
+    <div class="max-w-3xl mx-auto space-y-6">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div>
+          <p class="text-rot text-xs font-bold uppercase tracking-widest mb-1 font-body">Tiefer einsteigen</p>
+          <p class="font-display text-xl font-bold text-white">Deutsche im Draft 2026 – alle Profile</p>
+          <p class="text-white/50 font-body text-sm mt-1">Scouting-Reports, Pro-Day-Zahlen und NFL-Teamkontakte.</p>
+        </div>
+        <a
+          href="/blockblog/deutsche-spieler-im-nfl-draft-2026"
+          class="shrink-0 bg-rot text-white font-bold font-body text-sm px-6 py-3 rounded-xl hover:opacity-90 transition-opacity"
+        >
+          Zum Blockblog →
+        </a>
       </div>
-      <a
-        href="/blockblog/deutsche-spieler-im-nfl-draft-2026"
-        class="shrink-0 bg-rot text-white font-bold font-body text-sm px-6 py-3 rounded-xl hover:opacity-90 transition-opacity"
-      >
-        Zum Blockblog →
-      </a>
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-6 pt-6 border-t border-white/10">
+        <div>
+          <p class="text-white/35 text-xs font-bold uppercase tracking-widest mb-1 font-body">Verwandter Guide</p>
+          <p class="font-display text-lg font-bold text-white">Dein Weg in die NFL: Guide für deutsche Talente</p>
+          <p class="text-white/50 font-body text-sm mt-1">Alle sechs Karrierewege erklärt – von IPP über NCAA bis zum Draft.</p>
+        </div>
+        <a
+          href="/weg-in-die-nfl"
+          class="shrink-0 border border-white/20 text-white font-bold font-body text-sm px-6 py-3 rounded-xl hover:border-white/40 transition-colors"
+        >
+          Zum Guide →
+        </a>
+      </div>
     </div>
   </section>
 
