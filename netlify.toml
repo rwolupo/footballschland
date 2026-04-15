@@ -13,6 +13,26 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
 
+# ── www → non-www redirect ──
+[[redirects]]
+  from = "https://www.footballschland.de/*"
+  to = "https://footballschland.de/:splat"
+  status = 301
+  force = true
+
+# ── Alte Seiten aus vorheriger Website ──
+[[redirects]]
+  from = "/lander"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/lander/"
+  to = "/"
+  status = 301
+  force = true
+
 [[redirects]]
   from = "/blog"
   to = "/blockblog"

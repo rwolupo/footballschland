@@ -615,7 +615,7 @@ const bodyHtml = body ? toHTML(body, {
       )}
 
       <div class="mt-12 pt-8 border-t border-[#231f20]/10 flex flex-wrap gap-3">
-        <a href="/blockblog" class="px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded border bg-[#231f20]/5 text-[#231f20]/60 border-[#231f20]/20 hover:border-[#231f20]/40">← Alle Artikel</a>
+        <a href="/blockblog/" class="px-3 py-1 text-xs font-semibold uppercase tracking-wider rounded border bg-[#231f20]/5 text-[#231f20]/60 border-[#231f20]/20 hover:border-[#231f20]/40">← Alle Artikel</a>
         {categories.map((cat: string) => (
           <span class={`px-3 py-1 text-xs font-bold uppercase tracking-wider rounded border ${categoryColors[cat] ?? 'bg-white/10 text-white/60 border-white/20'}`}>{cat}</span>
         ))}
@@ -637,8 +637,8 @@ const bodyHtml = body ? toHTML(body, {
       <h3 class="font-display text-3xl md:text-4xl font-bold text-white mb-4">Mehr deutsches <span class="text-crimson">Football?</span></h3>
       <p class="text-white/60 font-body mb-6">Hört unseren Podcast, nutzt unsere Partner-Links und werdet Teil der Footballschland-Community.</p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href="/episoden" class="btn-episodes">Podcast hören</a>
-        <a href="/partner" class="btn-gold">Unsere Partner</a>
+        <a href="/episoden/" class="btn-episodes">Podcast hören</a>
+        <a href="/partner/" class="btn-gold">Unsere Partner</a>
       </div>
     </div>
   </section>

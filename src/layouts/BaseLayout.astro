@@ -12,8 +12,21 @@ const {
   title = 'Footballschland – American Football MADE IN GERMANY',
   description = 'Footballschland ist ein Podcast, der sich ganz dem Traum junger Footballspieler aus Deutschland widmet. Wir erzählen die Geschichten von High-School-Athleten, College-Spielern und NFL-Hoffnungen.',
   ogImage = '/assets/og-default.png',
-  canonical = Astro.url.href,
+  canonical: canonicalProp,
 } = Astro.props;
+
+// Normalize canonical: always https, non-www, trailing slash
+function normalizeUrl(url: string): string {
+  let normalized = url
+    .replace(/^http:\/\//, 'https://')
+    .replace(/^https:\/\/www\./, 'https://');
+  // Ensure trailing slash (except for files with extensions)
+  if (!normalized.endsWith('/') && !normalized.split('/').pop()?.includes('.')) {
+    normalized += '/';
+  }
+  return normalized;
+}
+const canonical = canonicalProp ? normalizeUrl(canonicalProp) : normalizeUrl(Astro.url.href);
 
 const siteName = 'Footballschland';
 // OG:Image muss absolute URL sein für Social Previews
@@ -149,10 +162,10 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `https://football
 
           <!-- Desktop Navigation -->
           <nav aria-label="Hauptnavigation" class="hidden md:flex items-center gap-8">
-            <a href="/episoden" class="nav-link">Episoden</a>
-            <a href="/partner" class="nav-link">Partner</a>
-            <a href="/blockblog" class="nav-link">Blockblog</a>
-            <a href="/guides" class="nav-link">Guides</a>
+            <a href="/episoden/" class="nav-link">Episoden</a>
+            <a href="/partner/" class="nav-link">Partner</a>
+            <a href="/blockblog/" class="nav-link">Blockblog</a>
+            <a href="/guides/" class="nav-link">Guides</a>
             <a
               href="https://shop.footballschland.com"
               target="_blank"
@@ -181,10 +194,10 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `https://football
       <!-- Mobile Menu -->
       <div id="mobile-menu" class="hidden md:hidden bg-[#1a1617] border-t border-white/10">
         <nav class="flex flex-col px-4 py-4 gap-4" aria-label="Mobile Navigation">
-          <a href="/episoden" class="nav-link-mobile">Episoden</a>
-          <a href="/partner" class="nav-link-mobile">Partner</a>
-          <a href="/blockblog" class="nav-link-mobile">Blockblog</a>
-          <a href="/guides" class="nav-link-mobile">Guides</a>
+          <a href="/episoden/" class="nav-link-mobile">Episoden</a>
+          <a href="/partner/" class="nav-link-mobile">Partner</a>
+          <a href="/blockblog/" class="nav-link-mobile">Blockblog</a>
+          <a href="/guides/" class="nav-link-mobile">Guides</a>
           <a
             href="https://shop.footballschland.com"
             target="_blank"
@@ -235,9 +248,9 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `https://football
           <h3 class="text-white/30 text-xs uppercase tracking-widest mb-4">Navigation</h3>
           <ul class="space-y-2">
             <li><a href="/" class="footer-link">Home</a></li>
-            <li><a href="/episoden" class="footer-link">Episoden</a></li>
-            <li><a href="/partner" class="footer-link">Partner & Affiliate</a></li>
-            <li><a href="/blockblog" class="footer-link">Blockblog</a></li>
+            <li><a href="/episoden/" class="footer-link">Episoden</a></li>
+            <li><a href="/partner/" class="footer-link">Partner & Affiliate</a></li>
+            <li><a href="/blockblog/" class="footer-link">Blockblog</a></li>
             <li>
               <a href="https://shop.footballschland.com" target="_blank" rel="noopener noreferrer" class="footer-link">
                 Shop ↗
@@ -302,8 +315,8 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `https://football
       <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-4 text-white/30 text-xs">
         <span>© 2026 Footballschland — <span class="text-gold/70">MADE IN GERMANY</span></span>
         <div class="flex gap-6">
-          <a href="/datenschutz" class="hover:text-white/60 transition-colors">Datenschutz</a>
-          <a href="/impressum" class="hover:text-white/60 transition-colors">Impressum</a>
+          <a href="/datenschutz/" class="hover:text-white/60 transition-colors">Datenschutz</a>
+          <a href="/impressum/" class="hover:text-white/60 transition-colors">Impressum</a>
         </div>
       </div>
     </div>
@@ -335,7 +348,7 @@ const absoluteOgImage = ogImage.startsWith('http') ? ogImage : `https://football
           Diese Website lädt externe Inhalte von <strong class="text-white/80">Spotify</strong> und <strong class="text-white/80">Instagram (LightWidget)</strong>.
           Dabei können personenbezogene Daten (inkl. IP-Adresse) an diese Anbieter übertragen werden.
           Mit „Akzeptieren" stimmst du dem Laden dieser Inhalte zu.
-          Weitere Infos in unserer <a href="/datenschutz" class="text-crimson underline">Datenschutzerklärung</a>.
+          Weitere Infos in unserer <a href="/datenschutz/" class="text-crimson underline">Datenschutzerklärung</a>.
         </p>
       </div>
       <div class="flex gap-3 shrink-0 flex-wrap">

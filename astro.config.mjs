@@ -7,6 +7,7 @@ import react from '@astrojs/react';
 
 export default defineConfig({
   site: 'https://footballschland.de',
+  trailingSlash: 'always',
   output: 'server',
   adapter: netlify(),
   integrations: [
