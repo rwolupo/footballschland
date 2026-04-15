@@ -64,6 +64,16 @@ const pageSchema = {
   "image": { "@type": "ImageObject", "url": "https://footballschland.de/assets/og-karriereweg.png", "width": 1200, "height": 630 }
 };
 
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://footballschland.de/" },
+    { "@type": "ListItem", "position": 2, "name": "Guides", "item": "https://footballschland.de/guides/" },
+    { "@type": "ListItem", "position": 3, "name": "Weg in die NFL" }
+  ]
+};
+
 const funnelData = [
   { label: 'High School Football', sub: '(USA)', count: '~1.000.000', pct: null, w: 100 },
   { label: 'College Football', sub: '(alle Level)', count: '~73.000', pct: '≈ 7 %', w: 58 },
@@ -198,6 +208,7 @@ const faqItems = [
   <Fragment slot="head">
     <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
     <script type="application/ld+json" set:html={JSON.stringify(pageSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />
   </Fragment>
 
   <!-- ── HERO ── -->
