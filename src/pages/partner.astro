@@ -75,12 +75,8 @@ const partners = [
   {
     name: 'Decathlon',
     category: 'Fitness & Health-Tech',
-    url: 'https://www.awin1.com/cread.php?s=3590308&v=14353&q=355424&r=2598031',
-    image: '',
-    customVisual: {
-      background: 'linear-gradient(135deg, #0082C8 0%, #005AAE 100%)',
-      text: 'DECATHLON',
-    },
+    url: 'https://www.awin1.com/cread.php?s=3590306&v=14353&q=355424&r=2598031',
+    image: 'https://www.awin1.com/cshow.php?s=3590306&v=14353&q=355424&r=2598031',
     description: 'Decathlon bietet als weltweit führende Sportmarke hochwertiges Equipment für Einsteiger und Profis.',
   },
   {
@@ -226,22 +222,12 @@ const categoryColors: Record<string, string> = {
               >
                 <!-- Image -->
                 <div class={`relative aspect-[300/250] overflow-hidden ${partner.image.endsWith('.svg') ? 'bg-white/5 flex items-center justify-center' : 'bg-[#0D0D0D]'}`}>
-                  {(partner as any).customVisual ? (
-                    <div
-                      style={`background: ${(partner as any).customVisual.background}; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;`}
-                    >
-                      <span style="font-family: 'Arial Black', 'Helvetica', sans-serif; font-weight: 900; font-size: 2.2rem; color: #ffffff; letter-spacing: 0.05em; text-transform: uppercase;">
-                        {(partner as any).customVisual.text}
-                      </span>
-                    </div>
-                  ) : (
-                    <img
-                      src={partner.image}
-                      alt={partner.name}
-                      class={`w-full h-full group-hover:scale-105 transition-transform duration-300 ${partner.image.endsWith('.svg') ? 'object-contain p-8' : 'object-cover'}`}
-                      loading="lazy"
-                    />
-                  )}
+                  <img
+                    src={partner.image}
+                    alt={partner.name}
+                    class={`w-full h-full group-hover:scale-105 transition-transform duration-300 ${partner.image.endsWith('.svg') ? 'object-contain p-8' : 'object-cover'}`}
+                    loading="lazy"
+                  />
                   {((partner as any).discountCode || (partner as any).discountIsLink) && (
                     <div class="absolute bottom-3 left-3 flex flex-col items-start gap-0.5 pointer-events-none">
                       <span class="bg-crimson text-white text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-t leading-tight">
@@ -305,7 +291,5 @@ const categoryColors: Record<string, string> = {
   </div>
 </section>
 
-<!-- Awin Impression Pixel – Decathlon (unsichtbar) -->
-<img src="https://www.awin1.com/cshow.php?s=3590306&v=14353&q=355424&r=2598031" width="1" height="1" style="display:none;" alt="" />
 
 </BaseLayout>
