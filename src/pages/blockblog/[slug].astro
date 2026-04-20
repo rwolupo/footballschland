@@ -349,6 +349,134 @@ const bodyHtml = body ? toHTML(body, {
           </div>
         `;
       },
+      mockDraftComparison: ({ value }: any) => {
+        const { year, aiMocks = [] } = value;
+
+        const aiColors: Record<string, { bg: string; text: string }> = {
+          claude: { bg: '#d97757', text: '#ffffff' },
+          chatgpt: { bg: '#10a37f', text: '#ffffff' },
+          perplexity: { bg: '#20b8cd', text: '#ffffff' },
+          gemini: { bg: '#4285f4', text: '#ffffff' },
+          footballschland: { bg: '#e31837', text: '#ffffff' },
+        };
+
+        const esc = (s: unknown) => String(s ?? '')
+          .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+        const renderAiMock = (mock: any) => {
+          const { aiName = '', aiSlug = '', prompt = '', picks = [], fazit = [] } = mock;
+          const c = aiColors[aiSlug] || { bg: '#231f20', text: '#ffffff' };
+          const sorted = [...picks].sort((a: any, b: any) => (a.pickNumber ?? 0) - (b.pickNumber ?? 0));
+          const rows = sorted.map((p: any) => `
+            <tr style="border-bottom:1px solid rgba(35,31,32,0.08)">
+              <td class="py-2 px-3 text-sm font-bold whitespace-nowrap" style="color:${c.bg}">#${esc(p.pickNumber)}</td>
+              <td class="py-2 px-3 text-sm whitespace-nowrap" style="color:#231f20;font-weight:600">${esc(p.team)}</td>
+              <td class="py-2 px-3 text-sm whitespace-nowrap" style="color:#231f20">${esc(p.playerName)}</td>
+              <td class="py-2 px-3 text-xs font-mono whitespace-nowrap" style="color:rgba(35,31,32,0.55)">${esc(p.position)}</td>
+              <td class="py-2 px-3 text-sm" style="color:rgba(35,31,32,0.6)">${esc(p.college)}</td>
+            </tr>
+          `).join('');
+          const fazitHtml = fazit && fazit.length ? toHTML(fazit) : '';
+          const promptHtml = prompt ? `
+            <details class="group mb-4 rounded-lg overflow-hidden" style="border:1px solid rgba(35,31,32,0.12);background:rgba(35,31,32,0.03)">
+              <summary class="flex items-center justify-between px-4 py-3 cursor-pointer list-none text-xs font-bold uppercase tracking-wider" style="color:rgba(35,31,32,0.6)">
+                <span>Prompt anzeigen</span>
+                <span class="group-open:hidden">↓</span>
+                <span class="hidden group-open:inline">↑</span>
+              </summary>
+              <pre class="px-4 py-3 text-xs leading-relaxed whitespace-pre-wrap font-mono" style="color:rgba(35,31,32,0.75);border-top:1px solid rgba(35,31,32,0.08);margin:0">${esc(prompt)}</pre>
+            </details>
+          ` : '';
+          return `
+            <div class="not-prose my-10 rounded-2xl overflow-hidden bg-white shadow-sm" style="border:1px solid rgba(35,31,32,0.1);border-left:4px solid ${c.bg}">
+              <div class="px-6 py-4 flex items-center justify-between gap-3" style="background:${c.bg};color:${c.text}">
+                <span class="font-display text-xl font-bold tracking-wide">${esc(aiName)}</span>
+                <span class="px-2 py-0.5 rounded-full text-xs font-semibold" style="background:rgba(255,255,255,0.2)">Mock Draft ${esc(year)}</span>
+              </div>
+              <div class="p-5">
+                ${promptHtml}
+                <div class="overflow-x-auto rounded-lg" style="border:1px solid rgba(35,31,32,0.1)">
+                  <table class="w-full text-left">
+                    <thead style="background:rgba(35,31,32,0.04)">
+                      <tr>
+                        <th class="px-3 py-2 text-xs font-bold uppercase tracking-wider" style="color:rgba(35,31,32,0.45)">Pick</th>
+                        <th class="px-3 py-2 text-xs font-bold uppercase tracking-wider" style="color:rgba(35,31,32,0.45)">Team</th>
+                        <th class="px-3 py-2 text-xs font-bold uppercase tracking-wider" style="color:rgba(35,31,32,0.45)">Spieler</th>
+                        <th class="px-3 py-2 text-xs font-bold uppercase tracking-wider" style="color:rgba(35,31,32,0.45)">Pos.</th>
+                        <th class="px-3 py-2 text-xs font-bold uppercase tracking-wider" style="color:rgba(35,31,32,0.45)">College</th>
+                      </tr>
+                    </thead>
+                    <tbody>${rows}</tbody>
+                  </table>
+                </div>
+                ${fazitHtml ? `
+                  <div class="mt-5 pt-4" style="border-top:1px solid rgba(35,31,32,0.1)">
+                    <p class="text-xs font-bold uppercase tracking-widest mb-2" style="color:${c.bg}">Fazit</p>
+                    <div class="text-sm font-body leading-relaxed space-y-3" style="color:rgba(35,31,32,0.78)">${fazitHtml}</div>
+                  </div>
+                ` : ''}
+              </div>
+            </div>
+          `;
+        };
+
+        const pickSet = new Set<number>();
+        const teamByPick: Record<number, string> = {};
+        for (const m of aiMocks) {
+          for (const p of (m.picks || [])) {
+            if (typeof p.pickNumber === 'number') {
+              pickSet.add(p.pickNumber);
+              if (p.team && !teamByPick[p.pickNumber]) teamByPick[p.pickNumber] = p.team;
+            }
+          }
+        }
+        const pickNumbers = [...pickSet].sort((a, b) => a - b);
+
+        const summaryHeaderCells = aiMocks.map((m: any) => {
+          const c = aiColors[m.aiSlug] || { bg: '#cccccc', text: '#ffffff' };
+          return `<th class="px-3 py-3 text-xs font-bold uppercase tracking-wider whitespace-nowrap" style="color:${c.bg}">${esc(m.aiName)}</th>`;
+        }).join('');
+
+        const summaryRows = pickNumbers.map((pn) => {
+          const cells = aiMocks.map((m: any) => {
+            const pick = (m.picks || []).find((p: any) => p.pickNumber === pn);
+            const name = pick?.playerName ?? '—';
+            const pos = pick?.position ?? '';
+            return `<td class="px-3 py-2 text-xs whitespace-nowrap" style="color:#231f20"><span class="font-semibold">${esc(name)}</span>${pos ? ` <span class="font-mono" style="color:rgba(35,31,32,0.4)">${esc(pos)}</span>` : ''}</td>`;
+          }).join('');
+          return `
+            <tr style="border-bottom:1px solid rgba(35,31,32,0.06)">
+              <td class="px-3 py-2 text-sm font-bold whitespace-nowrap" style="color:#231f20">#${pn}</td>
+              <td class="px-3 py-2 text-xs whitespace-nowrap" style="color:rgba(35,31,32,0.6)">${esc(teamByPick[pn] ?? '')}</td>
+              ${cells}
+            </tr>
+          `;
+        }).join('');
+
+        const summaryHtml = aiMocks.length > 0 && pickNumbers.length > 0 ? `
+          <div class="not-prose my-12 rounded-2xl overflow-hidden bg-white shadow-sm" style="border:1px solid rgba(35,31,32,0.1)">
+            <div class="px-6 py-4 flex items-center gap-3" style="background:#231f20">
+              <span class="font-bold" style="color:#ffb81c">▪</span>
+              <p class="font-display font-bold text-sm tracking-widest uppercase" style="color:#ffffff">Gesamtvergleich · Runde 1 ${esc(year)}</p>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left">
+                <thead style="background:rgba(35,31,32,0.04)">
+                  <tr>
+                    <th class="px-3 py-3 text-xs font-bold uppercase tracking-wider" style="color:rgba(35,31,32,0.45)">Pick</th>
+                    <th class="px-3 py-3 text-xs font-bold uppercase tracking-wider" style="color:rgba(35,31,32,0.45)">Team</th>
+                    ${summaryHeaderCells}
+                  </tr>
+                </thead>
+                <tbody>${summaryRows}</tbody>
+              </table>
+            </div>
+          </div>
+        ` : '';
+
+        return `${aiMocks.map(renderAiMock).join('')}${summaryHtml}`;
+      },
       playerTable: ({ value }: any) => {
         const { tableTitle = '', players } = value;
         const count = (players || []).length;
