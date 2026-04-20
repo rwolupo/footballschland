@@ -1,43 +1,65 @@
-# Astro Starter Kit: Minimal
+# Footballschland
+
+Website zum Podcast **Footballschland – American Football MADE IN GERMANY**.
+Erzählt die Geschichten deutscher Talente in High School, College, NFL, GFL und ELF.
+
+Live: [footballschland.de](https://footballschland.de)
+
+## Stack
+
+- **Astro 5** (SSR via `@astrojs/netlify`, `trailingSlash: 'always'`)
+- **React** Islands für interaktive Komponenten
+- **Tailwind CSS** + `@tailwindcss/typography`
+- **Sanity** als Headless CMS (Projekt `k31tvjv8`, Dataset `production`, Studio unter `/studio`)
+- **Netlify** als Hosting / Deploy
+
+## Struktur
+
+```
+src/
+├── layouts/BaseLayout.astro   Seitenrahmen, SEO, Consent-Banner, Header/Footer
+├── lib/
+│   ├── sanity.ts              Sanity-Client
+│   └── queries.ts             GROQ-Queries (Blockblog, Pages)
+└── pages/
+    ├── index.astro            Startseite
+    ├── episoden.astro         Episoden-Liste
+    ├── blockblog/             Blog-Übersicht + [slug].astro
+    ├── guides.astro
+    ├── nfl-draft.astro        Guide: NFL Draft
+    ├── weg-in-die-nfl.astro   Guide: Karrierewege
+    ├── partner.astro
+    ├── impressum.astro
+    ├── datenschutz.astro
+    └── sitemap.xml.ts
+public/                        Assets, Fonts (Antonio + Poppins self-hosted)
+sanity.config.ts               Sanity-Schema (blockblogPost, podcastTranscript, page)
+```
+
+## Setup
+
+Voraussetzungen: **Node ≥ 22.12**.
 
 ```sh
-npm create astro@latest -- --template minimal
+npm install
+npm run dev       # Dev-Server auf http://localhost:4321
+npm run build     # Production-Build nach ./dist
+npm run preview   # Preview des Builds
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## Deployment
 
-## 🚀 Project Structure
+Auto-Deploy über Netlify auf Push in `main`. Konfiguration in `netlify.toml`
+(inkl. `www → non-www` Redirect und Legacy-Redirects `/blog/* → /blockblog/*`).
 
-Inside of your Astro project, you'll see the following folders and files:
+## Brand
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
-```
+- Farben: `rot` `#e31837`, `gold` `#ffb81c`, Schwarz `#231f20` (Schwarz-Rot-Gold)
+- Fonts: **Antonio** (Display) + **Poppins** (Body), self-hosted unter `public/fonts/`
+- Consent-Banner lädt externe Inhalte (Spotify, LightWidget/Instagram) erst nach Zustimmung
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## Links
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+- Podcast: [Spotify](https://open.spotify.com/show/1DlSNLB5HsxSp12nilwjbc) · [Apple Podcasts](https://podcasts.apple.com/de/podcast/footballschland-american-football-made-in-germany/id1674301287)
+- Shop: [shop.footballschland.com](https://shop.footballschland.com)
+- Support: [Patreon](https://www.patreon.com/footballschland)
