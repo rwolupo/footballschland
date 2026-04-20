@@ -51,4 +51,30 @@ Node ≥ 22.12 ist in `package.json` erzwungen. Es gibt **kein** Lint-/Test-Setu
 - **Pull Requests:** Nur auf explizite Anweisung erstellen.
 - **Scope:** Kleine, fokussierte Änderungen. Keine spekulativen Refactors, keine neuen Abstraktionen ohne Anlass, keine Tooling-Umbauten nebenbei.
 - **Tests / Verifikation:** Nach Änderungen `npm run build` lokal durchlaufen lassen, um SSR-/Typfehler zu fangen. Für UI-Änderungen möglichst `npm run dev` und im Browser gegentesten – wenn nicht möglich, explizit sagen.
-- **Content vs. Code:** Redaktionelle Inhalte (Blog-Artikel, Seitentexte, Transkripte) gehören ins Sanity-Studio, nicht in den Code. Wenn Claude Content-Änderungen erkennt, die eigentlich im CMS liegen sollten, darauf hinweisen.
+- **Content vs. Code:** Redaktionelle Inhalte (Blog-Artikel, Seitentexte, Transkripte) liegen in Sanity. Claude kann sie über den Git-basierten Content-Sync (siehe unten) befüllen, ohne dass du manuell ins Studio musst.
+
+## Automatisierung via GitHub Actions
+
+Beide Workflows laufen auf `main` und nutzen Secrets aus dem Repo-Setting
+`Settings → Secrets and variables → Actions`.
+
+### `.github/workflows/sanity-deploy.yml`
+Deployed das Sanity Studio (`*.sanity.studio`) neu, sobald `sanity.config.ts`
+oder `sanity.cli.ts` auf `main` landen. Secret: `SANITY_DEPLOY_TOKEN`
+(Permission „Deploy Studio"). Auch manuell über „Run workflow" triggerbar.
+
+### `.github/workflows/sanity-content-sync.yml`
+Liest beim Push alle `*.json` unter `content/` und schreibt sie per
+`createOrReplace` nach Sanity. Secret: `SANITY_CONTENT_TOKEN` (Permission
+„Editor"). Ideal für Blog-Artikel, die Claude pflegt.
+
+### Content-Format
+Details in `content/README.md`. Kurz: ein JSON pro Dokument, `_type`
+zwingend, `_id` wird aus `<type>-<slug>` abgeleitet. `createOrReplace`
+ist destruktiv – Dokumente, die im Git liegen, dürfen nicht parallel im
+Studio editiert werden.
+
+### Script
+`scripts/sync-sanity-content.mjs` – node-Script ohne Extra-Tooling, nutzt
+`@sanity/client` mit Token aus `SANITY_AUTH_TOKEN`. Liegt hier für lokale
+Dry-Runs, wird aber primär von der Action ausgeführt.
