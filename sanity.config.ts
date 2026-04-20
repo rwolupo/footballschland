@@ -106,6 +106,77 @@ export default defineConfig({
                 ],
                 preview: { select: { title: 'tableTitle' } },
               },
+              {
+                type: 'object',
+                name: 'mockDraftComparison',
+                title: 'KI Mock Draft Vergleich',
+                fields: [
+                  { name: 'year', title: 'Draft-Jahr', type: 'number', validation: (Rule: any) => Rule.required() },
+                  {
+                    name: 'aiMocks', title: 'Mocks je KI', type: 'array',
+                    validation: (Rule: any) => Rule.required().min(1),
+                    of: [{
+                      type: 'object',
+                      name: 'aiMock',
+                      title: 'KI Mock',
+                      fields: [
+                        { name: 'aiName', title: 'Anzeigename', type: 'string', validation: (Rule: any) => Rule.required() },
+                        {
+                          name: 'aiSlug', title: 'Stil / Farbe', type: 'string',
+                          validation: (Rule: any) => Rule.required(),
+                          options: { list: [
+                            { title: 'Claude', value: 'claude' },
+                            { title: 'ChatGPT', value: 'chatgpt' },
+                            { title: 'Perplexity', value: 'perplexity' },
+                            { title: 'Gemini', value: 'gemini' },
+                            { title: 'Footballschland', value: 'footballschland' },
+                          ]},
+                        },
+                        { name: 'prompt', title: 'Verwendeter Prompt', type: 'text', rows: 6 },
+                        {
+                          name: 'picks', title: 'Picks (Runde 1)', type: 'array',
+                          of: [{
+                            type: 'object',
+                            fields: [
+                              { name: 'pickNumber', title: 'Pick #', type: 'number', validation: (Rule: any) => Rule.required().min(1).max(32) },
+                              { name: 'team', title: 'Team', type: 'string' },
+                              { name: 'playerName', title: 'Spieler', type: 'string', validation: (Rule: any) => Rule.required() },
+                              { name: 'position', title: 'Position', type: 'string' },
+                              { name: 'college', title: 'College', type: 'string' },
+                            ],
+                            preview: {
+                              select: { pick: 'pickNumber', player: 'playerName', team: 'team', pos: 'position' },
+                              prepare: ({ pick, player, team, pos }: any) => ({
+                                title: `#${pick ?? '?'} ${team ?? ''} — ${player ?? ''}`,
+                                subtitle: pos ?? '',
+                              }),
+                            },
+                          }],
+                        },
+                        {
+                          name: 'fazit', title: 'Fazit', type: 'array',
+                          of: [{
+                            type: 'block',
+                            styles: [{ title: 'Normal', value: 'normal' }],
+                            marks: { decorators: [
+                              { title: 'Strong', value: 'strong' },
+                              { title: 'Emphasis', value: 'em' },
+                            ]},
+                          }],
+                        },
+                      ],
+                      preview: {
+                        select: { title: 'aiName', subtitle: 'aiSlug' },
+                        prepare: ({ title, subtitle }: any) => ({ title, subtitle: subtitle ?? '' }),
+                      },
+                    }],
+                  },
+                ],
+                preview: {
+                  select: { year: 'year', count: 'aiMocks.length' },
+                  prepare: ({ year }: any) => ({ title: `KI Mock Draft Vergleich ${year ?? ''}` }),
+                },
+              },
             ],
           },
         ],

@@ -1,0 +1,28 @@
+name: Sanity Content Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**'
+      - 'scripts/sync-sanity-content.mjs'
+      - '.github/workflows/sanity-content-sync.yml'
+  workflow_dispatch:
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Sync content to Sanity
+        run: node scripts/sync-sanity-content.mjs
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_CONTENT_TOKEN }}
