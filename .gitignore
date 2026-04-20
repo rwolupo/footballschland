@@ -8,6 +8,11 @@ pnpm-debug.log
 dist/
 .astro/
 .cache/
+.netlify/build/
+.netlify/v1/
+
+# Lockfile (nicht versioniert in diesem Repo)
+package-lock.json
 
 # Environment
 .env
