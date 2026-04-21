@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+  <defs>
+    <radialGradient id="vignette" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#1a1617"/>
+      <stop offset="55%" stop-color="#0D0D0D"/>
+      <stop offset="100%" stop-color="#050505"/>
+    </radialGradient>
+    <linearGradient id="fadeBottom" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0D0D0D" stop-opacity="0"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0.8"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#vignette)"/>
+
+  <!-- Faded pick numbers (draft board atmosphere) -->
+  <g font-family="Impact, 'Arial Black', 'Helvetica Neue', sans-serif" font-weight="900" fill="#ffffff" text-anchor="middle">
+    <text x="140" y="220" font-size="140" opacity="0.045">01</text>
+    <text x="340" y="280" font-size="100" opacity="0.030">07</text>
+    <text x="560" y="200" font-size="160" opacity="0.050">13</text>
+    <text x="820" y="260" font-size="120" opacity="0.040">18</text>
+    <text x="1080" y="220" font-size="145" opacity="0.050">24</text>
+    <text x="1360" y="200" font-size="115" opacity="0.035">30</text>
+
+    <text x="200" y="500" font-size="95" opacity="0.035">03</text>
+    <text x="440" y="540" font-size="135" opacity="0.045">10</text>
+    <text x="720" y="500" font-size="125" opacity="0.050">16</text>
+    <text x="1000" y="540" font-size="115" opacity="0.040">22</text>
+    <text x="1280" y="500" font-size="130" opacity="0.045">28</text>
+
+    <text x="120" y="780" font-size="130" opacity="0.050">05</text>
+    <text x="380" y="810" font-size="105" opacity="0.030">12</text>
+    <text x="640" y="780" font-size="140" opacity="0.050">20</text>
+    <text x="920" y="810" font-size="115" opacity="0.040">26</text>
+    <text x="1220" y="790" font-size="125" opacity="0.045">32</text>
+  </g>
+
+  <!-- Subtle color glows -->
+  <circle cx="820" cy="470" r="360" fill="#e31837" opacity="0.045"/>
+  <circle cx="380" cy="620" r="220" fill="#ffb81c" opacity="0.030"/>
+  <circle cx="1240" cy="360" r="240" fill="#ffb81c" opacity="0.025"/>
+
+  <!-- Yard-line vertical hashes -->
+  <g stroke="#ffffff" stroke-width="1" stroke-opacity="0.06">
+    <line x1="160" y1="0" x2="160" y2="900"/>
+    <line x1="320" y1="0" x2="320" y2="900"/>
+    <line x1="480" y1="0" x2="480" y2="900"/>
+    <line x1="640" y1="0" x2="640" y2="900"/>
+    <line x1="800" y1="0" x2="800" y2="900" stroke-opacity="0.10"/>
+    <line x1="960" y1="0" x2="960" y2="900"/>
+    <line x1="1120" y1="0" x2="1120" y2="900"/>
+    <line x1="1280" y1="0" x2="1280" y2="900"/>
+    <line x1="1440" y1="0" x2="1440" y2="900"/>
+  </g>
+
+  <!-- Bottom fade -->
+  <rect x="0" y="500" width="1600" height="400" fill="url(#fadeBottom)"/>
+
+  <!-- Schwarz-Rot-Gold accent at bottom -->
+  <g transform="translate(0,872)">
+    <rect x="0" y="0" width="533" height="6" fill="#231f20"/>
+    <rect x="533" y="0" width="534" height="6" fill="#e31837"/>
+    <rect x="1067" y="0" width="533" height="6" fill="#ffb81c"/>
+  </g>
+</svg>
