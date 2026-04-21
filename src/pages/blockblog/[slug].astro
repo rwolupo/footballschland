@@ -1,16 +1,8 @@
 ---
 import { sanityClient } from '../../lib/sanity';
-export const prerender = true;
-import { ALL_SLUGS_QUERY, POST_BY_SLUG_QUERY } from '../../lib/queries';
+import { POST_BY_SLUG_QUERY } from '../../lib/queries';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { toHTML } from '@portabletext/to-html';
-
-export async function getStaticPaths() {
-  const slugs = await sanityClient.fetch(ALL_SLUGS_QUERY);
-  return slugs.map((item: { slug: string }) => ({
-    params: { slug: item.slug },
-  }));
-}
 
 const { slug } = Astro.params;
 const post = await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug });
