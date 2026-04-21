@@ -421,14 +421,30 @@ const bodyHtml = body ? toHTML(body, {
         };
 
         const pickSet = new Set<number>();
-        const teamByPick: Record<number, string> = {};
+        // Mehrheitsentscheid über alle Boards: normalisierte Team-Namen zählen,
+        // der häufigste Eintrag pro Pick gewinnt. So überstimmen mehrere korrekte
+        // Boards einzelne fehlerhafte Draft-Order-Rekonstruktionen.
+        const normTeam = (t: string) => (t || '')
+          .replace(/\s*\(via\s+[^)]+\)/gi, '')
+          .replace(/\s+via\s+.+$/i, '')
+          .trim();
+        const teamVotes: Record<number, Record<string, number>> = {};
         for (const m of aiMocks) {
           for (const p of (m.picks || [])) {
             if (typeof p.pickNumber === 'number') {
               pickSet.add(p.pickNumber);
-              if (p.team && !teamByPick[p.pickNumber]) teamByPick[p.pickNumber] = p.team;
+              const t = normTeam(p.team);
+              if (t) {
+                if (!teamVotes[p.pickNumber]) teamVotes[p.pickNumber] = {};
+                teamVotes[p.pickNumber][t] = (teamVotes[p.pickNumber][t] || 0) + 1;
+              }
             }
           }
+        }
+        const teamByPick: Record<number, string> = {};
+        for (const [pn, votes] of Object.entries(teamVotes)) {
+          const top = Object.entries(votes).sort((a, b) => b[1] - a[1])[0];
+          if (top) teamByPick[Number(pn)] = top[0];
         }
         const pickNumbers = [...pickSet].sort((a, b) => a - b);
 
