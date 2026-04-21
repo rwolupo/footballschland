@@ -8,7 +8,8 @@ import { readFileSync, writeFileSync } from 'node:fs'
 const SRC = 'content/blockblog/ai-mock-draft-2026-part1.md'
 const DST = 'content/blockblog/ai-mock-draft-2026-part1.json'
 const DOC_ID = 'acbfa120-94d0-4321-bf29-9862f0f848e3'
-const SLUG = 'ai-mock-draft-2026-part1'
+const SLUG = 'ki-vs-footballschland-nfl-mock-draft-2026'
+const TITLE = 'KI vs. Footballschland – Mock Drafts für den NFL Draft 2026'
 
 const md = readFileSync(SRC, 'utf8')
 
@@ -279,14 +280,10 @@ const mockBlock = {
 // bodyAfter  = "Was jetzt", "Disclaimer"
 const body = [...bodyBefore, mockBlock, ...bodyAfter]
 
-// --- Metadata (Title aus H1)
-const h1Match = md.match(/^# (.+)$/m)
-const title = h1Match ? h1Match[1].trim() : 'KI Mock Draft Vergleich 2026'
-
 const doc = {
   _type: 'blockblogPost',
   _id: DOC_ID,
-  title,
+  title: TITLE,
   slug: { _type: 'slug', current: SLUG },
   description: 'Fünf Mock Drafts für die erste Runde des NFL Draft 2026: Gemini, ChatGPT, Perplexity, Claude und die Footballschland-Redaktion. Teil 1 vor dem Draft, Scoring in Teil 2.',
   pubDate: '2026-04-21',
