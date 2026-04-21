@@ -45,6 +45,13 @@ export const POST_BY_SLUG_QUERY = `*[_type == "blockblogPost" && slug.current ==
         ...,
         asset->{ url }
       }
+    },
+    _type == "mockDraftComparison" => {
+      ...,
+      aiMocks[] {
+        ...,
+        logo { asset->{ url } }
+      }
     }
   }
 }`;

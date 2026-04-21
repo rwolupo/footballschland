@@ -357,8 +357,12 @@ const bodyHtml = body ? toHTML(body, {
           .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
         const renderAiMock = (mock: any) => {
-          const { aiName = '', aiSlug = '', prompt = '', picks = [], fazit = [] } = mock;
+          const { aiName = '', aiSlug = '', prompt = '', picks = [], fazit = [], logo } = mock;
           const c = aiColors[aiSlug] || { bg: '#231f20', text: '#ffffff' };
+          const logoUrl = logo?.asset?.url;
+          const logoHtml = logoUrl
+            ? `<img src="${esc(logoUrl)}" alt="${esc(aiName)} Logo" class="w-9 h-9 rounded-full object-cover shrink-0" style="background:rgba(255,255,255,0.12)" />`
+            : '';
           const sorted = [...picks].sort((a: any, b: any) => (a.pickNumber ?? 0) - (b.pickNumber ?? 0));
           const rows = sorted.map((p: any) => `
             <tr style="border-bottom:1px solid rgba(35,31,32,0.08)">
@@ -383,8 +387,11 @@ const bodyHtml = body ? toHTML(body, {
           return `
             <div class="not-prose my-10 rounded-2xl overflow-hidden bg-white shadow-sm" style="border:1px solid rgba(35,31,32,0.1);border-left:4px solid ${c.bg}">
               <div class="px-6 py-4 flex items-center justify-between gap-3" style="background:${c.bg};color:${c.text}">
-                <span class="font-display text-xl font-bold tracking-wide">${esc(aiName)}</span>
-                <span class="px-2 py-0.5 rounded-full text-xs font-semibold" style="background:rgba(255,255,255,0.2)">Mock Draft ${esc(year)}</span>
+                <div class="flex items-center gap-3">
+                  ${logoHtml}
+                  <span class="font-display text-xl font-bold tracking-wide">${esc(aiName)}</span>
+                </div>
+                <span class="px-2 py-0.5 rounded-full text-xs font-semibold whitespace-nowrap" style="background:rgba(255,255,255,0.2)">Mock Draft ${esc(year)}</span>
               </div>
               <div class="p-5">
                 ${promptHtml}

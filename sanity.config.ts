@@ -132,6 +132,7 @@ export default defineConfig({
                             { title: 'Footballschland', value: 'footballschland' },
                           ]},
                         },
+                        { name: 'logo', title: 'Logo (optional)', type: 'image', options: { hotspot: true } },
                         { name: 'prompt', title: 'Verwendeter Prompt', type: 'text', rows: 6 },
                         {
                           name: 'picks', title: 'Picks (Runde 1)', type: 'array',
