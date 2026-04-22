@@ -95,6 +95,7 @@ export default defineConfig({
                   { name: 'tableTitle', title: 'Tabellenueberschrift', type: 'string' },
                   { name: 'players', title: 'Spieler', type: 'array', of: [{
                     type: 'object',
+                    name: 'playerRow',
                     fields: [
                       { name: 'name', title: 'Name', type: 'string' },
                       { name: 'position', title: 'Position', type: 'string' },
