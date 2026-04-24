@@ -1,4 +1,4 @@
-## Ergebnistabelle
+## Ergebnistabelle · Gesamt (Runde 1, 32 Picks)
 
 | Rang | Board | Gesamt | R1 (Slot) | R2 (PosRank) | R3 (Team+Pos) | R4 (Team+Spieler) |
 |---:|---|---:|---:|---:|---:|---:|
@@ -12,7 +12,21 @@
 
 Maximal möglich pro Board: 320 Punkte (10 × 32 Picks).
 
-## Detail-Breakdown pro Board
+## Ergebnistabelle · Top 10
+
+| Rang | Board | Gesamt | R1 (Slot) | R2 (PosRank) | R3 (Team+Pos) | R4 (Team+Spieler) |
+|---:|---|---:|---:|---:|---:|---:|
+| 1 | Daniel Jeremiah (NFL Network) | **54** | 20 | 28 | 4 | 2 |
+| 2 | Claude Opus 4.7 | **51** | 21 | 24 | 4 | 2 |
+| 3 | Footballschland-Redaktion | **47** | 20 | 16 | 8 | 3 |
+| 4 | Perplexity (Grok 4.1) | **45** | 17 | 20 | 6 | 2 |
+| 5 | ChatGPT GPT-5 | **45** | 17 | 18 | 8 | 2 |
+| 6 | Björn Werner (Football Bromance) | **41** | 13 | 20 | 6 | 2 |
+| 7 | Gemini 2.5 | **24** | 9 | 10 | 4 | 1 |
+
+Maximal möglich pro Board: 100 Punkte (10 × 10 Picks).
+
+## Detail-Breakdown pro Board (Runde 1 gesamt)
 
 ### Daniel Jeremiah (NFL Network) — 135 Punkte
 
