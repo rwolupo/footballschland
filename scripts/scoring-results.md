@@ -86,7 +86,7 @@ Maximal möglich pro Board: 100 Punkte (10 × 10 Picks).
 | 15 | Buccaneers | Kenyon Sadiq | TE | 3 | 3 | 0 | 0 | **6** |
 | 16 | Jets | Makai Lemon | WR | 1 | 3 | 0 | 0 | **4** |
 | 17 | Lions | Blake Miller | OT | 4 | 3 | 2 | 1 | **10** |
-| 18 | Vikings | E. McNeil-Warren | S | 0 | 0 | 0 | 0 | **0** |
+| 18 | Vikings | Emmanuel McNeil-Warren | S | 0 | 0 | 0 | 0 | **0** |
 | 19 | Panthers | Kayden McDonald | DT | 0 | 0 | 0 | 0 | **0** |
 | 20 | Cowboys | Jermod McCoy | CB | 0 | 0 | 0 | 0 | **0** |
 | 21 | Steelers | Ty Simpson | QB | 0 | 3 | 0 | 0 | **3** |

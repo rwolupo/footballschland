@@ -21,7 +21,7 @@
       { "pickNumber": 15, "team": "Buccaneers",  "playerName": "Kenyon Sadiq",       "position": "TE",   "college": "Oregon" },
       { "pickNumber": 16, "team": "Jets",        "playerName": "Makai Lemon",        "position": "WR",   "college": "USC" },
       { "pickNumber": 17, "team": "Lions",       "playerName": "Blake Miller",       "position": "OT",   "college": "Clemson" },
-      { "pickNumber": 18, "team": "Vikings",     "playerName": "E. McNeil-Warren",   "position": "S",    "college": "—" },
+      { "pickNumber": 18, "team": "Vikings",     "playerName": "Emmanuel McNeil-Warren", "position": "S", "college": "Toledo" },
       { "pickNumber": 19, "team": "Panthers",    "playerName": "Kayden McDonald",    "position": "DT",   "college": "Ohio State" },
       { "pickNumber": 20, "team": "Cowboys",     "playerName": "Jermod McCoy",       "position": "CB",   "college": "Tennessee" },
       { "pickNumber": 21, "team": "Steelers",    "playerName": "Ty Simpson",         "position": "QB",   "college": "Alabama" },
