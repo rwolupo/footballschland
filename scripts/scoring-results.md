@@ -6,7 +6,7 @@
 | 2 | Björn Werner (Football Bromance) | **125** | 39 | 63 | 18 | 5 |
 | 3 | ChatGPT GPT-5 | **120** | 37 | 56 | 24 | 3 |
 | 4 | Claude Opus 4.7 | **115** | 39 | 58 | 14 | 4 |
-| 5 | Footballschland-Redaktion | **102** | 31 | 52 | 16 | 3 |
+| 5 | Footballschland | **102** | 31 | 52 | 16 | 3 |
 | 6 | Gemini 2.5 | **89** | 25 | 54 | 8 | 2 |
 | 7 | Perplexity (Grok 4.1) | **58** | 19 | 31 | 6 | 2 |
 
@@ -18,7 +18,7 @@ Maximal möglich pro Board: 320 Punkte (10 × 32 Picks).
 |---:|---|---:|---:|---:|---:|---:|
 | 1 | Daniel Jeremiah (NFL Network) | **54** | 20 | 28 | 4 | 2 |
 | 2 | Claude Opus 4.7 | **51** | 21 | 24 | 4 | 2 |
-| 3 | Footballschland-Redaktion | **47** | 20 | 16 | 8 | 3 |
+| 3 | Footballschland | **47** | 20 | 16 | 8 | 3 |
 | 4 | Perplexity (Grok 4.1) | **45** | 17 | 20 | 6 | 2 |
 | 5 | ChatGPT GPT-5 | **45** | 17 | 18 | 8 | 2 |
 | 6 | Björn Werner (Football Bromance) | **41** | 13 | 20 | 6 | 2 |
@@ -176,7 +176,7 @@ Maximal möglich pro Board: 100 Punkte (10 × 10 Picks).
 | 31 | Patriots | Akheem Mesidor | DE | 0 | 0 | 0 | 0 | **0** |
 | 32 | Seahawks | Jadarian Price | RB | 4 | 3 | 2 | 1 | **10** |
 
-### Footballschland-Redaktion — 102 Punkte
+### Footballschland — 102 Punkte
 
 | Pick | Team (pred) | Spieler (pred) | Pos | R1 | R2 | R3 | R4 | Pkt |
 |---:|---|---|---|---:|---:|---:|---:|---:|

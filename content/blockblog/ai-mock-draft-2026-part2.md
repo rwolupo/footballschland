@@ -2,9 +2,9 @@
 
 *Part 2 – Der Abrechnungsabend. Part 1 gibt's [hier](/blockblog/ki-vs-footballschland-nfl-mock-draft-2026/).*
 
-Die erste Runde des NFL Draft 2026 ist durch. 32 Picks, sieben Boards, ein Scoring-Schema – und ein überraschend klares Ergebnis: **Zwei der drei Top-Platzierten sind Menschen, der Sieger ist Daniel Jeremiah, und Björn Werner landet mit seinem Bromance-Board auf Platz 2.** Die stärkste KI – ChatGPT GPT-5 – erreicht Platz 3 mit 15 Punkten Abstand zur Spitze. Die Redaktion macht einen soliden fünften Platz und bleibt damit nicht peinlich hinter den Maschinen zurück.
+Die erste Runde des NFL Draft 2026 ist durch. 32 Picks, sieben Boards, ein Scoring-Schema – und ein überraschend klares Ergebnis: **Zwei der drei Top-Platzierten sind Menschen, der Sieger ist Daniel Jeremiah, und Björn Werner landet mit seinem Bromance-Board auf Platz 2.** Die stärkste KI – ChatGPT GPT-5 – erreicht Platz 3 mit 15 Punkten Abstand zur Spitze. Footballschland macht einen soliden fünften Platz und bleibt damit nicht peinlich hinter den Maschinen zurück.
 
-Wir haben das ursprüngliche Feld aus Part 1 (Gemini, Perplexity, ChatGPT, Claude, Footballschland-Redaktion) um zwei erfahrene menschliche Analysten ergänzt: **Daniel Jeremiah** (NFL Network) als den wohl etabliertesten Draft-Analysten der Liga und **Björn Werner** (Football Bromance), unseren gebürtigen Deutschen mit Draft-R1-Background und TV-Einsatz in der RTL-Übertragung. Beide haben vor dem Draft einen vollständigen 32-Pick-Mock veröffentlicht – und dienen uns jetzt als menschliche Vergleichsgruppe.
+Wir haben das ursprüngliche Feld aus Part 1 (Gemini, Perplexity, ChatGPT, Claude, Footballschland) um zwei erfahrene menschliche Analysten ergänzt: **Daniel Jeremiah** (NFL Network) als den wohl etabliertesten Draft-Analysten der Liga und **Björn Werner** (Football Bromance), unseren gebürtigen Deutschen mit Draft-R1-Background und TV-Einsatz in der RTL-Übertragung. Beide haben vor dem Draft einen vollständigen 32-Pick-Mock veröffentlicht – und dienen uns jetzt als menschliche Vergleichsgruppe.
 
 Das FantasyPros-Scoring ist identisch zu Part 1: **10 Punkte pro Pick maximal, 320 Punkte insgesamt**. Vier Regeln, die stacken. Die Regeln im Detail stehen weiter unten.
 
@@ -18,7 +18,7 @@ Das FantasyPros-Scoring ist identisch zu Part 1: **10 Punkte pro Pick maximal, 3
 | 🥈 | **Björn Werner** (Football Bromance) | **125** | 39 | 63 | 18 | 5 |
 | 🥉 | **ChatGPT GPT-5** (OpenAI) | **120** | 37 | 56 | 24 | 3 |
 | 4 | Claude Opus 4.7 (Anthropic) | 115 | 39 | 58 | 14 | 4 |
-| 5 | Footballschland-Redaktion | 102 | 31 | 52 | 16 | 3 |
+| 5 | Footballschland | 102 | 31 | 52 | 16 | 3 |
 | 6 | Gemini 2.5 (Google) | 89 | 25 | 54 | 8 | 2 |
 | 7 | Perplexity (Grok 4.1) | 58 | 19 | 31 | 6 | 2 |
 
@@ -30,7 +30,7 @@ Das FantasyPros-Scoring ist identisch zu Part 1: **10 Punkte pro Pick maximal, 3
 
 **ChatGPT hat die Team-Struktur dominiert:** 24 Punkte auf Regel 3 (Team + Position) – absoluter Top-Wert. Das Modell hat den Positionsbedarf der Teams besser modelliert als jedes andere Board, inklusive der Menschen. Das ist genau die Stärke, die wir in Part 1 auf Basis der 32 korrekt gesetzten Teams prognostiziert hatten.
 
-**Die Redaktion** landet mit 102 Punkten auf Platz 5 – besser als Gemini und Perplexity, aber hinter ChatGPT und Claude. Das Bauchgefühl ohne Web-Recherche hat sich nicht blamiert, aber auch nicht gegen die Spitzenmodelle durchgesetzt.
+**Footballschland** landet mit 102 Punkten auf Platz 5 – besser als Gemini und Perplexity, aber hinter ChatGPT und Claude. Das Bauchgefühl ohne Web-Recherche hat sich nicht blamiert, aber auch nicht gegen die Spitzenmodelle durchgesetzt.
 
 **Gemini** mit 89 Punkten zahlt den Preis für die verschobene Post-Trade-Order aus Part 1. Die Picks waren inhaltlich oft plausibel, aber an den falschen Teams – das kostet auf Regel 3 und 4 dramatisch.
 
@@ -46,7 +46,7 @@ Weil der Draft nach zehn Picks schon 90 Prozent aller interessanten Storys gelie
 |---:|---|---:|---:|---:|---:|---:|
 | 🥇 | **Daniel Jeremiah** (NFL Network) | **54** | 20 | 28 | 4 | 2 |
 | 🥈 | **Claude Opus 4.7** (Anthropic) | **51** | 21 | 24 | 4 | 2 |
-| 🥉 | **Footballschland-Redaktion** | **47** | 20 | 16 | 8 | 3 |
+| 🥉 | **Footballschland** | **47** | 20 | 16 | 8 | 3 |
 | 4 | Perplexity (Grok 4.1) | 45 | 17 | 20 | 6 | 2 |
 | 4 | ChatGPT GPT-5 | 45 | 17 | 18 | 8 | 2 |
 | 6 | Björn Werner (Football Bromance) | 41 | 13 | 20 | 6 | 2 |
@@ -57,7 +57,7 @@ Weil der Draft nach zehn Picks schon 90 Prozent aller interessanten Storys gelie
 Das Bild verschiebt sich auf vier Arten:
 
 1. **Claude Opus 4.7 überholt Björn Werner und ChatGPT** und landet auf Platz 2 direkt hinter Jeremiah. Die höchste Slot-Accuracy im gesamten Feld (21 Punkte auf R1) kommt aus den ersten zehn Picks – Claude hat oben geliefert.
-2. **Die Redaktion klettert auf Bronze.** 20 Slot-Punkte zeigen: Die ersten zehn Picks haben wir so gut gelesen wie Daniel Jeremiah. Erst in den späten Picks bricht der Vorsprung weg.
+2. **Footballschland klettert auf Bronze.** 20 Slot-Punkte zeigen: Die ersten zehn Picks haben wir so gut gelesen wie Daniel Jeremiah. Erst in den späten Picks bricht der Vorsprung weg.
 3. **Perplexity rehabilitiert sich** – vom Schlusslicht im Gesamt-Ranking auf Platz 4 punktgleich mit ChatGPT. Die strukturellen Fehler der Perplexity-Order passieren erst ab Pick 15. Die Top 10 ist überraschend solide.
 4. **Björn Werner bricht auf Platz 6 ein.** Nur 13 Slot-Punkte in den Top 10 – Werner hat seine 125 Gesamtpunkte vor allem in der zweiten Runden-Hälfte aufgebaut. Seine Trade-Vorhersagen in den mittleren Picks und präzise Late-Round-Einschätzungen kompensieren ein schwächeres Top-10-Bild.
 
@@ -91,11 +91,11 @@ Die Schwäche liegt auf Regel 4: nur 3 Volltreffer. Das Modell weiß, *welche Po
 
 Claude hat im Gegensatz zu ChatGPT drei Trade-Misses eingebaut (Picks 10, 29, 30 mit Original-Team-Holdern), die Punkte kosten. Wer bei Claude liest, bekommt einen tiefen Spieler-Radar – aber verpasst die Trade-Bewegungen.
 
-### 5. Footballschland-Redaktion – solide, nicht spektakulär
+### 5. Footballschland – solide, nicht spektakulär
 
 102 Punkte, Platz 5 gesamt, **Bronze in der Top 10**. Ohne Web-Research, ohne Consensus-Daten, ohne internes Intel – nur Bauchgefühl aus zu vielen College-Spielen. 20 Slot-Punkte in den ersten zehn Picks zeigen: Oben konnten wir mithalten. Hinten verliert das Gefühl gegen die System-Modelle der KIs.
 
-**Die wichtigste Erkenntnis für uns:** Die Redaktion hat sich nicht blamiert. Drei KIs liegen hinter uns. Das Bauchgefühl ist zwar nicht Jeremiah, aber besser als Gemini und Perplexity.
+**Die wichtigste Erkenntnis für uns:** Footballschland hat sich nicht blamiert. Drei KIs liegen hinter uns. Das Bauchgefühl ist zwar nicht Jeremiah, aber besser als Gemini und Perplexity.
 
 ### 6. Gemini 2.5 – die Strukturschuld bleibt
 
@@ -125,7 +125,7 @@ Wer nur auf Picks 1–10 guckt, hätte Perplexity unter den Top-Performern einge
 
 Zwischen der ersten Scoring-Runde (freitagnacht, live gestreamt gegen die Picks 1–16) und der finalen Auswertung haben wir in unserem eigenen Scoring-Script einen Fehler entdeckt und behoben:
 
-Die Funktion `normTeam`, die Team-Namen für den Vergleich normalisiert, hatte eine falsche Regex. Aus `"Giants via CIN"` wurde `"cin"` statt `"giants"` – die Regex strippte alles **vor** dem „via" statt alles **danach**. Das hat Boards benachteiligt, die Trade-Annotationen anders schrieben als die offizielle Draft-Order – zum Beispiel die Redaktion, die `"Rams via Falcons"` schrieb, wo die NFL `"Rams via ATL"` auflistet.
+Die Funktion `normTeam`, die Team-Namen für den Vergleich normalisiert, hatte eine falsche Regex. Aus `"Giants via CIN"` wurde `"cin"` statt `"giants"` – die Regex strippte alles **vor** dem „via" statt alles **danach**. Das hat Boards benachteiligt, die Trade-Annotationen anders schrieben als die offizielle Draft-Order – zum Beispiel Footballschland selbst, das `"Rams via Falcons"` schrieb, wo die NFL `"Rams via ATL"` auflistet.
 
 Der Fix (Commit [`1351e4a`](https://github.com/rwolupo/footballschland/commit/1351e4a)) hat die Scores aller Boards um 0–7 Punkte nach oben korrigiert. Die Rangfolge der KI-Boards hat sich dadurch nicht geändert. Perplexity hatte keine Trade-Picks mit korrekten Teamnamen getippt und bleibt unverändert bei 58 Punkten.
 
@@ -135,7 +135,7 @@ Die vorherigen (buggy) Zahlen der KI-Boards nach 30/32 Picks, zum Abgleich:
 |---|---:|---:|
 | ChatGPT GPT-5 | 103 | 120 |
 | Claude Opus 4.7 | 97 | 115 |
-| Footballschland-Redaktion | 95 | 102 |
+| Footballschland | 95 | 102 |
 | Gemini 2.5 | 81 | 89 |
 | Perplexity (Grok 4.1) | 53 | 58 |
 
@@ -157,3 +157,5 @@ Wer das Scoring selbst nachfahren will, klont das Repo, lässt `node scripts/sco
 ---
 
 *Part 1 gibt's [hier](/blockblog/ki-vs-footballschland-nfl-mock-draft-2026/), wenn du die Boards vor dem Draft nochmal durchgehen willst. Danke fürs Mitraten – und bis zum nächsten Draft, wenn wir wissen wollen, ob Jeremiah den Titel verteidigt.*
+
+**Und jetzt heißt es: Daumen drücken für unsere deutschen Jungs in den Runden 2 bis 7 und danach!**

@@ -74,7 +74,7 @@
         {
           "_type": "span",
           "_key": "k8",
-          "text": " Die stärkste KI – ChatGPT GPT-5 – erreicht Platz 3 mit 15 Punkten Abstand zur Spitze. Die Redaktion macht einen soliden fünften Platz und bleibt damit nicht peinlich hinter den Maschinen zurück.",
+          "text": " Die stärkste KI – ChatGPT GPT-5 – erreicht Platz 3 mit 15 Punkten Abstand zur Spitze. Footballschland macht einen soliden fünften Platz und bleibt damit nicht peinlich hinter den Maschinen zurück.",
           "marks": []
         }
       ]
@@ -88,7 +88,7 @@
         {
           "_type": "span",
           "_key": "k10",
-          "text": "Wir haben das ursprüngliche Feld aus Part 1 (Gemini, Perplexity, ChatGPT, Claude, Footballschland-Redaktion) um zwei erfahrene menschliche Analysten ergänzt: ",
+          "text": "Wir haben das ursprüngliche Feld aus Part 1 (Gemini, Perplexity, ChatGPT, Claude, Footballschland) um zwei erfahrene menschliche Analysten ergänzt: ",
           "marks": []
         },
         {
@@ -310,7 +310,7 @@
         {
           "_type": "span",
           "_key": "k40",
-          "text": "5 · Footballschland-Redaktion · 102 Pkt",
+          "text": "5 · Footballschland · 102 Pkt",
           "marks": [
             "strong"
           ]
@@ -464,7 +464,7 @@
         {
           "_type": "span",
           "_key": "k60",
-          "text": "Die Redaktion",
+          "text": "Footballschland",
           "marks": [
             "strong"
           ]
@@ -650,7 +650,7 @@
         {
           "_type": "span",
           "_key": "k85",
-          "text": "Footballschland-Redaktion",
+          "text": "Footballschland",
           "marks": []
         },
         {
@@ -830,7 +830,7 @@
         {
           "_type": "span",
           "_key": "k108",
-          "text": "Die Redaktion klettert auf Bronze.",
+          "text": "Footballschland klettert auf Bronze.",
           "marks": [
             "strong"
           ]
@@ -1196,7 +1196,7 @@
         {
           "_type": "span",
           "_key": "k159",
-          "text": "5. Footballschland-Redaktion – solide, nicht spektakulär",
+          "text": "5. Footballschland – solide, nicht spektakulär",
           "marks": []
         }
       ]
@@ -1246,7 +1246,7 @@
         {
           "_type": "span",
           "_key": "k166",
-          "text": " Die Redaktion hat sich nicht blamiert. Drei KIs liegen hinter uns. Das Bauchgefühl ist zwar nicht Jeremiah, aber besser als Gemini und Perplexity.",
+          "text": " Footballschland hat sich nicht blamiert. Drei KIs liegen hinter uns. Das Bauchgefühl ist zwar nicht Jeremiah, aber besser als Gemini und Perplexity.",
           "marks": []
         }
       ]
@@ -1550,7 +1550,7 @@
         {
           "_type": "span",
           "_key": "k209",
-          "text": ". Das hat Boards benachteiligt, die Trade-Annotationen anders schrieben als die offizielle Draft-Order – zum Beispiel die Redaktion, die ",
+          "text": ". Das hat Boards benachteiligt, die Trade-Annotationen anders schrieben als die offizielle Draft-Order – zum Beispiel Footballschland selbst, das ",
           "marks": []
         },
         {
@@ -1704,7 +1704,7 @@
         {
           "_type": "span",
           "_key": "k230",
-          "text": "Footballschland-Redaktion",
+          "text": "Footballschland",
           "marks": [
             "strong"
           ]
@@ -2138,6 +2138,22 @@
           "text": ", wenn du die Boards vor dem Draft nochmal durchgehen willst. Danke fürs Mitraten – und bis zum nächsten Draft, wenn wir wissen wollen, ob Jeremiah den Titel verteidigt.",
           "marks": [
             "em"
+          ]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "k290",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "k289",
+          "text": "Und jetzt heißt es: Daumen drücken für unsere deutschen Jungs in den Runden 2 bis 7 und danach!",
+          "marks": [
+            "strong"
           ]
         }
       ]
