@@ -14,5 +14,19 @@
   { "pickNumber": 13, "team": "Rams via ATL",      "playerName": "Ty Simpson",        "position": "QB" },
   { "pickNumber": 14, "team": "Ravens",            "playerName": "Olaivavega Ioane",  "position": "G" },
   { "pickNumber": 15, "team": "Buccaneers",        "playerName": "Rueben Bain Jr.",   "position": "EDGE" },
-  { "pickNumber": 16, "team": "Jets via IND",      "playerName": "Kenyon Sadiq",      "position": "TE" }
+  { "pickNumber": 16, "team": "Jets via IND",      "playerName": "Kenyon Sadiq",      "position": "TE" },
+  { "pickNumber": 17, "team": "Lions",             "playerName": "Blake Miller",      "position": "OT" },
+  { "pickNumber": 18, "team": "Vikings",           "playerName": "Caleb Banks",       "position": "DT" },
+  { "pickNumber": 19, "team": "Panthers",          "playerName": "Monroe Freeling",   "position": "OT" },
+  { "pickNumber": 20, "team": "Cowboys via GB",    "playerName": "Makai Lemon",       "position": "WR" },
+  { "pickNumber": 21, "team": "Steelers",          "playerName": "Max Iheanachor",    "position": "OT" },
+  { "pickNumber": 22, "team": "Chargers",          "playerName": "Akheem Mesidor",    "position": "EDGE" },
+  { "pickNumber": 23, "team": "Eagles",            "playerName": "Malachi Lawrence",  "position": "EDGE" },
+  { "pickNumber": 24, "team": "Browns via JAX",    "playerName": "KC Concepcion",     "position": "WR" },
+  { "pickNumber": 25, "team": "Bears",             "playerName": "Dillon Thieneman",  "position": "S" },
+  { "pickNumber": 26, "team": "Bills",             "playerName": "Keylan Rutledge",   "position": "G" },
+  { "pickNumber": 27, "team": "49ers",             "playerName": "Chris Johnson",     "position": "CB" },
+  { "pickNumber": 28, "team": "Texans",            "playerName": "Caleb Lomu",        "position": "OT" },
+  { "pickNumber": 29, "team": "Chiefs via LAR",    "playerName": "Peter Woods",       "position": "DT" },
+  { "pickNumber": 30, "team": "Dolphins via DEN",  "playerName": "Omar Cooper Jr.",   "position": "WR" }
 ]
