@@ -22,6 +22,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 
 const ARTICLE_JSON = 'content/blockblog/ai-mock-draft-2026-part1.json'
 const ACTUAL_JSON = 'scripts/nfl-draft-2026-actual-r1.json'
+const ANALYST_JSON = 'scripts/analyst-mocks.json'   // optionale, nicht-KI-Boards
 const OUTPUT_MD = 'scripts/scoring-results.md'
 
 if (!existsSync(ACTUAL_JSON)) {
@@ -37,7 +38,11 @@ if (!mock) {
   console.error('FEHLER: mockDraftComparison-Block im Artikel nicht gefunden.')
   process.exit(1)
 }
-const boards = mock.aiMocks
+const boards = [...mock.aiMocks]
+if (existsSync(ANALYST_JSON)) {
+  const analysts = JSON.parse(readFileSync(ANALYST_JSON, 'utf8'))
+  boards.push(...analysts)
+}
 
 const actual = JSON.parse(readFileSync(ACTUAL_JSON, 'utf8'))
 if (!Array.isArray(actual) || actual.length === 0) {
@@ -47,7 +52,9 @@ if (!Array.isArray(actual) || actual.length === 0) {
 
 // Normalize positions: "EDGE/LB" -> primary "EDGE", ignore case
 const primaryPos = (pos) => (pos || '').split(/[\/\s]/)[0].trim().toUpperCase()
-const normTeam = (t) => (t || '').toLowerCase().replace(/.*\bvia\s+/i, '').replace(/[^a-z0-9]/g, '')
+// Team normalisieren: " via X" wird entfernt (z.B. "Giants via CIN" -> "giants"),
+// dann auf alphanumerische Kleinbuchstaben reduziert.
+const normTeam = (t) => (t || '').toLowerCase().replace(/\s+via\s+.+$/i, '').replace(/[^a-z0-9]/g, '')
 const normPlayer = (n) => (n || '').toLowerCase().replace(/[^a-z0-9]/g, '')
 
 function computePositionalRanks(picks) {
