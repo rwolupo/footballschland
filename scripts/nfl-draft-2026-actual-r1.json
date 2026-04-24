@@ -1,0 +1,18 @@
+[
+  { "pickNumber": 1,  "team": "Raiders",           "playerName": "Fernando Mendoza",  "position": "QB" },
+  { "pickNumber": 2,  "team": "Jets",              "playerName": "David Bailey",      "position": "EDGE" },
+  { "pickNumber": 3,  "team": "Cardinals",         "playerName": "Jeremiyah Love",    "position": "RB" },
+  { "pickNumber": 4,  "team": "Titans",            "playerName": "Carnell Tate",      "position": "WR" },
+  { "pickNumber": 5,  "team": "Giants",            "playerName": "Arvell Reese",      "position": "EDGE" },
+  { "pickNumber": 6,  "team": "Browns",            "playerName": "Mansoor Delane",    "position": "CB" },
+  { "pickNumber": 7,  "team": "Commanders",        "playerName": "Sonny Styles",      "position": "LB" },
+  { "pickNumber": 8,  "team": "Saints",            "playerName": "Jordyn Tyson",      "position": "WR" },
+  { "pickNumber": 9,  "team": "Chiefs",            "playerName": "Spencer Fano",      "position": "OT" },
+  { "pickNumber": 10, "team": "Giants via CIN",    "playerName": "Francis Mauigoa",   "position": "OT" },
+  { "pickNumber": 11, "team": "Dolphins",          "playerName": "Caleb Downs",       "position": "S" },
+  { "pickNumber": 12, "team": "Cowboys",           "playerName": "Kadyn Proctor",     "position": "OT" },
+  { "pickNumber": 13, "team": "Rams via ATL",      "playerName": "Ty Simpson",        "position": "QB" },
+  { "pickNumber": 14, "team": "Ravens",            "playerName": "Olaivavega Ioane",  "position": "G" },
+  { "pickNumber": 15, "team": "Buccaneers",        "playerName": "Rueben Bain Jr.",   "position": "EDGE" },
+  { "pickNumber": 16, "team": "Jets via IND",      "playerName": "Kenyon Sadiq",      "position": "TE" }
+]
