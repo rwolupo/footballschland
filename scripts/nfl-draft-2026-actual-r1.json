@@ -3,7 +3,7 @@
   { "pickNumber": 2,  "team": "Jets",              "playerName": "David Bailey",      "position": "EDGE" },
   { "pickNumber": 3,  "team": "Cardinals",         "playerName": "Jeremiyah Love",    "position": "RB" },
   { "pickNumber": 4,  "team": "Titans",            "playerName": "Carnell Tate",      "position": "WR" },
-  { "pickNumber": 5,  "team": "Giants",            "playerName": "Arvell Reese",      "position": "EDGE" },
+  { "pickNumber": 5,  "team": "Giants",            "playerName": "Arvell Reese",      "position": "LB" },
   { "pickNumber": 6,  "team": "Browns",            "playerName": "Mansoor Delane",    "position": "CB" },
   { "pickNumber": 7,  "team": "Commanders",        "playerName": "Sonny Styles",      "position": "LB" },
   { "pickNumber": 8,  "team": "Saints",            "playerName": "Jordyn Tyson",      "position": "WR" },
@@ -28,5 +28,7 @@
   { "pickNumber": 27, "team": "49ers",             "playerName": "Chris Johnson",     "position": "CB" },
   { "pickNumber": 28, "team": "Texans",            "playerName": "Caleb Lomu",        "position": "OT" },
   { "pickNumber": 29, "team": "Chiefs via LAR",    "playerName": "Peter Woods",       "position": "DT" },
-  { "pickNumber": 30, "team": "Dolphins via DEN",  "playerName": "Omar Cooper Jr.",   "position": "WR" }
+  { "pickNumber": 30, "team": "Dolphins via DEN",  "playerName": "Omar Cooper Jr.",   "position": "WR" },
+  { "pickNumber": 31, "team": "Patriots",          "playerName": "Keldric Faulk",     "position": "EDGE" },
+  { "pickNumber": 32, "team": "Seahawks",          "playerName": "Jadarian Price",    "position": "RB" }
 ]
