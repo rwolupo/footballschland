@@ -22,6 +22,7 @@ import { readFileSync, writeFileSync, existsSync } from 'node:fs'
 
 const ARTICLE_JSON = 'content/blockblog/ai-mock-draft-2026-part1.json'
 const ACTUAL_JSON = 'scripts/nfl-draft-2026-actual-r1.json'
+const ANALYST_JSON = 'scripts/analyst-mocks.json'   // optionale, nicht-KI-Boards
 const OUTPUT_MD = 'scripts/scoring-results.md'
 
 if (!existsSync(ACTUAL_JSON)) {
@@ -37,7 +38,11 @@ if (!mock) {
   console.error('FEHLER: mockDraftComparison-Block im Artikel nicht gefunden.')
   process.exit(1)
 }
-const boards = mock.aiMocks
+const boards = [...mock.aiMocks]
+if (existsSync(ANALYST_JSON)) {
+  const analysts = JSON.parse(readFileSync(ANALYST_JSON, 'utf8'))
+  boards.push(...analysts)
+}
 
 const actual = JSON.parse(readFileSync(ACTUAL_JSON, 'utf8'))
 if (!Array.isArray(actual) || actual.length === 0) {
@@ -47,7 +52,9 @@ if (!Array.isArray(actual) || actual.length === 0) {
 
 // Normalize positions: "EDGE/LB" -> primary "EDGE", ignore case
 const primaryPos = (pos) => (pos || '').split(/[\/\s]/)[0].trim().toUpperCase()
-const normTeam = (t) => (t || '').toLowerCase().replace(/.*\bvia\s+/i, '').replace(/[^a-z0-9]/g, '')
+// Team normalisieren: " via X" wird entfernt (z.B. "Giants via CIN" -> "giants"),
+// dann auf alphanumerische Kleinbuchstaben reduziert.
+const normTeam = (t) => (t || '').toLowerCase().replace(/\s+via\s+.+$/i, '').replace(/[^a-z0-9]/g, '')
 const normPlayer = (n) => (n || '').toLowerCase().replace(/[^a-z0-9]/g, '')
 
 function computePositionalRanks(picks) {
@@ -133,31 +140,47 @@ function scoreBoard(board, actual) {
   return { board: board.aiName, slug: board.aiSlug, totals, rows }
 }
 
-const results = boards.map(b => scoreBoard(b, actual))
-results.sort((a, b) => b.totals.total - a.totals.total)
+function runEvaluation(label, actualSubset, maxPicks) {
+  const subsetBoards = boards.map(b => ({
+    ...b,
+    picks: (b.picks || []).filter(p => p.pickNumber <= maxPicks),
+  }))
+  const res = subsetBoards.map(b => scoreBoard(b, actualSubset))
+  res.sort((a, b) => b.totals.total - a.totals.total)
+  return { label, maxPicks, maxPoints: maxPicks * 10, results: res }
+}
+
+const evaluations = [
+  runEvaluation('Gesamt (Runde 1, 32 Picks)', actual, 32),
+  runEvaluation('Top 10', actual.filter(p => p.pickNumber <= 10), 10),
+]
 
 // Console-Output
-console.log('=== SCORING (gesamt) ===')
-console.log('')
-for (const r of results) {
-  console.log(`${r.board.padEnd(30)} ${String(r.totals.total).padStart(4)} Pkt  ` +
-    `(R1 ${r.totals.r1} / R2 ${r.totals.r2} / R3 ${r.totals.r3} / R4 ${r.totals.r4})`)
+for (const ev of evaluations) {
+  console.log(`=== SCORING · ${ev.label} (max ${ev.maxPoints} Pkt) ===`)
+  console.log('')
+  for (const r of ev.results) {
+    console.log(`${r.board.padEnd(35)} ${String(r.totals.total).padStart(4)} Pkt  ` +
+      `(R1 ${r.totals.r1} / R2 ${r.totals.r2} / R3 ${r.totals.r3} / R4 ${r.totals.r4})`)
+  }
+  console.log('')
 }
-console.log('')
 
 // Markdown-Output für Part 2
 const md = []
-md.push('## Ergebnistabelle\n')
-md.push('| Rang | Board | Gesamt | R1 (Slot) | R2 (PosRank) | R3 (Team+Pos) | R4 (Team+Spieler) |')
-md.push('|---:|---|---:|---:|---:|---:|---:|')
-results.forEach((r, i) => {
-  md.push(`| ${i + 1} | ${r.board} | **${r.totals.total}** | ${r.totals.r1} | ${r.totals.r2} | ${r.totals.r3} | ${r.totals.r4} |`)
-})
-md.push('')
-md.push('Maximal möglich pro Board: 320 Punkte (10 × 32 Picks).\n')
+for (const ev of evaluations) {
+  md.push(`## Ergebnistabelle · ${ev.label}\n`)
+  md.push('| Rang | Board | Gesamt | R1 (Slot) | R2 (PosRank) | R3 (Team+Pos) | R4 (Team+Spieler) |')
+  md.push('|---:|---|---:|---:|---:|---:|---:|')
+  ev.results.forEach((r, i) => {
+    md.push(`| ${i + 1} | ${r.board} | **${r.totals.total}** | ${r.totals.r1} | ${r.totals.r2} | ${r.totals.r3} | ${r.totals.r4} |`)
+  })
+  md.push('')
+  md.push(`Maximal möglich pro Board: ${ev.maxPoints} Punkte (10 × ${ev.maxPicks} Picks).\n`)
+}
 
-md.push('## Detail-Breakdown pro Board\n')
-for (const r of results) {
+md.push('## Detail-Breakdown pro Board (Runde 1 gesamt)\n')
+for (const r of evaluations[0].results) {
   md.push(`### ${r.board} — ${r.totals.total} Punkte\n`)
   md.push('| Pick | Team (pred) | Spieler (pred) | Pos | R1 | R2 | R3 | R4 | Pkt |')
   md.push('|---:|---|---|---|---:|---:|---:|---:|---:|')

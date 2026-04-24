@@ -67,7 +67,7 @@ const AI_META = [
   { name: 'Perplexity (Grok 4.1)', slug: 'perplexity', marker: 'Perplexity' },
   { name: 'ChatGPT GPT-5', slug: 'chatgpt', marker: 'ChatGPT' },
   { name: 'Claude Opus 4.7', slug: 'claude', marker: 'Claude' },
-  { name: 'Footballschland-Redaktion', slug: 'footballschland', marker: 'Footballschland' },
+  { name: 'Footballschland', slug: 'footballschland', marker: 'Footballschland' },
 ]
 
 let i = 0

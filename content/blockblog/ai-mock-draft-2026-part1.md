@@ -404,7 +404,7 @@ Auch das Draft-Datum stimmt (23.–25. April). Und bei strittigen Picks macht Cl
 
 ---
 
-## Block 5 – Footballschland-Redaktion: Bauchgefühl gegen die Maschinen
+## Block 5 – Footballschland: Bauchgefühl gegen die Maschinen
 
 Kein Prompt. Kein Search-Grounding. Kein Big-Board-Spickzettel in Echtzeit. Sondern ein Raum voll Leuten, die seit Jahren Tape schauen, Podcasts machen, bei Pro Days zweimal hingucken und sich beim Bier darüber streiten, ob der dritte Tackle der Klasse wirklich ein First-Rounder sein sollte. Die Redaktions-Methode: Positionen durchspielen, Team Needs abgleichen, Reaches zulassen wo's Sinn ergibt, Bauchgefühl für die späten Picks. Kein Konsens-Zwang – dafür ein Board, das weiß, dass Cashius Howell existiert und dass Avieon Terrell mehr ist als der kleine Bruder von A.J.
 
