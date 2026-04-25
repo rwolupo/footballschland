@@ -218,6 +218,12 @@ const doc = {
   author: 'Daniel Düngel',
   category: 'NFL Draft',
   readTime: '12 Min. Lesezeit',
+  // Hero-Bild teilen wir uns mit Part 1 (gleiches Motiv, Wiedererkennungswert).
+  // Der Sync-Workflow lädt die SVG bei jedem Run hoch; Sanity dedupliziert per Content-Hash.
+  heroImage: {
+    _type: 'localFile',
+    path: 'public/assets/blog/ki-vs-footballschland-2026.svg',
+  },
   body,
 }
 
