@@ -52,6 +52,33 @@ if (files.length === 0) {
 let ok = 0
 let errors = 0
 
+// Lokale-Datei-Marker (z.B. heroImage als { _type: 'localFile', path: 'public/...' })
+// werden vor dem createOrReplace zu Sanity-Asset-Referenzen aufgelöst. Die Asset-Upload
+// API dedupliziert per Content-Hash, sodass wiederholte Syncs dasselbe Asset wiederverwenden.
+async function resolveLocalFiles(node, ctx) {
+  if (Array.isArray(node)) {
+    for (let i = 0; i < node.length; i++) node[i] = await resolveLocalFiles(node[i], ctx)
+    return node
+  }
+  if (node && typeof node === 'object') {
+    if (node._type === 'localFile' && typeof node.path === 'string') {
+      const absPath = join(repoRoot, node.path)
+      if (!existsSync(absPath)) {
+        throw new Error(`localFile-Marker zeigt auf nicht existierende Datei: ${node.path}`)
+      }
+      const buf = readFileSync(absPath)
+      const filename = node.path.split('/').pop()
+      const asset = await client.assets.upload('image', buf, { filename })
+      ctx.uploaded.push({ path: node.path, assetId: asset._id })
+      return { _type: 'image', asset: { _type: 'reference', _ref: asset._id } }
+    }
+    for (const k of Object.keys(node)) {
+      node[k] = await resolveLocalFiles(node[k], ctx)
+    }
+  }
+  return node
+}
+
 for (const path of files) {
   const rel = relative(repoRoot, path)
   let doc
@@ -76,6 +103,18 @@ for (const path of files) {
       errors++
       continue
     }
+  }
+
+  const ctx = { uploaded: [] }
+  try {
+    doc = await resolveLocalFiles(doc, ctx)
+  } catch (err) {
+    console.error(`[${rel}] Asset-Upload-Fehler: ${err.message}`)
+    errors++
+    continue
+  }
+  for (const u of ctx.uploaded) {
+    console.log(`[${rel}] hochgeladen: ${u.path} → ${u.assetId}`)
   }
 
   try {

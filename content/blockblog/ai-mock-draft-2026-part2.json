@@ -11,6 +11,10 @@
   "author": "Daniel Düngel",
   "category": "NFL Draft",
   "readTime": "12 Min. Lesezeit",
+  "heroImage": {
+    "_type": "localFile",
+    "path": "public/assets/blog/ki-vs-footballschland-2026.svg"
+  },
   "body": [
     {
       "_type": "block",
