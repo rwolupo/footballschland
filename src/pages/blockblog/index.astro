@@ -42,11 +42,11 @@ const categoryColors: Record<string, string> = {
   <section class="py-6 px-4 bg-[#111111] border-b border-white/10">
     <div class="max-w-4xl mx-auto flex flex-wrap gap-2 justify-center">
       <a href="/blockblog/" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-crimson/20 text-crimson border-crimson/40">Alle Beiträge</a>
-      <a href="/blockblog/categories/draft" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-white/5 text-white/60 border-white/20 hover:border-white/40">Draft</a>
-      <a href="/blockblog/categories/nfl" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-white/5 text-white/60 border-white/20 hover:border-white/40">NFL</a>
-      <a href="/blockblog/categories/college" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-white/5 text-white/60 border-white/20 hover:border-white/40">College</a>
-      <a href="/blockblog/categories/podcast" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-purple-900/30 text-purple-400 border-purple-700/40 hover:border-purple-500">Podcast</a>
-      <a href="/blockblog/categories/high-school" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-amber-900/30 text-amber-400 border-amber-700/40 hover:border-amber-500">High School</a>
+      <a href="/blockblog/categories/draft/" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-white/5 text-white/60 border-white/20 hover:border-white/40">Draft</a>
+      <a href="/blockblog/categories/nfl/" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-white/5 text-white/60 border-white/20 hover:border-white/40">NFL</a>
+      <a href="/blockblog/categories/college/" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-white/5 text-white/60 border-white/20 hover:border-white/40">College</a>
+      <a href="/blockblog/categories/podcast/" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-purple-900/30 text-purple-400 border-purple-700/40 hover:border-purple-500">Podcast</a>
+      <a href="/blockblog/categories/high-school/" class="px-4 py-1.5 text-xs font-bold uppercase tracking-widest rounded border bg-amber-900/30 text-amber-400 border-amber-700/40 hover:border-amber-500">High School</a>
     </div>
   </section>
 
@@ -65,7 +65,7 @@ const categoryColors: Record<string, string> = {
             const heroUrl = post.heroImage?.asset?.url;
             return (
               <article class="group grid grid-cols-1 md:grid-cols-[2fr_3fr] bg-[#1A1A1A] border border-white/10 hover:border-crimson/40 rounded-xl overflow-hidden transition-colors">
-                <a href={`/blockblog/${post.slug}`} class="block relative aspect-video md:aspect-auto bg-[#111111] overflow-hidden min-h-[200px]">
+                <a href={`/blockblog/${post.slug}/`} class="block relative aspect-video md:aspect-auto bg-[#111111] overflow-hidden min-h-[200px]">
                   {heroUrl ? (
                     <img
                       src={heroUrl}
@@ -87,7 +87,7 @@ const categoryColors: Record<string, string> = {
                     <span class="text-white/40 text-xs font-body">{formatDate(post.pubDate)}</span>
                     {post.readTime && <span class="text-white/40 text-xs font-body">· {post.readTime}</span>}
                   </div>
-                  <a href={`/blockblog/${post.slug}`} class="flex-1">
+                  <a href={`/blockblog/${post.slug}/`} class="flex-1">
                     <h2 class="font-display text-xl md:text-2xl font-bold text-white mb-3 leading-tight group-hover:text-crimson-light transition-colors">{post.title}</h2>
                     <p class="text-white/60 text-sm leading-relaxed font-body">{post.description}</p>
                   </a>
@@ -96,7 +96,7 @@ const categoryColors: Record<string, string> = {
                       <div class="w-6 h-6 rounded-full bg-crimson flex items-center justify-center text-white font-bold text-xs">DD</div>
                       <span class="text-white/40 text-xs font-body">{post.author}</span>
                     </div>
-                    <a href={`/blockblog/${post.slug}`} class="text-crimson text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all">Lesen <span>→</span></a>
+                    <a href={`/blockblog/${post.slug}/`} class="text-crimson text-sm font-semibold flex items-center gap-1 hover:gap-2 transition-all">Lesen <span>→</span></a>
                   </div>
                 </div>
               </article>
