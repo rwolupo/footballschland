@@ -10,6 +10,10 @@
   "author": "Daniel Düngel",
   "category": "NFL Draft",
   "readTime": "5 Min. Lesezeit",
+  "heroImage": {
+    "_type": "localFile",
+    "path": "public/assets/blog/marlin-klein-texans.jpg"
+  },
   "body": [
     {
       "_type": "block",
