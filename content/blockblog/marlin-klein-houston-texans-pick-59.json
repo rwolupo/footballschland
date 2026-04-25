@@ -277,6 +277,132 @@
     },
     {
       "_type": "block",
+      "_key": "q01",
+      "style": "h2",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "qs01",
+          "text": "In seinen eigenen Worten",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "q02",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "qs02",
+          "text": "Wenige Stunden nach dem Pick hat NFL Deutschland Zitate von Marlin verschickt – ungeschnitten, in seiner eigenen Sprache. Drei Momente, die zeigen, wie er diesen Tag eingeordnet hat.",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "q03",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "qs03",
+          "text": "Marlin Klein zu seinem Draft-Moment:",
+          "marks": ["strong"]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "q04",
+      "style": "blockquote",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "qs04",
+          "text": "„Es ist schwer, das gerade in Worte zu fassen. Ich denke an den kleinen Jungen in Deutschland, der damals NFL geschaut hat und davon geträumt hat, einmal selbst auf diesem Niveau zu spielen. Heute ist dieser Traum Realität geworden. Aber gleichzeitig weiß ich: Das hier ist nur der Anfang. Ich bin dankbar für jede Unterstützung auf diesem Weg und jetzt beginnt die eigentliche Arbeit.\"",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "q05",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "qs05",
+          "text": "Marlin Klein über seinen bisherigen Weg:",
+          "marks": ["strong"]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "q06",
+      "style": "blockquote",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "qs06",
+          "text": "„Ohne meine Familie und Freunde, meine Coaches und alle, die mich begleitet haben, wäre ich heute nicht hier. Es gab Momente, die nicht immer einfach waren. Aber genau diese Momente haben mich geformt. Ich nehme nichts davon als selbstverständlich und werde jeden Tag so arbeiten, als müsste ich mir alles neu verdienen.\"",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "q07",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "qs07",
+          "text": "Marlin Klein über seine Ziele in der NFL:",
+          "marks": ["strong"]
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "q08",
+      "style": "blockquote",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "qs08",
+          "text": "„Ich habe immer daran geglaubt, dass ich auf diesem Level mithalten kann. Mit den Texans hat ein Team an mich geglaubt – und ich werde alles dafür tun, dieses Vertrauen zurückzuzahlen. Ich komme nicht hierher, um nur ein Teil des Kaders zu sein. Ich will impacten, ich will Spiele mitentscheiden, den größtmöglichen Erfolg haben und ich will mir einen Namen in der NFL erarbeiten.\"",
+          "marks": []
+        }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "q09",
+      "style": "normal",
+      "markDefs": [],
+      "children": [
+        {
+          "_type": "span",
+          "_key": "qs09",
+          "text": "Zitate aus der NFL-Deutschland-Pressemitteilung vom 25. April 2026.",
+          "marks": ["em"]
+        }
+      ]
+    },
+    {
+      "_type": "block",
       "_key": "b17",
       "style": "h2",
       "markDefs": [],
