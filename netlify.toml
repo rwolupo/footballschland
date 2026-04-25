@@ -35,7 +35,7 @@
 
 [[redirects]]
   from = "/blog"
-  to = "/blockblog"
+  to = "/blockblog/"
   status = 301
   force = true
 
@@ -47,11 +47,12 @@
 
 [[redirects]]
   from = "/blog/*"
-  to = "/blockblog/:splat"
+  to = "/blockblog/:splat/"
   status = 301
   force = true
 
 [[redirects]]
   from = "/blockblog/categories/*"
-  to = "/blockblog"
+  to = "/blockblog/"
   status = 301
+  force = true
