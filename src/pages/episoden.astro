@@ -41,8 +41,15 @@ try {
     const audioUrl = getAttr('enclosure', 'url');
     const imageUrl = getAttr('itunes:image', 'href');
     const description = get('description') || get('itunes:summary');
-    const season = parseInt(get('itunes:season') || '0');
-    const episodeNum = parseInt(get('itunes:episode') || '0');
+    // Staffel und Folge primaer aus dem Titel ("S02E32 Im Gespraech mit ...").
+    // Der Megaphone-Feed nummeriert itunes:episode in Staffel 1 und 2 durchlaufend
+    // ueber die gesamte Serie (Staffel 2 laeuft dort als 76-108) und erst ab
+    // S03E02 staffelrelativ. Der Titel traegt dagegen ueberall die kanonische ID,
+    // die auch in der Redaktion und in Airtable verwendet wird. itunes:season /
+    // itunes:episode bleiben als Fallback fuer Folgen ohne ID im Titel.
+    const titleId = title.match(/\bS(\d{1,2})E(\d{1,3})\b/i);
+    const season = titleId ? parseInt(titleId[1], 10) : parseInt(get('itunes:season') || '0');
+    const episodeNum = titleId ? parseInt(titleId[2], 10) : parseInt(get('itunes:episode') || '0');
 
     // Spotify episode ID aus Megaphone GUID ableiten — wir bauen den Embed über Audio-URL
     // Spotify embed braucht die Show-ID; einzelne Episoden via Spotify embed = show + episode
