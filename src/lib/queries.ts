@@ -59,3 +59,17 @@ export const POST_BY_SLUG_QUERY = `*[_type == "blockblogPost" && slug.current ==
 
 // GROQ query: Seite per Slug (Impressum, Datenschutz etc.)
 export const PAGE_BY_SLUG_QUERY = `*[_type == "page" && slug.current == $slug][0]{ title, body }`;
+
+// GROQ query: jährliche D1-Saison-Übersichten für den Guide-Hub
+// „Deutsche im College Football". Konvention: Slug endet auf `-<YYYY>`,
+// Sortierung damit neueste Saison zuerst.
+export const D1_SEASONS_QUERY = `*[_type == "blockblogPost" && slug.current match "deutsche-talente-d1-*"]
+  | order(slug.current desc) {
+  "slug": slug.current,
+  title,
+  description,
+  pubDate,
+  updatedDate,
+  readTime,
+  "heroUrl": heroImage.asset->url
+}`;
