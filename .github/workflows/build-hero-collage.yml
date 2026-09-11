@@ -1,0 +1,48 @@
+name: Build Hero-Collage
+
+# Baut aus den Trikot-Bildern (Seite 1 jeder playerCard) eines Blockblog-Draft-
+# Dokuments eine Hero-Collage und setzt sie als heroImage im selben Dokument.
+# Manuell triggerbar über den Actions-Tab → "Build Hero-Collage" → "Run workflow".
+
+on:
+  workflow_dispatch:
+    inputs:
+      docId:
+        description: 'Sanity-Dokument-ID (Draft- oder Published-ID)'
+        required: true
+        default: 'drafts.3c646d11-8708-437c-8c1d-13c5e53984f7'
+      title:
+        description: 'Titel im Panel unten rechts'
+        required: true
+        default: 'Deutsche Talente D1 2026'
+      subtitle:
+        description: 'Untertitel im Panel unten rechts'
+        required: true
+        default: '29 in FBS · 29 in FCS · 58 gesamt'
+      filename:
+        description: 'Dateiname des Assets in Sanity'
+        required: false
+        default: 'hero-d1-2026-collage.jpg'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Hero-Collage
+        run: |
+          node scripts/build-hero-collage.mjs \
+            --docId="${{ inputs.docId }}" \
+            --title="${{ inputs.title }}" \
+            --subtitle="${{ inputs.subtitle }}" \
+            --filename="${{ inputs.filename }}"
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_CONTENT_TOKEN }}
