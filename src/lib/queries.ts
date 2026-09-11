@@ -62,7 +62,9 @@ export const PAGE_BY_SLUG_QUERY = `*[_type == "page" && slug.current == $slug][0
 
 // GROQ query: jährliche D1-Saison-Übersichten für den Guide-Hub
 // „Deutsche im College Football". Konvention: Slug endet auf `-<YYYY>`,
-// Sortierung damit neueste Saison zuerst.
+// Sortierung damit neueste Saison zuerst. Zieht zusätzlich Kennzahlen aus
+// dem Body (playerTable-Gesamt, playerCard-Positionen, Podcast-Erwähnungen
+// in Bios) für den Hub-Teaser der aktuellen Saison.
 export const D1_SEASONS_QUERY = `*[_type == "blockblogPost" && slug.current match "deutsche-talente-d1-*"]
   | order(slug.current desc) {
   "slug": slug.current,
@@ -71,5 +73,9 @@ export const D1_SEASONS_QUERY = `*[_type == "blockblogPost" && slug.current matc
   pubDate,
   updatedDate,
   readTime,
-  "heroUrl": heroImage.asset->url
+  "heroUrl": heroImage.asset->url,
+  "totalPlayers": count(body[_type == "playerTable"][0].players),
+  "positions": body[_type == "playerTable"][0].players[].position,
+  "featuredCount": count(body[_type == "playerCard"]),
+  "bios": body[_type == "playerCard"].bio
 }`;
