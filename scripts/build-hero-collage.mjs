@@ -13,7 +13,7 @@
 //   - Canvas 2400×1500 (16:10), Hintergrund #0D0D0D (Footballschland-Dunkel)
 //   - 8 × 4 Grid mit 12px Gap, Bildslot 296×371 (Portrait 4:5 wie die Originale)
 //   - Bilder in Roster-Reihenfolge (alphabetisch nach Nachname)
-//   - Letzte 3 Slots unten rechts als „Titel-Panel“: schwarze Fläche mit
+//   - Letzte 3 Slots unten rechts als „Titel-Panel": schwarze Fläche mit
 //     Rot-Border und Weiß/Gold-Text
 //
 // Der Sanity-Token braucht Editor-Rolle im Projekt (nicht Organisation).
@@ -45,6 +45,9 @@ const client = createClient({
   apiVersion: '2026-03-28',
   token,
   useCdn: false,
+  // Damit auch drafts.*-Dokumente sichtbar sind. Ohne das antwortet der Client
+  // aus der published-Perspektive und liefert für Draft-IDs keine Daten.
+  perspective: 'raw',
 })
 
 // --- Bilder aus Sanity holen -------------------------------------------------
