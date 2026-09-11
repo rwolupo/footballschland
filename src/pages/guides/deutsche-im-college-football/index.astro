@@ -16,10 +16,13 @@ type SeasonPost = {
   updatedDate?: string;
   readTime?: string;
   heroUrl?: string | null;
+  totalPlayers?: number;
+  positions?: (string | null)[];
+  featuredCount?: number;
+  bios?: (string | null)[];
 };
 
 const seasons = await sanityClient.fetch<SeasonPost[]>(D1_SEASONS_QUERY);
-
 const currentSeason = seasons[0] ?? null;
 const archiveSeasons = seasons.slice(1);
 
@@ -30,6 +33,40 @@ const formatDate = (iso?: string) => {
   const d = new Date(iso);
   return d.toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
 };
+
+// Kennzahlen aus dem aktuellen Post ziehen — falls Daten nicht vorhanden sind,
+// bleiben die Elemente sauber verborgen.
+function topPositions(positions?: (string | null)[]): { label: string; count: number }[] {
+  if (!positions || positions.length === 0) return [];
+  const counts: Record<string, number> = {};
+  for (const raw of positions) {
+    if (!raw) continue;
+    // Positionen im Post kommen z.B. als "DL - Defensive Line", "OL - Offensive Line".
+    // Wir nehmen den kurzen Code links vom Bindestrich, sonst den Rohwert.
+    const code = raw.split(/[-–—\s]/)[0].trim().toUpperCase();
+    if (!code) continue;
+    counts[code] = (counts[code] || 0) + 1;
+  }
+  return Object.entries(counts)
+    .map(([label, count]) => ({ label, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, 4);
+}
+
+function countPodcastGuests(bios?: (string | null)[]): number {
+  if (!bios || bios.length === 0) return 0;
+  const re = /S\d{1,2}E\d{1,3}/i;
+  return bios.filter((b) => b && re.test(b)).length;
+}
+
+const stats = currentSeason
+  ? {
+      total: currentSeason.totalPlayers ?? 0,
+      featured: currentSeason.featuredCount ?? 0,
+      podcastGuests: countPodcastGuests(currentSeason.bios),
+      topPos: topPositions(currentSeason.positions),
+    }
+  : null;
 
 // SEO / JSON-LD
 const canonicalUrl = 'https://footballschland.de/guides/deutsche-im-college-football/';
@@ -65,6 +102,36 @@ const breadcrumbSchema = {
     { '@type': 'ListItem', position: 3, name: 'Deutsche im College Football' },
   ],
 };
+
+// Evergreen-FAQ — saisonsübergreifend gültig, kein Saison-Copy
+const faqs = [
+  {
+    q: 'Was ist der Unterschied zwischen FBS und FCS?',
+    a: 'Beide gehören zur NCAA Division 1. Die FBS (Football Bowl Subdivision) ist die höhere Ebene: mehr Stipendien, größere Stadien, TV-Verträge, am Saisonende die Bowl Games und die College Football Playoffs. Die FCS (Football Championship Subdivision) hat kleinere Kader, weniger Stipendien und spielt ein echtes Playoff-Turnier um den Titel. Für deutsche Spieler ist die FCS oft der realistischere Einstieg — mit der Option, später nach oben zu transferieren.',
+  },
+  {
+    q: 'Wie kommt ein deutscher Spieler an ein US-College?',
+    a: 'Es gibt mehrere Wege: über Vermittlungsprogramme wie PPI Recruits oder Gridiron Imports, über die NFL Academy in London, über ein Austauschjahr an einer US-Highschool, über eine Prep School wie die Rabun Gap-Nakoochee School — oder komplett auf eigene Faust mit Highlight-Tape und Kaltakquise. Ausführlich haben wir das im Guide „Dein Weg in die NFL“ beschrieben.',
+  },
+  {
+    q: 'Warum überhaupt College Football für einen deutschen Spieler?',
+    a: 'Weil die NCAA Division 1 die zweitbeste Football-Liga der Welt ist — direkt hinter der NFL — und der wichtigste Sprungbrett-Pfad in die NFL. Wer aus Deutschland in die NFL will, kommt fast immer über ein D1-College. Dazu ist College Football für viele auch ohne NFL-Ambition der Weg in ein Studium, das sie sich sonst finanziell nicht leisten könnten.',
+  },
+  {
+    q: 'Wie stellt Footballschland diese Listen zusammen?',
+    a: 'Grundlage sind die offiziellen Roster aller 138 FBS- und 128 FCS-Programme, die wir automatisiert auslesen und regelmäßig abgleichen. Ein Spieler kommt nur auf eine Saisonliste, wenn er auf dem aktuellen Roster seines Programms steht und seine deutsche Herkunft belegt ist. Jeder Treffer wird gegengeprüft — Kinder von US-Militärangehörigen, die an DoDEA-Schulen in Ramstein oder Wiesbaden aufgewachsen sind, gehören nicht dazu. Wo eine Spur endet, steht das im jeweiligen Saisontext.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 
 <BaseLayout
@@ -75,6 +142,7 @@ const breadcrumbSchema = {
 >
   <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} slot="head" />
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />
 
   <!-- Hero -->
   <section class="bg-[#231f20] pt-32 pb-16 px-4">
@@ -139,33 +207,61 @@ const breadcrumbSchema = {
             </span>
           </div>
         </a>
+
+        {stats && (stats.total > 0 || stats.featured > 0) && (
+          <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-3">
+            {stats.total > 0 && (
+              <div class="bg-white rounded-xl border border-[#231f20]/8 p-4 text-center">
+                <p class="font-display text-3xl font-black text-rot leading-none">{stats.total}</p>
+                <p class="text-xs font-semibold text-[#231f20]/60 uppercase tracking-wider mt-1">Spieler</p>
+              </div>
+            )}
+            {stats.featured > 0 && (
+              <div class="bg-white rounded-xl border border-[#231f20]/8 p-4 text-center">
+                <p class="font-display text-3xl font-black text-[#231f20] leading-none">{stats.featured}</p>
+                <p class="text-xs font-semibold text-[#231f20]/60 uppercase tracking-wider mt-1">Porträts</p>
+              </div>
+            )}
+            {stats.podcastGuests > 0 && stats.featured > 0 && (
+              <div class="bg-white rounded-xl border border-[#231f20]/8 p-4 text-center">
+                <p class="font-display text-3xl font-black text-gold leading-none">{stats.podcastGuests}</p>
+                <p class="text-xs font-semibold text-[#231f20]/60 uppercase tracking-wider mt-1">im Podcast</p>
+              </div>
+            )}
+            {stats.topPos.length > 0 && (
+              <div class="bg-white rounded-xl border border-[#231f20]/8 p-4 text-center col-span-2 md:col-span-1">
+                <p class="font-display text-sm font-bold text-[#231f20] leading-tight">
+                  {stats.topPos.slice(0, 3).map((p) => `${p.label} ${p.count}`).join(' · ')}
+                </p>
+                <p class="text-xs font-semibold text-[#231f20]/60 uppercase tracking-wider mt-1">Top-Positionen</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {stats && stats.podcastGuests > 0 && stats.featured > 0 && (
+          <p class="text-sm text-[#231f20]/60 mt-4 text-center font-body">
+            <a href="/episoden/" class="text-rot hover:underline">
+              {stats.podcastGuests} von {stats.featured} porträtierten Spielern waren im Footballschland-Podcast →
+            </a>
+          </p>
+        )}
       </div>
     </section>
   )}
 
-  <!-- Was das hier soll -->
-  <section class="bg-white py-16 px-4 border-y border-[#231f20]/8">
+  <!-- Worum es hier geht (Kurz-Erklärung) -->
+  <section class="bg-white py-14 px-4 border-y border-[#231f20]/8">
     <div class="max-w-3xl mx-auto">
       <p class="text-xs font-bold uppercase tracking-widest text-[#231f20]/50 mb-4">
-        Warum dieser Hub existiert
+        Worum es hier geht
       </p>
-      <div class="prose-section space-y-4 font-body text-[#231f20]/80 leading-relaxed">
-        <p>
-          Jeder Saison-Post lebt auf einer eigenen URL mit Jahreszahl. Das macht ihn suchmaschinen­freundlich
-          für die aktuelle Frage („welche Deutschen spielen 2026 in den USA?"), aber jeder Post verliert
-          seine Autorität, sobald das Jahr wechselt und ein Nachfolger erscheint.
-        </p>
-        <p>
-          Dieser Hub sammelt sie. Wer nach „deutsche Spieler College Football" sucht, landet hier,
-          bekommt sofort die aktuelle Saison serviert und findet daneben das komplette Archiv –
-          jede Saison mit ihren eigenen Zahlen, Neuzugängen und Abgängen.
-        </p>
-        <p>
-          Methode ist über die Jahre gleich geblieben: Die Liste stammt aus der Airtable-Datenbank
-          „Deutsche Footballer in den USA", jeder Eintrag ist gegen die offizielle Roster-Seite des
-          jeweiligen Colleges verifiziert. Wo die Spur endet, steht das im Text.
-        </p>
-      </div>
+      <p class="text-[#231f20]/80 font-body leading-relaxed text-lg">
+        Alle deutschen Spieler in den D1-Colleges — Saison für Saison, seit wir zählen.
+        Aktuelle Saison zuerst, dann das Archiv. Grundlage sind die offiziellen Roster aller
+        138 FBS- und 128 FCS-Programme, jeder Eintrag gegengeprüft. Wo die Spur endet, sagen
+        wir das.
+      </p>
     </div>
   </section>
 
@@ -220,27 +316,80 @@ const breadcrumbSchema = {
     </section>
   )}
 
-  <!-- Zurück-Navigation -->
-  <section class="bg-white py-12 px-4 border-t border-[#231f20]/8">
-    <div class="max-w-3xl mx-auto flex flex-wrap gap-3">
-      <a
-        href="/guides/"
-        class="px-4 py-2 border border-[#231f20]/20 text-[#231f20]/70 text-sm rounded hover:border-[#231f20]/40 hover:text-[#231f20] transition-colors"
-      >
-        ← Alle Guides
-      </a>
-      <a
-        href="/weg-in-die-nfl/"
-        class="px-4 py-2 border border-[#231f20]/20 text-[#231f20]/70 text-sm rounded hover:border-[#231f20]/40 hover:text-[#231f20] transition-colors"
-      >
-        Dein Weg in die NFL
-      </a>
-      <a
-        href="/nfl-draft/"
-        class="px-4 py-2 border border-[#231f20]/20 text-[#231f20]/70 text-sm rounded hover:border-[#231f20]/40 hover:text-[#231f20] transition-colors"
-      >
-        NFL Draft erklärt
-      </a>
+  <!-- Evergreen-FAQ -->
+  <section class="bg-white py-16 px-4 border-t border-[#231f20]/8">
+    <div class="max-w-3xl mx-auto">
+      <p class="text-xs font-bold uppercase tracking-widest text-rot mb-2">Häufige Fragen</p>
+      <h2 class="font-display text-2xl md:text-3xl font-bold text-[#231f20] mb-6">
+        Was ist College Football, und wie kommt man da hin?
+      </h2>
+      <div class="space-y-3">
+        {faqs.map((f) => (
+          <details class="group rounded-xl border border-[#231f20]/10 bg-[#faf8f5]/50 open:bg-white transition-colors">
+            <summary class="cursor-pointer list-none px-5 py-4 flex items-start justify-between gap-4">
+              <h3 class="font-display font-bold text-[#231f20] text-base leading-snug">{f.q}</h3>
+              <span class="text-rot text-xl leading-none shrink-0 group-open:rotate-45 transition-transform">+</span>
+            </summary>
+            <p class="px-5 pb-5 text-[#231f20]/75 font-body text-sm leading-relaxed">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-Sell zu verwandten Guides -->
+  <section class="bg-[#faf8f5] py-16 px-4">
+    <div class="max-w-3xl mx-auto">
+      <p class="text-xs font-bold uppercase tracking-widest text-rot mb-2">Verwandte Guides</p>
+      <h2 class="font-display text-2xl md:text-3xl font-bold text-[#231f20] mb-6">
+        Wenn dich College Football interessiert, gehören diese auch dazu
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <a
+          href="/weg-in-die-nfl/"
+          class="group flex flex-col justify-between bg-white rounded-2xl border border-[#231f20]/8 p-6 shadow-sm hover:shadow-md transition-shadow min-h-[180px]"
+        >
+          <div>
+            <span class="inline-block text-xs font-bold uppercase tracking-widest text-rot mb-2">NFL Karriere</span>
+            <h3 class="font-display text-lg font-bold text-[#231f20] group-hover:text-rot transition-colors leading-snug mb-2">
+              Dein Weg in die NFL: Guide für deutsche Talente
+            </h3>
+            <p class="text-[#231f20]/60 font-body text-sm leading-relaxed">
+              Alle sechs Karrierewege — vom IPP über NCAA bis zum direkten Draft aus Europa.
+            </p>
+          </div>
+          <span class="text-rot font-semibold text-sm mt-3 group-hover:translate-x-1 transition-transform">
+            Zum Guide →
+          </span>
+        </a>
+
+        <a
+          href="/nfl-draft/"
+          class="group flex flex-col justify-between bg-white rounded-2xl border border-[#231f20]/8 p-6 shadow-sm hover:shadow-md transition-shadow min-h-[180px]"
+        >
+          <div>
+            <span class="inline-block text-xs font-bold uppercase tracking-widest text-rot mb-2">NFL Draft</span>
+            <h3 class="font-display text-lg font-bold text-[#231f20] group-hover:text-rot transition-colors leading-snug mb-2">
+              NFL Draft erklärt: Ablauf, Runden & deutsche Spieler
+            </h3>
+            <p class="text-[#231f20]/60 font-body text-sm leading-relaxed">
+              Wie der Draft funktioniert, Combine, Pro Days — und alle Deutschen, die je gedraftet wurden.
+            </p>
+          </div>
+          <span class="text-rot font-semibold text-sm mt-3 group-hover:translate-x-1 transition-transform">
+            Zum Guide →
+          </span>
+        </a>
+      </div>
+
+      <div class="mt-6 text-center">
+        <a
+          href="/guides/"
+          class="inline-block text-sm text-[#231f20]/60 hover:text-rot font-body transition-colors"
+        >
+          ← Alle Guides
+        </a>
+      </div>
     </div>
   </section>
 </BaseLayout>
