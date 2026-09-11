@@ -89,7 +89,7 @@ Diese Texte liegen laut Briefing bei DD im Strategiedokument `d1-2026-strategie-
 - Malte Feil (Mercyhurst, WR) — Podcast: S02E05
 - Gideon Herbert (East Tennessee State, DL) — Podcast: S01E01 *(im Roster als „Chidalu Gideon Izuchukwu Herbert" geführt — Namens-Mismatch zwischen d1_final.json und Strategiedoc bitte im Studio prüfen)*
 - Mattis Karrasch (Northern Arizona, DE/OT) — Podcast: S02E04
-- Maximilian Lantzsch (New Mexico Lobos / heute?) — Podcast: mehrfach über die gesamte College-Karriere hinweg begleitet *(fünf Auftritte; im Bio bitte nicht einzeln auflisten, nur „mehrfach im Podcast" schreiben)*
+- Maximilian Lantzsch (New Mexico Lobos / heute?) — Podcast: fünf Auftritte, die die ganze College-Karriere abbilden — S01E23 (ECU, TE/DE), S01E45 (New Mexico Lobos, mit Mutter Anja), S02E18 (Update, DE), S03E08 (Overtime), S04E09 (Football-Moms mit Anja & Daniela Herpich). *In der Bio bitte alle Folgen ausbuchstabiert & verlinkt (wie bei Portnjagin oder Schmoranzer). Nur im Fließtext des Blogposts drumherum bitte nicht die ganze Kette aufzählen — dort reicht der allgemeine Hinweis auf mehrfache Auftritte.*
 - Konstantin Paschos (Choate → ?, DE) — Podcast: S02E16
 - Franz Pohlmann (UC Davis, TE) — Podcast: S03E22
 - Ilias Rida (Southeastern Louisiana, OL) — Podcast: S01E36
