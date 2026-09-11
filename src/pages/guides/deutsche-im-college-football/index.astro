@@ -1,0 +1,246 @@
+---
+export const prerender = false;
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { sanityClient } from '../../../lib/sanity';
+import { D1_SEASONS_QUERY } from '../../../lib/queries';
+
+// Live-Fetch: Alle jährlichen D1-Saison-Übersichten aus Sanity, sortiert vom
+// jüngsten zum ältesten. Slug-Konvention: `deutsche-talente-d1-<YYYY>`.
+// Dadurch wächst der Hub automatisch mit, sobald DD einen neuen Saison-Post
+// veröffentlicht — kein Code-Deploy nötig.
+type SeasonPost = {
+  slug: string;
+  title: string;
+  description: string;
+  pubDate: string;
+  updatedDate?: string;
+  readTime?: string;
+  heroUrl?: string | null;
+};
+
+const seasons = await sanityClient.fetch<SeasonPost[]>(D1_SEASONS_QUERY);
+
+const currentSeason = seasons[0] ?? null;
+const archiveSeasons = seasons.slice(1);
+
+// Jahr aus dem Slug extrahieren (deutsche-talente-d1-2026 → "2026")
+const yearOf = (slug: string) => slug.match(/(\d{4})$/)?.[1] ?? '';
+const formatDate = (iso?: string) => {
+  if (!iso) return '';
+  const d = new Date(iso);
+  return d.toLocaleDateString('de-DE', { day: '2-digit', month: 'long', year: 'numeric' });
+};
+
+// SEO / JSON-LD
+const canonicalUrl = 'https://footballschland.de/guides/deutsche-im-college-football/';
+const pageTitle = 'Deutsche im College Football: Der Guide-Hub';
+const pageDescription =
+  'Alle deutschen Spieler in den D1-Colleges (FBS + FCS) – jede Saison mit Namen, Positionen und Programmen. Aktuelle Saison plus Archiv aller vergangenen Jahrgänge.';
+
+const collectionSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${canonicalUrl}#collection`,
+  name: pageTitle,
+  description: pageDescription,
+  url: canonicalUrl,
+  inLanguage: 'de',
+  isPartOf: { '@id': 'https://footballschland.de/#website' },
+  publisher: { '@id': 'https://footballschland.de/#organization' },
+  hasPart: seasons.map((s) => ({
+    '@type': 'Article',
+    headline: s.title,
+    url: `https://footballschland.de/blockblog/${s.slug}/`,
+    datePublished: s.pubDate,
+    ...(s.updatedDate ? { dateModified: s.updatedDate } : {}),
+  })),
+};
+
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://footballschland.de/' },
+    { '@type': 'ListItem', position: 2, name: 'Guides', item: 'https://footballschland.de/guides/' },
+    { '@type': 'ListItem', position: 3, name: 'Deutsche im College Football' },
+  ],
+};
+---
+
+<BaseLayout
+  title={`${pageTitle} | Footballschland`}
+  description={pageDescription}
+  canonical={canonicalUrl}
+  ogImage={currentSeason?.heroUrl ?? '/assets/og-default.png'}
+>
+  <script type="application/ld+json" set:html={JSON.stringify(collectionSchema)} slot="head" />
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} slot="head" />
+
+  <!-- Hero -->
+  <section class="bg-[#231f20] pt-32 pb-16 px-4">
+    <div class="max-w-3xl mx-auto">
+      <nav aria-label="Breadcrumb" class="text-white/40 text-xs font-body mb-6">
+        <a href="/" class="hover:text-white">Home</a>
+        <span class="mx-2">/</span>
+        <a href="/guides/" class="hover:text-white">Guides</a>
+        <span class="mx-2">/</span>
+        <span class="text-white/70">Deutsche im College Football</span>
+      </nav>
+
+      <p class="text-rot text-xs font-bold uppercase tracking-widest mb-3">Guide-Hub</p>
+      <h1 class="font-display text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">
+        Deutsche im <span class="text-rot">College Football</span>
+      </h1>
+      <p class="text-white/70 text-lg font-body leading-relaxed max-w-2xl">
+        Jede Saison eine neue Liste, die belegbar ist und ihre Lücken benennt.
+        Aktuell und alle vergangenen Jahrgänge – FBS und FCS, Namen, Positionen, Programme.
+      </p>
+    </div>
+  </section>
+
+  <!-- Aktuelle Saison -->
+  {currentSeason && (
+    <section class="bg-[#faf8f5] py-16 px-4">
+      <div class="max-w-3xl mx-auto">
+        <p class="text-xs font-bold uppercase tracking-widest text-rot mb-4">
+          Aktuelle Saison
+        </p>
+
+        <a
+          href={`/blockblog/${currentSeason.slug}/`}
+          class="group block bg-white rounded-2xl border border-[#231f20]/8 overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
+        >
+          {currentSeason.heroUrl && (
+            <div class="aspect-[16/9] overflow-hidden bg-[#231f20]/10">
+              <img
+                src={currentSeason.heroUrl}
+                alt={`Titelbild: ${currentSeason.title}`}
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                loading="eager"
+              />
+            </div>
+          )}
+          <div class="p-8">
+            <div class="flex flex-wrap items-center gap-3 mb-4 text-[#231f20]/50 text-sm font-body">
+              <span class="px-2.5 py-1 bg-rot/10 text-rot text-xs font-bold uppercase tracking-wider rounded">
+                Saison {yearOf(currentSeason.slug)}
+              </span>
+              <span>Veröffentlicht: {formatDate(currentSeason.pubDate)}</span>
+              {currentSeason.readTime && <span>· {currentSeason.readTime}</span>}
+            </div>
+            <h2 class="font-display text-2xl md:text-3xl font-bold text-[#231f20] group-hover:text-rot transition-colors mb-3 leading-tight">
+              {currentSeason.title}
+            </h2>
+            <p class="text-[#231f20]/70 font-body leading-relaxed mb-5">
+              {currentSeason.description}
+            </p>
+            <span class="inline-flex items-center text-rot font-semibold text-sm group-hover:translate-x-1 transition-transform">
+              Zur aktuellen Saison →
+            </span>
+          </div>
+        </a>
+      </div>
+    </section>
+  )}
+
+  <!-- Was das hier soll -->
+  <section class="bg-white py-16 px-4 border-y border-[#231f20]/8">
+    <div class="max-w-3xl mx-auto">
+      <p class="text-xs font-bold uppercase tracking-widest text-[#231f20]/50 mb-4">
+        Warum dieser Hub existiert
+      </p>
+      <div class="prose-section space-y-4 font-body text-[#231f20]/80 leading-relaxed">
+        <p>
+          Jeder Saison-Post lebt auf einer eigenen URL mit Jahreszahl. Das macht ihn suchmaschinen­freundlich
+          für die aktuelle Frage („welche Deutschen spielen 2026 in den USA?"), aber jeder Post verliert
+          seine Autorität, sobald das Jahr wechselt und ein Nachfolger erscheint.
+        </p>
+        <p>
+          Dieser Hub sammelt sie. Wer nach „deutsche Spieler College Football" sucht, landet hier,
+          bekommt sofort die aktuelle Saison serviert und findet daneben das komplette Archiv –
+          jede Saison mit ihren eigenen Zahlen, Neuzugängen und Abgängen.
+        </p>
+        <p>
+          Methode ist über die Jahre gleich geblieben: Die Liste stammt aus der Airtable-Datenbank
+          „Deutsche Footballer in den USA", jeder Eintrag ist gegen die offizielle Roster-Seite des
+          jeweiligen Colleges verifiziert. Wo die Spur endet, steht das im Text.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Archiv -->
+  {archiveSeasons.length > 0 && (
+    <section class="bg-[#faf8f5] py-16 px-4">
+      <div class="max-w-3xl mx-auto">
+        <p class="text-xs font-bold uppercase tracking-widest text-rot mb-2">Archiv</p>
+        <h2 class="font-display text-2xl md:text-3xl font-bold text-[#231f20] mb-6">
+          Vergangene Saisons
+        </h2>
+        <div class="space-y-4">
+          {archiveSeasons.map((s) => (
+            <a
+              href={`/blockblog/${s.slug}/`}
+              class="group flex flex-col sm:flex-row gap-5 bg-white rounded-2xl border border-[#231f20]/8 p-6 shadow-sm hover:shadow-md transition-shadow"
+            >
+              {s.heroUrl && (
+                <div class="sm:w-40 sm:shrink-0">
+                  <div class="aspect-[16/10] rounded-lg overflow-hidden bg-[#231f20]/10">
+                    <img
+                      src={s.heroUrl}
+                      alt={`Titelbild: ${s.title}`}
+                      class="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                </div>
+              )}
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-3 mb-2 text-[#231f20]/50 text-xs font-body">
+                  <span class="px-2 py-0.5 bg-[#231f20]/10 text-[#231f20]/70 text-[10px] font-bold uppercase tracking-wider rounded">
+                    Saison {yearOf(s.slug)}
+                  </span>
+                  <span>{formatDate(s.pubDate)}</span>
+                  {s.readTime && <span>· {s.readTime}</span>}
+                </div>
+                <h3 class="font-display text-lg font-bold text-[#231f20] group-hover:text-rot transition-colors mb-2 leading-snug">
+                  {s.title}
+                </h3>
+                <p class="text-[#231f20]/65 font-body text-sm leading-relaxed line-clamp-3">
+                  {s.description}
+                </p>
+              </div>
+              <div class="hidden sm:flex items-center text-rot font-semibold text-sm group-hover:translate-x-1 transition-transform shrink-0 self-center">
+                →
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Zurück-Navigation -->
+  <section class="bg-white py-12 px-4 border-t border-[#231f20]/8">
+    <div class="max-w-3xl mx-auto flex flex-wrap gap-3">
+      <a
+        href="/guides/"
+        class="px-4 py-2 border border-[#231f20]/20 text-[#231f20]/70 text-sm rounded hover:border-[#231f20]/40 hover:text-[#231f20] transition-colors"
+      >
+        ← Alle Guides
+      </a>
+      <a
+        href="/weg-in-die-nfl/"
+        class="px-4 py-2 border border-[#231f20]/20 text-[#231f20]/70 text-sm rounded hover:border-[#231f20]/40 hover:text-[#231f20] transition-colors"
+      >
+        Dein Weg in die NFL
+      </a>
+      <a
+        href="/nfl-draft/"
+        class="px-4 py-2 border border-[#231f20]/20 text-[#231f20]/70 text-sm rounded hover:border-[#231f20]/40 hover:text-[#231f20] transition-colors"
+      >
+        NFL Draft erklärt
+      </a>
+    </div>
+  </section>
+</BaseLayout>
