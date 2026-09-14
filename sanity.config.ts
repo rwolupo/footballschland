@@ -2,12 +2,32 @@ import { defineConfig } from 'sanity'
 import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 
+// Preview-Token für Blockblog-Vorschau. Wird zur Studio-Build-Zeit aus dem
+// GitHub-Secret SANITY_STUDIO_PREVIEW_TOKEN eingesetzt (siehe .github/workflows/
+// sanity-deploy.yml). Fällt der Wert leer aus, ist der Studio-Button trotzdem
+// da, führt nur auf die published Version — DD kann dann manuell ?preview=...
+// dranhängen.
+const PREVIEW_TOKEN = import.meta.env.SANITY_STUDIO_PREVIEW_TOKEN ?? ''
+
 export default defineConfig({
   name: 'footballschland',
   title: 'Footballschland CMS',
   projectId: 'k31tvjv8',
   dataset: 'production',
   plugins: [structureTool(), visionTool()],
+  document: {
+    // „Öffne Vorschau"-Button für Blockblog-Artikel. Baut die Preview-URL mit
+    // dem Slug des aktuellen Dokuments und dem Token als Query-Parameter. Der
+    // Astro-Renderer prüft den Token und lädt dann Draft- statt Live-Content.
+    productionUrl: async (prev, context) => {
+      const doc = context.document as { _type?: string; slug?: { current?: string } } | undefined
+      if (doc?._type !== 'blockblogPost') return prev
+      const slug = doc.slug?.current
+      if (!slug) return prev
+      const base = `https://footballschland.de/blockblog/${slug}/`
+      return PREVIEW_TOKEN ? `${base}?preview=${PREVIEW_TOKEN}` : base
+    },
+  },
   schema: {
     types: [
       {

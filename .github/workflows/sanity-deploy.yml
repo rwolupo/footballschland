@@ -25,3 +25,7 @@ jobs:
         run: npx sanity deploy
         env:
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_DEPLOY_TOKEN }}
+          # Preview-Token für den „Öffne Vorschau"-Button. Muss identisch mit
+          # der Netlify-Env SANITY_PREVIEW_TOKEN sein — der Astro-Renderer
+          # vergleicht beide Werte, damit der Preview-Modus greift.
+          SANITY_STUDIO_PREVIEW_TOKEN: ${{ secrets.SANITY_STUDIO_PREVIEW_TOKEN }}
