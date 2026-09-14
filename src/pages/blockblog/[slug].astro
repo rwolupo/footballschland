@@ -1,11 +1,24 @@
 ---
-import { sanityClient } from '../../lib/sanity';
+import { sanityClient, previewClient } from '../../lib/sanity';
 import { POST_BY_SLUG_QUERY } from '../../lib/queries';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { toHTML } from '@portabletext/to-html';
 
 const { slug } = Astro.params;
-const post = await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug });
+
+// Preview-Modus: Wenn ?preview=<token> mit SANITY_PREVIEW_TOKEN matcht UND
+// ein SANITY_VIEWER_TOKEN (Sanity-API-Read-Token) gesetzt ist, holen wir das
+// Dokument aus der drafts-Perspektive. Sonst normale published-Perspective.
+// Beide Envs müssen serverseitig gesetzt sein (Netlify → Site settings → Env).
+const previewParam = Astro.url.searchParams.get('preview');
+const previewToken = import.meta.env.SANITY_PREVIEW_TOKEN;
+const viewerToken = import.meta.env.SANITY_VIEWER_TOKEN;
+const isPreview =
+  !!previewParam && !!previewToken && previewParam === previewToken && !!viewerToken;
+
+const post = isPreview
+  ? await previewClient(viewerToken).fetch(POST_BY_SLUG_QUERY, { slug })
+  : await sanityClient.fetch(POST_BY_SLUG_QUERY, { slug });
 
 if (!post) {
   return Astro.redirect('/blockblog');
@@ -573,6 +586,15 @@ const bodyHtml = body ? toHTML(body, {
   <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} slot="head" />
   {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} slot="head" />}
   {personSchema && <script type="application/ld+json" set:html={JSON.stringify(personSchema)} slot="head" />}
+  {isPreview && (
+    <meta slot="head" name="robots" content="noindex, nofollow" />
+  )}
+
+  {isPreview && (
+    <div class="fixed top-0 left-0 right-0 z-[9999] bg-rot text-white text-center py-2 px-4 text-sm font-bold uppercase tracking-widest shadow-lg">
+      Vorschau · Draft-Version aus Sanity · nicht öffentlich indexiert
+    </div>
+  )}
 
   <!-- Article Hero — Full Bleed wie Startseite -->
   <section class="relative min-h-[72vh] flex flex-col justify-end bg-[#0D0D0D] pt-20 pb-14 px-4 overflow-hidden">
