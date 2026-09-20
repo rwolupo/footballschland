@@ -1,20 +1,27 @@
 #!/usr/bin/env node
-// Baut aus den Trikot-Bildern (Seite 1 jeder playerCard) einer Blockblog-Post-Draft
+// Baut aus den Trikot-Bildern (Seite 1 jeder playerCard) eines Blockblog-Posts
 // eine Hero-Collage im Footballschland-Look, lädt sie als Sanity-Asset hoch und
-// setzt sie als heroImage im Draft-Dokument.
+// setzt sie als heroImage im selben Dokument.
 //
 // Aufruf per GitHub Action (siehe .github/workflows/build-hero-collage.yml) oder
 // lokal: SANITY_AUTH_TOKEN=... node scripts/build-hero-collage.mjs \
 //   --docId=drafts.3c646d11-8708-437c-8c1d-13c5e53984f7 \
-//   --title="Deutsche Talente D1 2026" \
-//   --subtitle="29 in FBS · 29 in FCS · 58 gesamt"
+//   --title="Deutsche Talente|im D1 College Football" \
+//   --subtitle="29 in der FBS · 28 in der FCS · 57 gesamt"
 //
 // Layout:
-//   - Canvas 2400×1500 (16:10), Hintergrund #0D0D0D (Footballschland-Dunkel)
-//   - 8 × 4 Grid mit 12px Gap, Bildslot 296×371 (Portrait 4:5 wie die Originale)
-//   - Bilder in Roster-Reihenfolge (alphabetisch nach Nachname)
-//   - Letzte 3 Slots unten rechts als „Titel-Panel": schwarze Fläche mit
-//     Rot-Border und Weiß/Gold-Text
+//   - Breite fix 2400px, Höhe ergibt sich aus Grid und Slot-Seitenverhältnis 4:5
+//     (die Canva-Trikots sind 1080×1350, also portrait — das Grid folgt dem,
+//     statt die Bilder auf quadratisch zu beschneiden).
+//   - Grid COLS × ROWS, Bilder in Roster-Reihenfolge (alphabetisch nach Nachname).
+//   - Unten rechts ein Titel-Panel über PANEL_COLS × PANEL_ROWS Slots: schwarze
+//     Fläche mit Rot-/Gold-Kante und Weiß/Gold-Text. Die Schriftgröße richtet
+//     sich nach der Panelbreite, damit nichts abgeschnitten wird.
+//   - Es passen COLS*ROWS - PANEL_COLS*PANEL_ROWS Bilder hinein. Sind es mehr,
+//     bricht das Skript ab, statt still Spieler wegzulassen.
+//
+// Standard-Grid 11×6 mit 4×2-Panel = 58 Bildslots (Saison 2026: 57 Spieler).
+// Für andere Kaderstärken --cols/--rows/--panelCols/--panelRows setzen.
 //
 // Der Sanity-Token braucht Editor-Rolle im Projekt (nicht Organisation).
 
@@ -29,9 +36,16 @@ const args = Object.fromEntries(
   })
 )
 const docId = args.docId || 'drafts.3c646d11-8708-437c-8c1d-13c5e53984f7'
-const title = args.title || 'Deutsche Talente D1 2026'
-const subtitle = args.subtitle || '29 in FBS · 29 in FCS · 58 gesamt'
+// Zeilenumbruch im Titel mit "|" erzwingen — verlässlicher als automatisches
+// Umbrechen, weil die Zeilenlänge hier redaktionell gesetzt wird.
+const title = args.title || 'Deutsche Talente|im D1 College Football'
+const subtitle = args.subtitle || '29 in der FBS · 28 in der FCS · 57 gesamt'
 const filename = args.filename || 'hero-d1-2026-collage.jpg'
+
+const COLS = Number(args.cols || 11)
+const ROWS = Number(args.rows || 6)
+const PANEL_COLS = Number(args.panelCols || 4)
+const PANEL_ROWS = Number(args.panelRows || 2)
 
 const token = process.env.SANITY_AUTH_TOKEN
 if (!token) {
@@ -75,10 +89,34 @@ const sorted = cards
   })
 console.log(`      ${sorted.length} Trikot-Bilder gefunden.`)
 
+// --- Geometrie ---------------------------------------------------------------
+const CANVAS_W = 2400
+const GAP = 12
+const SLOT_W = Math.floor((CANVAS_W - GAP * (COLS + 1)) / COLS)
+const SLOT_H = Math.round(SLOT_W * 1.25) // 4:5 wie die Canva-Seiten
+const CANVAS_H = GAP * (ROWS + 1) + ROWS * SLOT_H
+const BORDER_COL = '#1a1a1a'
+
+const imageSlots = COLS * ROWS - PANEL_COLS * PANEL_ROWS
+if (sorted.length > imageSlots) {
+  console.error(
+    `FEHLER: ${sorted.length} Bilder, aber nur ${imageSlots} Slots ` +
+      `(${COLS}×${ROWS} minus ${PANEL_COLS}×${PANEL_ROWS} Panel). ` +
+      `Grid über --cols/--rows vergrößern.`
+  )
+  process.exit(1)
+}
+if (sorted.length < imageSlots) {
+  console.log(
+    `      Hinweis: ${imageSlots - sorted.length} Slot(s) bleiben leer ` +
+      `(dunkler Hintergrund).`
+  )
+}
+
 // --- Bilder herunterladen ----------------------------------------------------
 console.log(`[2/4] Lade ${sorted.length} Bilder…`)
 const imageBuffers = await Promise.all(
-  sorted.map(async (c, i) => {
+  sorted.map(async (c) => {
     const res = await fetch(c.url)
     if (!res.ok) throw new Error(`Bild ${c.playerName} ${res.status}`)
     const buf = Buffer.from(await res.arrayBuffer())
@@ -88,19 +126,11 @@ const imageBuffers = await Promise.all(
 )
 process.stdout.write('\n')
 
-// --- Collage-Layout ----------------------------------------------------------
-const CANVAS_W = 2400
-const CANVAS_H = 1500
-const GAP = 12
-const COLS = 8
-const ROWS = 4
-const SLOT_W = Math.floor((CANVAS_W - GAP * (COLS + 1)) / COLS) // 293
-const SLOT_H = Math.floor((CANVAS_H - GAP * (ROWS + 1)) / ROWS) // 360
-const BORDER_COL = '#1a1a1a'
+console.log(
+  `[3/4] Baue Collage ${CANVAS_W}×${CANVAS_H}, Grid ${COLS}×${ROWS}, ` +
+    `Slot ${SLOT_W}×${SLOT_H}…`
+)
 
-console.log(`[3/4] Baue Collage ${CANVAS_W}×${CANVAS_H}, Slot ${SLOT_W}×${SLOT_H}…`)
-
-// Resize jedes Bild auf den Slot (cover, um Portrait auf 4:5-ish zu halten)
 const resized = await Promise.all(
   imageBuffers.map((it) =>
     sharp(it.buf)
@@ -111,27 +141,60 @@ const resized = await Promise.all(
   )
 )
 
-// Grid-Positionen berechnen; letzte 3 Slots (COLS*ROWS - 3 = 29) freilassen.
-// Bei 32 Slots (8×4) und 29 Bildern: Slots 29, 30, 31 (letzte Reihe rechts, 3 Slots) bleiben leer.
-const totalSlots = COLS * ROWS
-const filledSlots = Math.min(resized.length, totalSlots - 3)
-const composites = []
-for (let i = 0; i < filledSlots; i++) {
-  const col = i % COLS
-  const row = Math.floor(i / COLS)
-  const left = GAP + col * (SLOT_W + GAP)
-  const top = GAP + row * (SLOT_H + GAP)
-  composites.push({ input: resized[i].buf, left, top })
+// Alle Zellen durchlaufen, die Panel-Zellen unten rechts überspringen.
+const panelStartCol = COLS - PANEL_COLS
+const panelStartRow = ROWS - PANEL_ROWS
+const cellLeft = (col) => GAP + col * (SLOT_W + GAP)
+const cellTop = (row) => GAP + row * (SLOT_H + GAP)
+
+const placed = []
+let next = 0
+for (let row = 0; row < ROWS && next < resized.length; row++) {
+  for (let col = 0; col < COLS && next < resized.length; col++) {
+    if (col >= panelStartCol && row >= panelStartRow) continue // Panel
+    placed.push({ buf: resized[next].buf, left: cellLeft(col), top: cellTop(row) })
+    next++
+  }
 }
 
-// Titel-Panel: die letzten 3 Slots unten rechts als eine große schwarze Fläche
-// mit Rot-Border und Text-Overlay. Breite = 3 Slots + 2 Gaps, Höhe = 1 Slot.
-const panelStartCol = COLS - 3
-const panelStartRow = ROWS - 1
-const panelLeft = GAP + panelStartCol * (SLOT_W + GAP)
-const panelTop = GAP + panelStartRow * (SLOT_H + GAP)
-const panelW = 3 * SLOT_W + 2 * GAP
-const panelH = SLOT_H
+const composites = placed.map((p) => ({ input: p.buf, left: p.left, top: p.top }))
+
+// --- Titel-Panel -------------------------------------------------------------
+const panelLeft = cellLeft(panelStartCol)
+const panelTop = cellTop(panelStartRow)
+const panelW = PANEL_COLS * SLOT_W + (PANEL_COLS - 1) * GAP
+const panelH = PANEL_ROWS * SLOT_H + (PANEL_ROWS - 1) * GAP
+
+// Auf dem Actions-Runner ist Antonio nicht installiert, sharp rendert den Titel
+// also in der Fallback-Kette (Impact/Arial Black). Die baut deutlich breiter als
+// Antonio — mit fester Schriftgröße lief der Titel aus dem Panel heraus. Deshalb
+// wird die Größe aus der Panelbreite abgeleitet, mit konservativer Schätzung der
+// mittleren Glyphenbreite. Lieber eine Stufe zu klein als abgeschnitten.
+const PAD = 34
+const usable = panelW - 2 * PAD
+const AVG_GLYPH = 0.63 // Anteil der Schriftgröße pro Zeichen, Arial-Black-nah
+const SUB_GLYPH = 0.52 // Poppins-Fallback ist schmaler
+
+const titleLines = title
+  .split('|')
+  .map((l) => l.trim())
+  .filter(Boolean)
+const longestLine = Math.max(...titleLines.map((l) => l.length))
+const titleSize = Math.min(86, Math.floor(usable / (longestLine * AVG_GLYPH)))
+const lineGap = Math.round(titleSize * 1.12)
+const subSize = Math.max(
+  18,
+  Math.min(34, Math.floor(usable / (subtitle.length * SUB_GLYPH)))
+)
+const firstBaseline = 44 + titleSize
+const subBaseline =
+  firstBaseline + (titleLines.length - 1) * lineGap + subSize + 36
+
+console.log(
+  `      Panel ${panelW}×${panelH}, Titel ${titleSize}px auf ` +
+    `${titleLines.length} Zeile(n), Untertitel ${subSize}px`
+)
+
 const panelSvg = Buffer.from(`
 <svg xmlns="http://www.w3.org/2000/svg" width="${panelW}" height="${panelH}">
   <defs>
@@ -143,23 +206,29 @@ const panelSvg = Buffer.from(`
   <rect x="0" y="0" width="${panelW}" height="${panelH}" fill="url(#g)" />
   <rect x="0" y="0" width="${panelW}" height="8" fill="#e31837" />
   <rect x="0" y="${panelH - 8}" width="${panelW}" height="8" fill="#ffb81c" />
-  <text x="40" y="130" font-family="'Antonio', 'Impact', 'Arial Black', sans-serif"
-        font-size="88" font-weight="900" fill="#ffffff" letter-spacing="1">
-    ${escapeXml(title)}
-  </text>
-  <text x="40" y="210" font-family="'Poppins', 'Helvetica', 'Arial', sans-serif"
-        font-size="34" font-weight="500" fill="#ffb81c">
+  ${titleLines
+    .map(
+      (line, i) => `<text x="${PAD}" y="${firstBaseline + i * lineGap}"
+        font-family="'Antonio', 'Impact', 'Arial Black', sans-serif"
+        font-size="${titleSize}" font-weight="900" fill="#ffffff" letter-spacing="1">
+    ${escapeXml(line)}
+  </text>`
+    )
+    .join('\n  ')}
+  <text x="${PAD}" y="${subBaseline}"
+        font-family="'Poppins', 'Helvetica', 'Arial', sans-serif"
+        font-size="${subSize}" font-weight="500" fill="#ffb81c">
     ${escapeXml(subtitle)}
   </text>
-  <text x="40" y="${panelH - 40}" font-family="'Poppins', 'Helvetica', 'Arial', sans-serif"
-        font-size="24" font-weight="400" fill="rgba(255,255,255,0.55)">
+  <text x="${PAD}" y="${panelH - 30}" font-family="'Poppins', 'Helvetica', 'Arial', sans-serif"
+        font-size="20" font-weight="400" fill="rgba(255,255,255,0.55)">
     footballschland.de · american football MADE IN GERMANY
   </text>
 </svg>
 `)
 composites.push({ input: panelSvg, left: panelLeft, top: panelTop })
 
-// Subtile 1px-Border pro Bildslot (optional, macht das Grid sichtbarer)
+// Subtile Border pro Bildslot, macht das Grid sichtbarer
 const borderSvg = (w, h) =>
   Buffer.from(
     `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">
@@ -167,12 +236,8 @@ const borderSvg = (w, h) =>
              stroke="${BORDER_COL}" stroke-width="2"/>
      </svg>`
   )
-for (let i = 0; i < filledSlots; i++) {
-  const col = i % COLS
-  const row = Math.floor(i / COLS)
-  const left = GAP + col * (SLOT_W + GAP)
-  const top = GAP + row * (SLOT_H + GAP)
-  composites.push({ input: borderSvg(SLOT_W, SLOT_H), left, top })
+for (const p of placed) {
+  composites.push({ input: borderSvg(SLOT_W, SLOT_H), left: p.left, top: p.top })
 }
 
 const collage = await sharp({
@@ -207,9 +272,10 @@ const patchResult = await client
     },
   })
   .commit()
-console.log(`      Draft _rev nach heroImage-Patch: ${patchResult._rev}`)
-console.log('Fertig. Post im Studio öffnen und Hero prüfen, dann veröffentlichen.')
+console.log(`      _rev nach heroImage-Patch: ${patchResult._rev}`)
+console.log('Fertig.')
 
+// --- Helfer ------------------------------------------------------------------
 function escapeXml(s) {
   return String(s)
     .replace(/&/g, '&amp;')
