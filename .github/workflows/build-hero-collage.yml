@@ -12,9 +12,9 @@ on:
         required: true
         default: 'drafts.3c646d11-8708-437c-8c1d-13c5e53984f7'
       title:
-        description: 'Titel im Panel unten rechts'
+        description: 'Titel im Panel unten rechts, Zeilenumbruch mit |'
         required: true
-        default: 'Deutsche Talente D1 2026'
+        default: 'Deutsche Talente|im D1 College Football'
       subtitle:
         description: 'Untertitel im Panel unten rechts'
         required: true
@@ -26,11 +26,11 @@ on:
       cols:
         description: 'Grid-Spalten'
         required: false
-        default: '13'
+        default: '11'
       rows:
         description: 'Grid-Zeilen'
         required: false
-        default: '5'
+        default: '6'
 
 jobs:
   build:

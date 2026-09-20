@@ -6,7 +6,7 @@
 // Aufruf per GitHub Action (siehe .github/workflows/build-hero-collage.yml) oder
 // lokal: SANITY_AUTH_TOKEN=... node scripts/build-hero-collage.mjs \
 //   --docId=drafts.3c646d11-8708-437c-8c1d-13c5e53984f7 \
-//   --title="Deutsche Talente D1 2026" \
+//   --title="Deutsche Talente|im D1 College Football" \
 //   --subtitle="29 in der FBS · 28 in der FCS · 57 gesamt"
 //
 // Layout:
@@ -15,11 +15,12 @@
 //     statt die Bilder auf quadratisch zu beschneiden).
 //   - Grid COLS × ROWS, Bilder in Roster-Reihenfolge (alphabetisch nach Nachname).
 //   - Unten rechts ein Titel-Panel über PANEL_COLS × PANEL_ROWS Slots: schwarze
-//     Fläche mit Rot-/Gold-Kante und Weiß/Gold-Text.
+//     Fläche mit Rot-/Gold-Kante und Weiß/Gold-Text. Die Schriftgröße richtet
+//     sich nach der Panelbreite, damit nichts abgeschnitten wird.
 //   - Es passen COLS*ROWS - PANEL_COLS*PANEL_ROWS Bilder hinein. Sind es mehr,
 //     bricht das Skript ab, statt still Spieler wegzulassen.
 //
-// Standard-Grid 13×5 mit 4×2-Panel = 57 Bildslots (Saison 2026).
+// Standard-Grid 11×6 mit 4×2-Panel = 58 Bildslots (Saison 2026: 57 Spieler).
 // Für andere Kaderstärken --cols/--rows/--panelCols/--panelRows setzen.
 //
 // Der Sanity-Token braucht Editor-Rolle im Projekt (nicht Organisation).
@@ -35,12 +36,14 @@ const args = Object.fromEntries(
   })
 )
 const docId = args.docId || 'drafts.3c646d11-8708-437c-8c1d-13c5e53984f7'
-const title = args.title || 'Deutsche Talente D1 2026'
+// Zeilenumbruch im Titel mit "|" erzwingen — verlässlicher als automatisches
+// Umbrechen, weil die Zeilenlänge hier redaktionell gesetzt wird.
+const title = args.title || 'Deutsche Talente|im D1 College Football'
 const subtitle = args.subtitle || '29 in der FBS · 28 in der FCS · 57 gesamt'
 const filename = args.filename || 'hero-d1-2026-collage.jpg'
 
-const COLS = Number(args.cols || 13)
-const ROWS = Number(args.rows || 5)
+const COLS = Number(args.cols || 11)
+const ROWS = Number(args.rows || 6)
 const PANEL_COLS = Number(args.panelCols || 4)
 const PANEL_ROWS = Number(args.panelRows || 2)
 
@@ -162,11 +165,35 @@ const panelTop = cellTop(panelStartRow)
 const panelW = PANEL_COLS * SLOT_W + (PANEL_COLS - 1) * GAP
 const panelH = PANEL_ROWS * SLOT_H + (PANEL_ROWS - 1) * GAP
 
-// Titel auf maximal zwei Zeilen umbrechen, damit er auch in ein schmaleres
-// Panel passt als das 8×4-Layout von 2025 es hatte.
-const titleLines = wrapTwoLines(title)
-const titleSize = 76
-const lineGap = 84
+// Auf dem Actions-Runner ist Antonio nicht installiert, sharp rendert den Titel
+// also in der Fallback-Kette (Impact/Arial Black). Die baut deutlich breiter als
+// Antonio — mit fester Schriftgröße lief der Titel aus dem Panel heraus. Deshalb
+// wird die Größe aus der Panelbreite abgeleitet, mit konservativer Schätzung der
+// mittleren Glyphenbreite. Lieber eine Stufe zu klein als abgeschnitten.
+const PAD = 34
+const usable = panelW - 2 * PAD
+const AVG_GLYPH = 0.63 // Anteil der Schriftgröße pro Zeichen, Arial-Black-nah
+const SUB_GLYPH = 0.52 // Poppins-Fallback ist schmaler
+
+const titleLines = title
+  .split('|')
+  .map((l) => l.trim())
+  .filter(Boolean)
+const longestLine = Math.max(...titleLines.map((l) => l.length))
+const titleSize = Math.min(86, Math.floor(usable / (longestLine * AVG_GLYPH)))
+const lineGap = Math.round(titleSize * 1.12)
+const subSize = Math.max(
+  18,
+  Math.min(34, Math.floor(usable / (subtitle.length * SUB_GLYPH)))
+)
+const firstBaseline = 44 + titleSize
+const subBaseline =
+  firstBaseline + (titleLines.length - 1) * lineGap + subSize + 36
+
+console.log(
+  `      Panel ${panelW}×${panelH}, Titel ${titleSize}px auf ` +
+    `${titleLines.length} Zeile(n), Untertitel ${subSize}px`
+)
 
 const panelSvg = Buffer.from(`
 <svg xmlns="http://www.w3.org/2000/svg" width="${panelW}" height="${panelH}">
@@ -181,20 +208,20 @@ const panelSvg = Buffer.from(`
   <rect x="0" y="${panelH - 8}" width="${panelW}" height="8" fill="#ffb81c" />
   ${titleLines
     .map(
-      (line, i) => `<text x="36" y="${118 + i * lineGap}"
+      (line, i) => `<text x="${PAD}" y="${firstBaseline + i * lineGap}"
         font-family="'Antonio', 'Impact', 'Arial Black', sans-serif"
         font-size="${titleSize}" font-weight="900" fill="#ffffff" letter-spacing="1">
     ${escapeXml(line)}
   </text>`
     )
     .join('\n  ')}
-  <text x="36" y="${118 + titleLines.length * lineGap}"
+  <text x="${PAD}" y="${subBaseline}"
         font-family="'Poppins', 'Helvetica', 'Arial', sans-serif"
-        font-size="30" font-weight="500" fill="#ffb81c">
+        font-size="${subSize}" font-weight="500" fill="#ffb81c">
     ${escapeXml(subtitle)}
   </text>
-  <text x="36" y="${panelH - 34}" font-family="'Poppins', 'Helvetica', 'Arial', sans-serif"
-        font-size="21" font-weight="400" fill="rgba(255,255,255,0.55)">
+  <text x="${PAD}" y="${panelH - 30}" font-family="'Poppins', 'Helvetica', 'Arial', sans-serif"
+        font-size="20" font-weight="400" fill="rgba(255,255,255,0.55)">
     footballschland.de · american football MADE IN GERMANY
   </text>
 </svg>
@@ -249,24 +276,6 @@ console.log(`      _rev nach heroImage-Patch: ${patchResult._rev}`)
 console.log('Fertig.')
 
 // --- Helfer ------------------------------------------------------------------
-function wrapTwoLines(s) {
-  const words = String(s).trim().split(/\s+/)
-  if (words.length < 2) return [s]
-  // Bruch an der Wortgrenze, die der Mitte der Zeichenkette am nächsten liegt
-  const mid = s.length / 2
-  let best = 1
-  let bestDist = Infinity
-  for (let i = 1; i < words.length; i++) {
-    const len = words.slice(0, i).join(' ').length
-    const dist = Math.abs(len - mid)
-    if (dist < bestDist) {
-      bestDist = dist
-      best = i
-    }
-  }
-  return [words.slice(0, best).join(' '), words.slice(best).join(' ')]
-}
-
 function escapeXml(s) {
   return String(s)
     .replace(/&/g, '&amp;')
