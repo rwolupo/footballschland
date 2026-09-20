@@ -18,11 +18,19 @@ on:
       subtitle:
         description: 'Untertitel im Panel unten rechts'
         required: true
-        default: '29 in FBS · 29 in FCS · 58 gesamt'
+        default: '29 in der FBS · 28 in der FCS · 57 gesamt'
       filename:
         description: 'Dateiname des Assets in Sanity'
         required: false
         default: 'hero-d1-2026-collage.jpg'
+      cols:
+        description: 'Grid-Spalten'
+        required: false
+        default: '13'
+      rows:
+        description: 'Grid-Zeilen'
+        required: false
+        default: '5'
 
 jobs:
   build:
@@ -43,6 +51,8 @@ jobs:
             --docId="${{ inputs.docId }}" \
             --title="${{ inputs.title }}" \
             --subtitle="${{ inputs.subtitle }}" \
-            --filename="${{ inputs.filename }}"
+            --filename="${{ inputs.filename }}" \
+            --cols="${{ inputs.cols }}" \
+            --rows="${{ inputs.rows }}"
         env:
           SANITY_AUTH_TOKEN: ${{ secrets.SANITY_CONTENT_TOKEN }}
